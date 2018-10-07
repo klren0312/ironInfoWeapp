@@ -16,11 +16,6 @@
 					<view class="price">最新价格:<text class="price-num">{{subCategoryList.price}}</text></view>
 					<view class="info">{{subCategoryList.info}}</view>
 				</view>
-				<!-- <view :id="index==0?'first':''" class="nav-right-item" v-for="item in subCategoryList" :key="item">
-					<image :src="item.logo" />
-					<view>{{item.info}}</view>
-				</view>
-				<page-foot :name="name" v-if="subCategoryList.length > 1"></page-foot> -->
 			</scroll-view>
 		</view>
 	</view>
@@ -44,7 +39,7 @@
 			},
 			categoryClickMain(categroy, index) {
 				this.categoryActive = index;
-				this.subCategoryList = categroy.subCategoryList;
+				this.subCategoryList = categroy.content;
 				this.scrollTop = -this.scrollHeight * index;
 			},
 			getCategory() {
@@ -52,14 +47,21 @@
 					{
 						name: '螺纹钢',
 						content: {
-							logo:"http://placehold.it/50x50",
+							logo:"http://placehold.it/250x250",
 							price: '3980元/吨',
 							info:"螺纹钢是热轧带肋钢筋的俗称。 普通热轧钢筋其牌号由HRB和牌号的屈服点最小值构成。H、R、B分别为热轧（Hotrolled）、带肋（Ribbed）、钢筋（Bars）三个词的英文首位字母。"
 						}
+					},{
+						name: '盘螺钢',
+						content: {
+							logo:"http://placehold.it/250x250",
+							price: '3980元/吨',
+							info:"盘螺钢的钢材大体分为板，型，线，盘螺算是线材，盘螺钢顾名思义就是像线材一样盘在一起的螺纹钢了，它和普通线材的打捆方式是一样的，不过使用的时候需要调直。一般市面上的就是6.5-8.0-10-12-14的居多，都是建筑用钢材。"
+						}
 					}
 				]
-				console.log(this.categoryList)
 				this.subCategoryList = this.categoryList[0].content;
+				console.log(this.subCategoryList)
 			}
 		},
 		onLoad: function () {
@@ -106,9 +108,14 @@
 	}
 	.nav-right .price {
 		font-weight: bold;
+		text-align: center;
 	}
 	.nav-right .price-num {
 		color: #007AFF;
+	}
+	.nav-right .info {
+		padding-left: 20upx;
+		padding-top: 20upx;
 	}
 	.nav-right-item {
 		width: 28%;
