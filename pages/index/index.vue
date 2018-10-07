@@ -6,6 +6,9 @@
 		<view class="chart">
 			<mpvue-echarts lazyLoad :echarts="echarts" :onInit="handleChart" ref="echarts" />
 		</view>
+		<view class="news">
+			<news-list :newsArr="newsArr" />
+		</view>
 	</view>
 </template>
 
@@ -13,6 +16,7 @@
 	import * as echarts from '../../components/echarts/echarts.simple.min.js'
 	import mpvueEcharts from '../../components/mpvue-echarts/src/echarts.vue'
 	import segmentedControl from '../../components/segmented-control.vue'
+	import newsList from '../../components/news-list.vue'
 	export default {
 		data() {
 			return {
@@ -25,12 +29,29 @@
 				xaxis: null,
 				dataArr: [],
 				current: 0,
-				options: null
+				options: null,
+				newsArr: [{
+						title: "钢材价格暴涨",
+						content: "由于近日钢材价格暴涨,治电科技决定救火",
+						img: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg?imageView2/3/w/200/h/100/q/90"
+					},
+					{
+						title: "钢材价格暴涨",
+						content: "由于近日钢材价格暴涨,治电科技决定救火",
+						img: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg?imageView2/3/w/200/h/100/q/90"
+					},
+					{
+						title: "钢材价格暴涨",
+						content: "由于近日钢材价格暴涨,治电科技决定救火",
+						img: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg?imageView2/3/w/200/h/100/q/90"
+					}
+				]
 			}
 		},
 		components:{
 			mpvueEcharts,
-			segmentedControl
+			segmentedControl,
+			newsList
 		},
 		mounted(){
 			this.xaxis = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -63,7 +84,6 @@
 				this.$refs.echarts.init()
 			},
 			handleChart(canvas, width, height) {
-				console.log(this.options)
 				const chart = echarts.init(canvas, null, {
 					width: width,
 					height: height
@@ -85,7 +105,7 @@
 						this.chartInit()
 					}
 				}
-			},
+			}
 		}
 	}
 </script>
