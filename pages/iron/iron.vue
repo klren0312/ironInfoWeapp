@@ -10,11 +10,20 @@
 			<scroll-view class="nav-right" scroll-y :scroll-top="scrollTop" @scroll="scroll" :style="'height:'+height+'px'" scroll-with-animation>
 				<view class="content">
 					<view class="iron-img">
-						<image class="img-item" :src="subCategoryList.logo" />
+						<image class="img-item" :src="subCategoryList.logo!=='' ? subCategoryList.logo : 'http://placehold.it/250x250'" />
 					</view>
 					
 					<view class="price">最新价格:<text class="price-num">{{subCategoryList.price}}</text></view>
 					<view class="info">{{subCategoryList.info}}</view>
+					<view class="iron-contact">
+						<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
+						<view class="info-text">联系电话(点击即可拨打)</view>
+						<view class="phone"><view @click="call('17625456779')">17625456779</view><view @click="call('13856262575')">13856262575</view></view>
+					</view>
+					<view class="cards">
+						<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDQVP.jpg"></image>
+						<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDKbt.md.jpg"></image>
+					</view>
 				</view>
 			</scroll-view>
 		</view>
@@ -33,7 +42,19 @@
 				scrollHeight: 0,
 			}
 		},
+		onShareAppMessage() {
+			return {
+				title: '钢材总览',
+				path: '/pages/iron/iron'
+			}
+		},
 		methods: {
+			
+			call(num) {
+				uni.makePhoneCall({
+					phoneNumber: num
+				});
+			},
 			scroll(e) {
 				this.scrollHeight = e.detail.scrollHeight;
 			},
@@ -43,25 +64,25 @@
 				this.scrollTop = -this.scrollHeight * index;
 			},
 			getCategory() {
-				this.categoryList = [
-					{
-						name: '螺纹钢',
-						content: {
-							logo:"http://placehold.it/250x250",
-							price: '3980元/吨',
-							info:"螺纹钢是热轧带肋钢筋的俗称。 普通热轧钢筋其牌号由HRB和牌号的屈服点最小值构成。H、R、B分别为热轧（Hotrolled）、带肋（Ribbed）、钢筋（Bars）三个词的英文首位字母。"
-						}
-					},{
-						name: '盘螺钢',
-						content: {
-							logo:"http://placehold.it/250x250",
-							price: '3980元/吨',
-							info:"盘螺钢的钢材大体分为板，型，线，盘螺算是线材，盘螺钢顾名思义就是像线材一样盘在一起的螺纹钢了，它和普通线材的打捆方式是一样的，不过使用的时候需要调直。一般市面上的就是6.5-8.0-10-12-14的居多，都是建筑用钢材。"
-						}
+				
+				uni.request({
+					url: `${this.$store.state.rootUrl}/weapp/iron/all`,
+					success: (res) => {
+						console.log(res.data);
+						this.categoryList = []
+						res.data.data.map(v => {
+							this.categoryList.push({
+								name: v.name,
+								content: {
+									logo: v.photo,
+									price: `${v.new_price}元/吨`,
+									info: v.intro
+								}
+							})
+						})
+						this.subCategoryList = this.categoryList[0].content;
 					}
-				]
-				this.subCategoryList = this.categoryList[0].content;
-				console.log(this.subCategoryList)
+				});
 			}
 		},
 		onLoad: function () {
@@ -114,6 +135,7 @@
 		color: #007AFF;
 	}
 	.nav-right .info {
+		min-height:350rpx;
 		padding-left: 20upx;
 		padding-top: 20upx;
 	}
@@ -133,5 +155,17 @@
 
 	.active {
 		color: #007AFF;
+	}
+	.iron-contact .info-text {
+		font-size: 30rpx;
+	}
+	.iron-contact .phone {
+		display: flex;
+		justify-content: space-around;
+	}
+	.cards .qrcode {
+		margin-top: 20upx;
+		width: 200upx;
+		height: 200upx;
 	}
 </style>

@@ -1,77 +1,127 @@
 <template>
 	<view class="container">
-		<view class="header-tab">
-			<segmented-control :values="items" v-on:clickItem="onClickItem" :isDisabled='tabDisabled'></segmented-control>
+		<view class="search">
+			<search  @search="searchIron" :disabled="btnDisable"/>
 		</view>
 		<view class="chart">
 			<mpvue-echarts lazyLoad :echarts="echarts" :onInit="handleChart" ref="echarts" />
 		</view>
-		<view class="news">
-			<news-list :newsArr="newsArr" />
+		
+		<view class="details-title">钢材详情</view>
+		<view class="details">
+			<view class="details-text">
+				<view class="details-info">
+					<view>钢材名称:</view>
+					<view>{{ironObj.name}}</view>
+				</view>
+				<view class="details-info">
+					<view>钢材简介:</view>
+					<view>{{ironObj.intro}}</view>
+				</view>
+				<view class="details-info">
+					<view>最新价格:</view>
+					<view class="new-price">{{ironObj.new_price}}元/吨</view>
+				</view>
+			</view>
+
+			<view class="details-infos">
+				<image class="iron-photo" :src="ironObj.hasOwnProperty('photo') ? ironObj.photo : 'http://placehold.it/100x100'"></image>
+			</view>
+		</view>
+		<view class="iron-contact">
+			<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
+			<view class="info-text">联系电话(点击即可拨打)</view>
+			<view class="phone"><view @click="call('17625456779')">17625456779</view><view @click="call('13856262575')">13856262575</view></view>
+		</view>
+		<view class="qrcodes">
+			<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDQVP.jpg"></image>
+			<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDKbt.md.jpg"></image>
 		</view>
 	</view>
 </template>
 
 <script> 
-	import * as echarts from '../../components/echarts/echarts.simple.min.js'
-	import mpvueEcharts from '../../components/mpvue-echarts/src/echarts.vue'
-	import segmentedControl from '../../components/segmented-control.vue'
-	import newsList from '../../components/news-list.vue'
+	import * as echarts from 'echarts'
+	import mpvueEcharts from 'mpvue-echarts'
+	import search from '../../components/search.vue'
 	export default {
 		data() {
 			return {
 				echarts,
-				tabDisabled: false,
-				items: [
-					'本周',
-					'本月',
-				],
+				btnDisable: false,
 				xaxis: null,
 				dataArr: [],
+				chartName: '',
+				ironName: '钢',
 				current: 0,
 				options: null,
-				newsArr: [{
-						title: "钢材价格暴涨",
-						content: "由于近日钢材价格暴涨,治电科技决定救火",
-						img: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg?imageView2/3/w/200/h/100/q/90"
-					},
-					{
-						title: "钢材价格暴涨",
-						content: "由于近日钢材价格暴涨,治电科技决定救火",
-						img: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg?imageView2/3/w/200/h/100/q/90"
-					},
-					{
-						title: "钢材价格暴涨",
-						content: "由于近日钢材价格暴涨,治电科技决定救火",
-						img: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg?imageView2/3/w/200/h/100/q/90"
-					}
-				]
+				ironObj: {}
 			}
 		},
 		components:{
 			mpvueEcharts,
-			segmentedControl,
-			newsList
+			search
 		},
 		mounted(){
-			this.xaxis = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-			this.dataArr = [[820, 932, 901, 934, 1290, 1330, 132]]
-			this.chartInit()
+			this.getIronData()
 		},
 		computed: {
 			theSeries: function() {
 				return this.dataArr.map(v => {
 					return {
 						data: v,
-						type: 'line'
+						type: 'line',
+						areaStyle: {
+						}
 					}
 				})
 			}
 		},
+		onShareAppMessage() {
+			return {
+				title: '钢材信息搜索',
+				path: '/pages/index/index'
+			}
+		},
 		methods: {
+			
+			call(num) {
+				uni.makePhoneCall({
+					phoneNumber: num
+				});
+			},
 			chartInit(){
 				this.options = {
-					color: ['#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+					title : {
+						text:  `${this.chartName}历史价格折线图`,
+						x: 'center',
+						align: 'right',
+						top: 20
+					},
+					grid: {
+						left: 60
+					},
+					dataZoom: [{
+						type: 'slider'
+					}],
+					dataZoom: [
+						{ "show": true, "realtime": true, "start": 50, "end": 100, "xAxisIndex": [0], "bottom": "0"},
+					],
+					color: [ '#5ee1c6','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+					legend: {
+						data:['价格']
+					},
+					tooltip : {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'cross',
+							animation: false,
+							label: {
+								backgroundColor: '#505765'
+							}
+						},
+						formatter: '时间: {b0} \n 价格:{c0}元/吨'
+					},
 					xAxis: {
 						type: 'category',
 						data: this.xaxis
@@ -92,19 +142,47 @@
 				chart.setOption(this.options)
 				return chart
 			},
-			onClickItem(index) {
-				if (this.current !== index) {
-					this.current = index;
-					if(this.current) {
-						this.xaxis = ['第一周', '第二周', '第三周', '第四周', '第五周', '第六周', '第七周']
-						this.dataArr = [[820, 932, 901, 934, 1290, 1330, 3333]]
-						this.chartInit()
-					} else {
-						this.xaxis = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-						this.dataArr = [[820, 932, 901, 934, 1290, 1330, 1320]]
-						this.chartInit()
-					}
-				}
+			getIronData() {
+				uni.request({
+					url: `${this.$store.state.rootUrl}/weapp/iron?name=${this.ironName}`,
+					success: (res) => {
+						if(res.data.code === 500) {
+							uni.showToast({
+								title: res.data.data,
+								duration: 2000,
+								icon: 'none'
+							});
+						} else {
+							let result = res.data.data
+							this.dataArr = []
+							let data = []
+							let x = result[0].old_price.map(v => {
+								data.push(v.price)
+								let date = new Date(v.createdAt)
+
+								let myDate = (date.getMonth() + 1) + '-' + date.getDate()
+								console.log('date', myDate)
+								 
+								return myDate
+							})
+							this.chartName = result[0].name
+							this.dataArr.push(data)
+							this.xaxis = x
+							this.ironObj = {
+								name: result[0].name,
+								intro: result[0].intro,
+								new_price: result[0].new_price,
+								photo: result[0].photo
+							}
+							this.chartInit()
+						}
+						
+					},
+				})
+			},
+			searchIron(search) {
+				this.ironName = search.name
+				this.getIronData()
 			}
 		}
 	}
@@ -119,5 +197,52 @@
 		height: 500upx;
 		display: flex;
 		flex: 1;
+	}
+	.search {
+		display: flex;
+		justify-content: center;
+	}
+	.details {
+		display: flex;
+		justify-content: center;
+		border:1px solid #dfdfdf;
+		border-radius:20rpx;
+		padding:10rpx;
+		margin:0 20rpx;
+	}
+	.details-infos .iron-photo {
+		width: 300upx;
+		height: 300upx;
+		margin-left: 15upx;
+	}
+	.details .details-text {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		line-height: 2;
+	}
+	.details-info {
+		display: flex;
+		justify-content: flex-start;
+	}
+	.details .new-price {
+		color: #007AFF;
+	}
+	.details-title {
+		padding:8rpx 0;
+		text-align:center;
+		background:#dfdfdf;
+		color:#323232;
+		margin:20rpx 0;
+	}
+	.iron-contact {
+		text-align: center;
+	}
+	.qrcodes {
+		text-align: center;
+	}
+	.qrcodes .qrcode {
+		width: 200rpx;
+		height: 200rpx;
 	}
 </style>

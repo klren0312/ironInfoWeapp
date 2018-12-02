@@ -4,19 +4,19 @@
         {
             "path" : "pages/index/index",
             "style" : {
-                "navigationBarTitleText" : "首页"
+                "navigationBarTitleText" : "钢材信息-搜索"
             }
         },
         {
             "path" : "pages/iron/iron",
             "style" : {
-            	"navigationBarTitleText" : "钢材"
+            	"navigationBarTitleText" : "钢材信息-总览"
             }
         },
         {
             "path" : "pages/my/my",
             "style" : {
-            	"navigationBarTitleText" : "我的"
+            	"navigationBarTitleText" : "钢材信息-我的"
             }
         }
     ],
@@ -34,9 +34,9 @@
 		"list" : [
 			{
 				"pagePath" : "pages/index/index",
-				"iconPath" : "static/home.png",
-				"selectedIconPath" : "static/home-active.png",
-				"text" : "首页"
+				"iconPath" : "static/search.png",
+				"selectedIconPath" : "static/search-active.png",
+				"text" : "搜索"
 			},
 			{
 				"pagePath" : "pages/iron/iron",
