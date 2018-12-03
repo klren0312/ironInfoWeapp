@@ -2,12 +2,10 @@
 	<view class="my-container">
 		<view class="header">
 			<view class="user-info">
-				<image class="avatar" :src="avatar? avatar : ''"></image>
-				<text class="username">{{username}}</text>
+				<text class="username">铜陵钢材信息</text>
 			</view>
 		</view>
-		<button v-if="!isLogin" class="login-btn" @click="toLogin" open-type="getUserInfo" @getuserinfo="onGotUserInfo">点击登录</button>
-		<view v-else class="cards">
+		<view class="cards">
 			<image class="card-item" src="https://s1.ax1x.com/2018/12/02/FuDQVP.jpg"></image>
 			<image class="card-item" src="https://s1.ax1x.com/2018/12/02/FuDKbt.md.jpg"></image>
 		</view>

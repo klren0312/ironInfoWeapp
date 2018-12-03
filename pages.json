@@ -16,7 +16,7 @@
         {
             "path" : "pages/my/my",
             "style" : {
-            	"navigationBarTitleText" : "钢材信息-我的"
+            	"navigationBarTitleText" : "钢材信息-我们"
             }
         }
     ],
@@ -48,7 +48,7 @@
 				"pagePath" : "pages/my/my",
 				"iconPath" : "static/my.png",
 				"selectedIconPath" : "static/my-active.png",
-				"text" : "我的"
+				"text" : "我们"
 			}
 		]
 	}
