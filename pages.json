@@ -12,13 +12,13 @@
             "style" : {
             	"navigationBarTitleText" : "钢材信息-总览"
             }
-        },
-        {
-            "path" : "pages/my/my",
-            "style" : {
-            	"navigationBarTitleText" : "钢材信息-我的"
-            }
         }
+//         {
+//             "path" : "pages/my/my",
+//             "style" : {
+//             	"navigationBarTitleText" : "钢材信息-我的"
+//             }
+//         }
     ],
     "globalStyle" : {
         "navigationBarTextStyle" : "#fff",
@@ -43,13 +43,13 @@
 				"iconPath" : "static/iron.png",
 				"selectedIconPath" : "static/iron-active.png",
 				"text" : "钢材"
-			},
-			{
-				"pagePath" : "pages/my/my",
-				"iconPath" : "static/my.png",
-				"selectedIconPath" : "static/my-active.png",
-				"text" : "我的"
 			}
+// 			{
+// 				"pagePath" : "pages/my/my",
+// 				"iconPath" : "static/my.png",
+// 				"selectedIconPath" : "static/my-active.png",
+// 				"text" : "我的"
+// 			}
 		]
 	}
 }
