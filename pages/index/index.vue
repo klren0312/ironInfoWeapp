@@ -25,7 +25,7 @@
 			</view>
 
 			<view class="details-infos">
-				<image class="iron-photo" :src="ironObj.hasOwnProperty('photo') ? ironObj.photo : 'http://placehold.it/100x100'"></image>
+				<image class="iron-photo" :src="ironObj.photo !== '' ? ironObj.photo : 'http://placehold.it/100x100'"></image>
 			</view>
 		</view>
 	</view>
@@ -152,7 +152,6 @@
 								let date = new Date(v.createdAt)
 
 								let myDate = (date.getMonth() + 1) + '-' + date.getDate()
-								console.log('date', myDate)
 								 
 								return myDate
 							})
@@ -165,6 +164,7 @@
 								new_price: result[0].new_price,
 								photo: result[0].photo
 							}
+							console.log(this.ironObj)
 							this.chartInit()
 						}
 						
