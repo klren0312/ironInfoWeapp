@@ -81,7 +81,7 @@
 	}
 	.my-container .header {
 		width: 100%;
-		height: 560upx;
+		height: 540upx;
 		background: linear-gradient(45deg, #000080, #1E1E1E);
 		display: flex;
 		justify-content: center;

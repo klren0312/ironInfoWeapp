@@ -25,7 +25,7 @@
 			</view>
 
 			<view class="details-infos">
-				<image class="iron-photo" :src="ironObj.hasOwnProperty('photo') ? ironObj.photo : 'http://placehold.it/100x100'"></image>
+				<image class="iron-photo" :src="ironObj.photo !== '' ? ironObj.photo : 'http://placehold.it/100x100'"></image>
 			</view>
 		</view>
 		<view class="iron-contact">

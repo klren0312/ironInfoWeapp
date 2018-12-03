@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	state: {
-		rootUrl: "",
+		rootUrl: "https://tlgcapi.zzes1314.cn/api/v1",
 	},
 	mutations: {
 	},
