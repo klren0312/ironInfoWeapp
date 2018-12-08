@@ -10,7 +10,7 @@
 			<scroll-view class="nav-right" scroll-y :scroll-top="scrollTop" @scroll="scroll" :style="'height:'+height+'px'" scroll-with-animation>
 				<view class="content">
 					<view class="iron-img">
-						<image class="img-item" :src="subCategoryList.logo!=='' ? subCategoryList.logo : 'http://placehold.it/250x250'" />
+						<image class="img-item" :src="subCategoryList.logo!=='' && subCategoryList.logo!==null ? subCategoryList.logo : 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/Ocean.jpg'" />
 					</view>
 					
 					<view class="price">最新价格:<text class="price-num">{{subCategoryList.price}}</text></view>
