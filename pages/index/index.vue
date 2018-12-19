@@ -8,7 +8,7 @@
 			<mpvue-echarts lazyLoad :echarts="echarts" :onInit="handleChart" ref="echarts" />
 		</view>
 		<view class="details-card" v-for="(ironObj, i) in infoArr" :key="i">
-			<image class="card-header" :src="ironObj.photo !== '' ? ironObj.photo : 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/Ocean.jpg'"></image>
+			<image class="card-header" :src="ironObj.photo !== ''&&ironObj.photo !== null ? ironObj.photo : 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/Ocean.jpg'"></image>
 			<view class="card-body">
 				<view class="card-name">
 					<view>{{ironObj.name}}</view>

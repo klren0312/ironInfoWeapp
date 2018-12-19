@@ -3,7 +3,7 @@
 		<view class="search">
 			<!-- <search  @search="searchIron" :disabled="btnDisable"/> -->
 			<input class="search-input" v-model="ironName" placeholder="搜索钢材"></input>
-			<button class="search-btn" @search="searchIron">搜索</button>
+			<button class="search-btn" @click="searchIron">搜索</button>
 		</view>
 		<view class="content">
 			<view class="hot">
@@ -44,6 +44,7 @@ export default {
 	},
 	methods: {
 		searchIron() {
+			console.log(this.ironName)
 			this.goToDetails(this.ironName)
 		},
 		getIronData() {

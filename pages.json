@@ -2,6 +2,12 @@
     "pages" : [
         //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
         {
+            "path" : "pages/home/home",
+            "style" : {
+                "navigationBarTitleText" : "钢材信息-首页"
+            }
+        },
+        {
             "path" : "pages/index/index",
             "style" : {
                 "navigationBarTitleText" : "钢材信息-搜索"
@@ -16,7 +22,13 @@
         {
             "path" : "pages/search/search",
             "style" : {
-				"navigationBarTitleText" : "钢材信息-搜索"
+                "navigationBarTitleText" : "钢材信息-搜索"
+            }
+        },
+        {
+            "path" : "pages/details/details",
+            "style" : {
+				"navigationBarTitleText" : "钢材信息-钢材详情"
 			}
         }
     ],
@@ -39,16 +51,22 @@
         "backgroundColor" : "#fff",
         "list" : [
             {
-                "pagePath" : "pages/index/index",
-                "iconPath" : "static/search.png",
-                "selectedIconPath" : "static/search-active.png",
-                "text" : "搜索"
+                "pagePath" : "pages/home/home",
+                "iconPath" : "static/home.png",
+                "selectedIconPath" : "static/home-active.png",
+                "text" : "首页"
             },
             {
                 "pagePath" : "pages/iron/iron",
                 "iconPath" : "static/iron.png",
                 "selectedIconPath" : "static/iron-active.png",
                 "text" : "钢材"
+            },
+            {
+                "pagePath" : "pages/index/index",
+                "iconPath" : "static/search.png",
+                "selectedIconPath" : "static/search-active.png",
+                "text" : "搜索"
             }
         ]
     }
