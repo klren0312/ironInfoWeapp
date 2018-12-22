@@ -17,54 +17,14 @@
 		</view>
 		<!-- 公告栏 -->
 		<view class="article">
-			<view class="article-card">
+			<view v-for="v in articlesList" :key="v.id" @click="seeArticle(v)" class="article-card">
 				<div class="text">
-					<div class="title">钢材今日降价</div>
-					<div class="info">降价幅度较大, 我厂准备抛售</div>
+					<div class="title">{{v.title}}</div>
+					<div class="info">钢材信息</div>
 				</div>
 				<div class="date">
-					<div class="year">2018</div>
-					<div class="other">12.19</div>
-				</div>
-			</view>
-			<view class="article-card">
-				<div class="text">
-					<div class="title">钢材今日降价</div>
-					<div class="info">降价幅度较大, 我厂准备抛售</div>
-				</div>
-				<div class="date">
-					<div class="year">2018</div>
-					<div class="other">12.19</div>
-				</div>
-			</view>
-			<view class="article-card">
-				<div class="text">
-					<div class="title">钢材今日降价</div>
-					<div class="info">降价幅度较大, 我厂准备抛售</div>
-				</div>
-				<div class="date">
-					<div class="year">2018</div>
-					<div class="other">12.19</div>
-				</div>
-			</view>
-			<view class="article-card">
-				<div class="text">
-					<div class="title">钢材今日降价</div>
-					<div class="info">降价幅度较大, 我厂准备抛售</div>
-				</div>
-				<div class="date">
-					<div class="year">2018</div>
-					<div class="other">12.19</div>
-				</div>
-			</view>
-			<view class="article-card">
-				<div class="text">
-					<div class="title">钢材今日降价</div>
-					<div class="info">降价幅度较大, 我厂准备抛售</div>
-				</div>
-				<div class="date">
-					<div class="year">2018</div>
-					<div class="other">12.19</div>
+					<div class="year">{{v.year}}</div>
+					<div class="other">{{v.month}}.{{v.day}}</div>
 				</div>
 			</view>
 		</view>
@@ -84,7 +44,8 @@
 				autoplay: false,
 				interval: 5000,
 				duration: 1000,
-				listData: []
+				listData: [],
+				articlesList: []
 			};
 		},
 		onShareAppMessage() {
@@ -93,8 +54,18 @@
 				path: '/pages/home/home'
 			}
 		},
+		onLoad() {
+			uni.startPullDownRefresh();
+		},
+		onPullDownRefresh() {
+			this.getArticle()
+			setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1000);
+		},
 		mounted() {
 			this.getIronList()
+			this.getArticle()
 		},
 		methods: {
 			/**
@@ -116,6 +87,44 @@
 				uni.navigateTo({
 					url: `/pages/details/details?ironName=${v.name}`
 				});
+			},
+			/**
+			 * 查看文章
+			 */
+			seeArticle(v) {
+				try {
+					uni.setStorageSync('article', JSON.stringify(v));
+					uni.navigateTo({
+						url: `/pages/article/article`
+					})
+				} catch (e) {
+					// error
+				}
+				
+			},
+			/**
+			 * 获取文章
+			 */
+			getArticle() {
+				uni.request({
+					url: `${this.$store.state.rootUrl}/weapp/article?pageIndex=1&pageSize=10`,
+					success: (res) => {
+						let result = res.data.data.items
+						let arr = []
+						result.forEach(v => {
+							let date = new Date(v.updated_at)
+							arr.push({
+								id: v.id,
+								title: v.title,
+								year: date.getFullYear(),
+								month: date.getMonth()+1,
+								day: date.getDate(),
+								content: v.content
+							})
+						})
+						this.articlesList = arr
+					}
+				})
 			}
 		}
 	}
@@ -165,13 +174,14 @@
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
-		border-top: 1px solid #dfdfdf;
+		border-top: 1upx solid #dfdfdf;
+		line-height: 2;
 	}
 	.article-card::last-child {
-		border-bottom: 1px solid #dfdfdf;
+		border-bottom: 1upx solid #dfdfdf;
 	}
 	.article-card .text .title {
-		font-size: 38upx;
+		font-size: 36upx;
 		color: #323232;
 		font-weight: bold;
 	}
@@ -186,7 +196,7 @@
 		justify-content: center;
 	}
 	.article-card .date .year {
-		font-size: 38upx;
+		font-size: 36upx;
 	}
 	.article-card .date .other {
 		font-size: 28upx;

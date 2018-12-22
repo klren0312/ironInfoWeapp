@@ -4,7 +4,8 @@
         {
             "path" : "pages/home/home",
             "style" : {
-                "navigationBarTitleText" : "钢材信息-首页"
+                "navigationBarTitleText" : "钢材信息-首页",
+                "enablePullDownRefresh": true
             }
         },
         {
@@ -28,7 +29,13 @@
         {
             "path" : "pages/details/details",
             "style" : {
-				"navigationBarTitleText" : "钢材信息-钢材详情"
+                "navigationBarTitleText" : "钢材信息-钢材详情"
+            }
+        },
+        {
+            "path" : "pages/article/article",
+            "style" : {
+				"navigationBarTitleText" : "钢材信息-文章详情"
 			}
         }
     ],
