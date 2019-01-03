@@ -172,7 +172,7 @@
 	.article-card {
 		padding: 28upx 10upx;
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-between;
 		align-items: center;
 		border-top: 1upx solid #dfdfdf;
 		line-height: 2;

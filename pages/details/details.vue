@@ -39,6 +39,12 @@
 		components:{
 			mpvueEcharts
 		},
+		onShareAppMessage() {
+			return {
+				title: '钢材详细信息',
+				path: '/pages/details/details'
+			}
+		},
 		onLoad: function (option) {
 			console.log(option.ironName);
 			this.ironName = option.ironName
