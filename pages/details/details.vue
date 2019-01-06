@@ -1,7 +1,12 @@
 <template>
 	<view>
 		<view class="chart">
+			<!-- #ifdef H5 -->
+			<view id="h5-chart" style="width: 100%;"></view>
+			<!-- #endif -->
+			<!-- #ifndef H5 -->
 			<mpvue-echarts lazyLoad :echarts="echarts" :onInit="handleChart" ref="echarts" />
+			<!-- #endif -->
 		</view>
 		<view class="details-card" v-for="(ironObj, i) in infoArr" :key="i">
 			<image class="card-header" :src="ironObj.photo !== ''&&ironObj.photo !== null ? ironObj.photo : 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/Ocean.jpg'"></image>
@@ -18,16 +23,38 @@
 				</view>
 			</view>
 		</view>
+		<!-- #ifndef MP-WEIXIN -->
+		<!-- 广告 -->
+		<view class="iron-contact">
+			<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
+			<view class="info-text">联系电话(点击即可拨打)</view>
+			<view class="phone"><view @click="call('17625456779')">17625456779</view><view @click="call('13856262575')">13856262575</view></view>
+		</view>
+		<view class="qrcodes">
+			<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDQVP.jpg"></image>
+			<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDKbt.md.jpg"></image>
+		</view>
+		<!-- #endif -->
 	</view>
 </template>
 
 <script>
+	// #ifndef H5
 	import * as echarts from 'echarts'
 	import mpvueEcharts from 'mpvue-echarts'
+	// #endif
+	// #ifdef H5
+	import * as h5echarts from '../../components/echarts/echarts.common.min'
+	// #endif
 	export default {
 		data() {
 			return {
+				// #ifndef H5
 				echarts,
+				// #endif
+				// #ifdef H5
+				myChart: '',
+				// #endif
 				xaxis: null,
 				dataArr: [],
 				chartName: '',
@@ -37,7 +64,9 @@
 			}
 		},
 		components:{
+			// #ifndef H5
 			mpvueEcharts
+			// #endif
 		},
 		onShareAppMessage() {
 			return {
@@ -46,9 +75,50 @@
 			}
 		},
 		onLoad: function (option) {
-			console.log(option.ironName);
 			this.ironName = option.ironName
 			this.getIronData()
+			// #ifdef H5
+			this.$nextTick(_ => {
+				this.myChart = h5echarts.init(document.getElementById('h5-chart'));
+				this.myChart.setOption({
+					grid: {
+						left: 60
+					},
+					dataZoom: [{
+						type: 'slider'
+					}],
+					dataZoom: [{ 
+						"show": true,
+						fillerColor: 'rgba(94, 225, 198, .5)',
+						"realtime": true, "start": 30, "end": 100, "xAxisIndex": [0], "bottom": "0"},
+					],
+					color: [ '#5ee1c6','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+					legend: {
+						show: true,
+						top: 20
+					},
+					tooltip : {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'cross',
+							animation: false,
+							label: {
+								backgroundColor: '#505765'
+							}
+						},
+						formatter: '时间: {b0} \n 名称: {a} \n 价格:{c0}元/吨'
+					},
+					xAxis: {
+						type: 'category',
+						data: this.xaxis
+					},
+					yAxis: {
+						type: 'value'
+					},
+					series: this.theSeries
+				})
+			})
+			// #endif
 		},
 		computed: {
 			theSeries: function() {
@@ -72,6 +142,7 @@
 		},
 		methods: {
 			chartInit(){
+				// #ifndef H5
 				this.options = {
 					grid: {
 						left: 60
@@ -109,8 +180,17 @@
 					},
 					series: this.theSeries
 				};
-				console.log(this.$refs)
 				this.$refs.echarts.init()
+				// #endif
+				// #ifdef H5
+				this.myChart.setOption({
+					xAxis: {
+						type: 'category',
+						data: this.xaxis
+					},
+					series: this.theSeries
+				})
+				// #endif
 			},
 			handleChart(canvas, width, height) {
 				const chart = echarts.init(canvas, null, {
@@ -238,5 +318,15 @@
 		background:#dfdfdf;
 		color:#323232;
 		margin:20rpx 0;
+	}
+	.iron-contact {
+		text-align: center;
+	}
+	.qrcodes {
+		text-align: center;
+	}
+	.qrcodes .qrcode {
+		width: 200rpx;
+		height: 200rpx;
 	}
 </style>

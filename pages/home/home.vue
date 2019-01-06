@@ -28,6 +28,18 @@
 				</div>
 			</view>
 		</view>
+		<!-- #ifndef MP-WEIXIN -->
+		<!-- 广告 -->
+		<view class="iron-contact">
+			<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
+			<view class="info-text">联系电话(点击即可拨打)</view>
+			<view class="phone"><view @click="call('17625456779')">17625456779</view><view @click="call('13856262575')">13856262575</view></view>
+		</view>
+		<view class="qrcodes">
+			<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDQVP.jpg"></image>
+			<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDKbt.md.jpg"></image>
+		</view>
+		<!-- #endif -->
 	</view>
 </template>
 
@@ -200,5 +212,16 @@
 	}
 	.article-card .date .other {
 		font-size: 28upx;
+	}
+	
+	.iron-contact {
+		text-align: center;
+	}
+	.qrcodes {
+		text-align: center;
+	}
+	.qrcodes .qrcode {
+		width: 200rpx;
+		height: 200rpx;
 	}
 </style>

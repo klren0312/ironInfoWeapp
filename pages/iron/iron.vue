@@ -15,6 +15,17 @@
 					
 					<view class="price">最新价格:<text class="price-num">{{subCategoryList.price}}</text></view>
 					<view class="info">{{subCategoryList.info}}</view>
+					<!-- #ifndef MP-WEIXIN -->
+					<view class="iron-contact">
+						<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
+						<view class="info-text">联系电话(点击即可拨打)</view>
+						<view class="phone"><view @click="call('17625456779')">17625456779</view><view @click="call('13856262575')">13856262575</view></view>
+					</view>
+					<view class="cards">
+						<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDQVP.jpg"></image>
+						<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDKbt.md.jpg"></image>
+					</view>
+					<!-- #endif -->
 				</view>
 			</scroll-view>
 		</view>
@@ -147,6 +158,19 @@
 	.active {
 		color: #007AFF;
 	}
+	.iron-contact .info-text {
+		font-size: 30rpx;
+	}
+	.iron-contact .phone {
+		display: flex;
+		justify-content: space-around;
+	}
+	.cards .qrcode {
+		margin-top: 20upx;
+		width: 200upx;
+		height: 200upx;
+	}
+	
 	.iron-contact .info-text {
 		font-size: 30rpx;
 	}
