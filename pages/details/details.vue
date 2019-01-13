@@ -5,7 +5,7 @@
 			<view id="h5-chart" style="width: 100%;"></view>
 			<!-- #endif -->
 			<!-- #ifndef H5 -->
-			<mpvue-echarts lazyLoad :echarts="echarts" :onInit="handleChart" ref="echarts" />
+			<mpvue-echarts lazyLoad style="width: 100%;" :echarts="echarts" :onInit="handleChart" ref="echarts" />
 			<!-- #endif -->
 		</view>
 		<view class="details-card" v-for="(ironObj, i) in infoArr" :key="i">
@@ -40,8 +40,8 @@
 
 <script>
 	// #ifndef H5
-	import * as echarts from 'echarts'
-	import mpvueEcharts from 'mpvue-echarts'
+	import * as echarts from '../../components/echarts/echarts.common.min'
+	import mpvueEcharts from '../../components/mpvue-echarts/echarts.vue'
 	// #endif
 	// #ifdef H5
 	import * as h5echarts from '../../components/echarts/echarts.common.min'
