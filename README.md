@@ -1,6 +1,36 @@
 # ironInfoWeapp
 钢材信息小程序
 
+# 技术选型
+![](https://upload-images.jianshu.io/upload_images/2245742-aa8925cdb8e05969.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/579/format/webp)
+
+# 使用的第三方库
+
+ - Echarts
+ - mpvue-echarts
+ - marked (md => html)
+ - mpvue-wxparse (html => wxml)
+
+# 目录介绍
+```
+├─common
+├─components // 组件
+│  ├─echarts
+│  ├─marked
+│  ├─mpvue-echarts
+│  └─mpvue-wxparse
+├─img // Readme用的图片文件夹
+├─pages // 页面
+│  ├─article // 文章页
+│  ├─details // 钢材详情页
+│  ├─home // 首页
+│  ├─index // 钢材搜索页
+│  ├─iron // 钢材信息页
+│  └─search // 钢材搜索框
+├─static // tabbar图片
+└─store // vuex文件
+```
+
 # 小程序码
 ![](./img/weapp.png)
 
@@ -11,6 +41,7 @@
  - 18.12.08 搜索修改, 添加联想和历史搜索
  - 18.12.19 首页回归, 热门钢材九宫格, 文章列表
  - 18.12.24 对接文章接口
+ - 19.01.13 精简文件
 
 # 界面截图
 
