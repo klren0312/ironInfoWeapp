@@ -85,8 +85,9 @@
 			 */
 			getIronList() {
 				uni.request({
-					url: `${this.$store.state.rootUrl}/weapp/iron/option`,
+					url: `${this.$store.state.rootUrl}/weapp/hot`,
 					success: (res) => {
+						console.log(res)
 						this.listData = res.data.data
 						this.listData.length = 6
 					}
