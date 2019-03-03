@@ -1,5 +1,12 @@
 <template>
 	<view>
+		<view class="header">
+			<go-back></go-back>
+			<view class="header-title">
+				钢材详情
+			</view>
+			<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
+		</view>
 		<view class="chart">
 			<!-- #ifdef H5 -->
 			<view id="h5-chart" style="width: 100%;"></view>
@@ -39,6 +46,7 @@
 </template>
 
 <script>
+	import GoBack from '../../components/go-back.vue'
 	// #ifndef H5
 	import * as echarts from '../../components/echarts/echarts.common.min'
 	import mpvueEcharts from '../../components/mpvue-echarts/echarts.vue'
@@ -64,6 +72,7 @@
 			}
 		},
 		components:{
+			GoBack,
 			// #ifndef H5
 			mpvueEcharts
 			// #endif
@@ -95,7 +104,8 @@
 					color: [ '#5ee1c6','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
 					legend: {
 						show: true,
-						top: 20
+						top: 20,
+						formatter: '{name} 历史价格图(元/吨)'
 					},
 					tooltip : {
 						trigger: 'axis',
@@ -113,6 +123,10 @@
 						data: this.xaxis
 					},
 					yAxis: {
+						name: '价格(元/吨)',
+						nameTextStyle: {
+							color: '#323232'
+						},
 						type: 'value'
 					},
 					series: this.theSeries
@@ -249,6 +263,7 @@
 	height: 500upx;
 	display: flex;
 	flex: 1;
+	margin-top: 210upx;
 }
 .details-card {
       margin: 62upx 89upx;

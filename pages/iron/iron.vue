@@ -1,5 +1,11 @@
 <template>
 	<view class="container">
+		<view class="header">
+			<view class="header-title">
+				钢材总览
+			</view>
+			<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
+		</view>
 		<view class="page-body">
 			<scroll-view class="nav-left" scroll-y :style="'height:'+height+'px'">
 				<view class="nav-left-item" @click="categoryClickMain(item,index)" :key="index" :class="index==categoryActive?'active':''"
@@ -97,6 +103,7 @@
 <style>
 	.page-body {
 		display: flex;
+		margin-top: 210upx;
 	}
 
 	.nav {
@@ -157,6 +164,7 @@
 
 	.active {
 		color: #007AFF;
+		background: #eee;
 	}
 	.iron-contact .info-text {
 		font-size: 30rpx;

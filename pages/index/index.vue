@@ -3,42 +3,45 @@
 		<view class="search">
 			<!-- <search  @search="searchIron" :disabled="btnDisable"/> -->
 			<a class="search-input" @click="toToSearch">搜索钢材</a>
+			<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
 		</view>
-		<view class="chart">
-			<!-- #ifdef H5 -->
-			<view id="h5-chart" style="width: 100%;"></view>
-			<!-- #endif -->
-			<!-- #ifndef H5 -->
-			<mpvue-echarts lazyLoad style="width: 100%;" :echarts="echarts" :onInit="handleChart" ref="echarts" />
-			<!-- #endif -->
-		</view>
-		<view class="details-card" v-for="(ironObj, i) in infoArr" :key="i">
-			<image class="card-header" :src="ironObj.photo !== ''&&ironObj.photo !== null ? ironObj.photo : 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/Ocean.jpg'"></image>
-			<view class="card-body">
-				<view class="card-name">
-					<view>{{ironObj.name}}</view>
-					<view class="new-price">{{ironObj.new_price}}元/吨</view>
-				</view>
-				<view class="card-intro">
-					<view>{{ironObj.intro}}</view>
-				</view>
-				<view class="card-footer">
-					{{ironObj.updatedAt}}
+		<scroll-view scroll-y style="height: 450px;">
+			<view class="chart">
+				<!-- #ifdef H5 -->
+				<view id="h5-chart" style="width: 100%;"></view>
+				<!-- #endif -->
+				<!-- #ifndef H5 -->
+				<mpvue-echarts lazyLoad style="width: 100%;" :echarts="echarts" :onInit="handleChart" ref="echarts" />
+				<!-- #endif -->
+			</view>
+			<view class="details-card" v-for="(ironObj, i) in infoArr" :key="i">
+				<image class="card-header" :src="ironObj.photo !== ''&&ironObj.photo !== null ? ironObj.photo : 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/Ocean.jpg'"></image>
+				<view class="card-body">
+					<view class="card-name">
+						<view>{{ironObj.name}}</view>
+						<view class="new-price">{{ironObj.new_price}}元/吨</view>
+					</view>
+					<view class="card-intro">
+						<view>{{ironObj.intro}}</view>
+					</view>
+					<view class="card-footer">
+						{{ironObj.updatedAt}}
+					</view>
 				</view>
 			</view>
-		</view>
-		<!-- #ifndef MP-WEIXIN -->
-		<!-- 广告 -->
-		<view class="iron-contact">
-			<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
-			<view class="info-text">联系电话(点击即可拨打)</view>
-			<view class="phone"><view @click="call('17625456779')">17625456779</view><view @click="call('13856262575')">13856262575</view></view>
-		</view>
-		<view class="qrcodes">
-			<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDQVP.jpg"></image>
-			<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDKbt.md.jpg"></image>
-		</view>
-		<!-- #endif -->		
+			<!-- #ifndef MP-WEIXIN -->
+			<!-- 广告 -->
+			<view class="iron-contact">
+				<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
+				<view class="info-text">联系电话(点击即可拨打)</view>
+				<view class="phone"><view @click="call('17625456779')">17625456779</view><view @click="call('13856262575')">13856262575</view></view>
+			</view>
+			<view class="qrcodes">
+				<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDQVP.jpg"></image>
+				<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDKbt.md.jpg"></image>
+			</view>
+			<!-- #endif -->
+		</scroll-view>
 	</view>
 </template>
 
@@ -125,6 +128,7 @@
 						data: this.xaxis
 					},
 					yAxis: {
+						name: '价格(元/吨)',
 						type: 'value'
 					},
 					series: this.theSeries
@@ -288,12 +292,25 @@
 		display: flex;
 		flex: 1;
 	}
+	.wave-gif {
+		position: absolute;
+		width: 100%;
+		bottom: 0;
+		left: 0;
+		z-index: 99;
+		mix-blend-mode: screen;  
+		height: 100upx;
+	}
 	.search {
+		position: relative;
 		display: flex;
 		justify-content: center;
 		height:74rpx;
-		background-color:#5ee1c6;
-		padding:12px;
+		padding: 160upx 24upx 64upx;
+		background-color: #00BFFF;
+		background-repeat: no-repeat;
+		background-position-y:39px;
+
 	}
 	.search .search-input {
 		-webkit-box-flex: 1;

@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 轮播图 -->
-		<swiper :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+		<swiper style="height: 466upx;" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
             <swiper-item v-for="item in itemList" :key="item">
                 <image class="banner-img" :src="item"></image>
             </swiper-item>
@@ -28,6 +28,7 @@
 				</div>
 			</view>
 		</view>
+
 		<!-- #ifndef MP-WEIXIN -->
 		<!-- 广告 -->
 		<view class="iron-contact">
@@ -48,7 +49,7 @@
 		data() {
 			return {
 				itemList: [
-					'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/banner1.png',
+					'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/slider11.png',
 					'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/banner2.png',
 					'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/banner3.png'
 				],

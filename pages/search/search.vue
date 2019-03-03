@@ -1,9 +1,11 @@
 <template>
 	<view class="search-container">
 		<view class="search">
+			<go-back></go-back>
 			<!-- <search  @search="searchIron" :disabled="btnDisable"/> -->
 			<input class="search-input" v-model="ironName" placeholder="搜索钢材"></input>
 			<button class="search-btn" @click="searchIron">搜索</button>
+			<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
 		</view>
 		<view class="content">
 			<view class="hot">
@@ -23,10 +25,12 @@
 
 <script>
 import Search from '../../components/search.vue'
+import GoBack from '../../components/go-back.vue'
 export default {
 	name: 'searchContainer',
 	components:{
-		Search
+		Search,
+		GoBack
 	},
 	data() {
 		return {
@@ -96,12 +100,24 @@ export default {
 </script>
 
 <style>
+.wave-gif {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	z-index: 99;
+	mix-blend-mode: screen;  
+	height: 100upx;
+}
 .search {
+	position: relative;
 	display: flex;
 	justify-content: center;
 	height:74rpx;
-	background-color:#5ee1c6;
-	padding:12px;
+	padding: 139upx 24upx 64upx;
+	background-color: #00BFFF;
+	background-repeat: no-repeat;
+	background-position-y:39px;
 }
 .search .search-input {
 	-webkit-box-flex: 1;
