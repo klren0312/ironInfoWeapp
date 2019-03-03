@@ -5,7 +5,7 @@
             "path" : "pages/home/home",
             "style" : {
                 "navigationBarTitleText" : "钢材信息-首页",
-                "enablePullDownRefresh": true
+                "enablePullDownRefresh" : true
             }
         },
         {
@@ -17,7 +17,10 @@
         {
             "path" : "pages/iron/iron",
             "style" : {
-                "navigationBarTitleText" : "钢材信息-总览"
+                "navigationBarTitleText" : "钢材信息-总览",
+                "navigationStyle" : "custom",
+                "navigationBarBackgroundColor" : "#5ee1c6",
+                "backgroundColor" : "#5ee1c6"
             }
         },
         {
@@ -35,8 +38,18 @@
         {
             "path" : "pages/article/article",
             "style" : {
-				"navigationBarTitleText" : "钢材信息-文章详情"
-			}
+                "navigationBarTitleText" : "钢材信息-文章详情"
+            }
+        },
+        {
+            "path" : "pages/news/news",
+            "style" : {
+                "navigationBarTitleText" : "钢材信息-新闻资讯"
+            }
+        },
+        {
+            "path" : "pages/auth/auth",
+            "style" : {}
         }
     ],
     //         {
@@ -46,7 +59,8 @@
     //             }
     //         }
     "globalStyle" : {
-        "navigationBarTextStyle" : "#fff",
+        "navigationBarTextStyle" : "white",
+        "navigationStyle" : "custom",
         "navigationBarTitleText" : "铜陵钢材信息",
         "navigationBarBackgroundColor" : "#5ee1c6",
         "backgroundColor" : "#5ee1c6"
@@ -74,6 +88,12 @@
                 "iconPath" : "static/search.png",
                 "selectedIconPath" : "static/search-active.png",
                 "text" : "搜索"
+            },
+            {
+                "pagePath" : "pages/news/news",
+                "iconPath" : "static/news.png",
+                "selectedIconPath" : "static/news-active.png",
+                "text" : "资讯"
             }
         ]
     }

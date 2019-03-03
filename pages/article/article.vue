@@ -1,6 +1,13 @@
 <template>
 	<view>
-		<scroll-view scroll-x>
+		<view class="header">
+			<go-back></go-back>
+			<view class="header-title">
+				文章详情
+			</view>
+			<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
+		</view>
+		<scroll-view class="scontent" scroll-x>
 			<!-- #ifndef H5 -->
 			<wxParse :content="content" />
 			<!-- #endif -->
@@ -25,6 +32,7 @@
 </template>
 
 <script>
+	import GoBack from '../../components/go-back.vue'
 	import marked from '../../components/marked'
 	// #ifndef H5
 	import wxParse from '../../components/mpvue-wxparse/src/wxParse.vue'
@@ -35,6 +43,7 @@
 			// #ifndef H5
 			wxParse,
 			// #endif
+			GoBack
 		},
 		data() {
 			return {
@@ -48,9 +57,13 @@
 				path: '/pages/article/article'
 			}
 		},
-		onLoad() {
+		onLoad(option) {
 			try {
 				const value = uni.getStorageSync('article');
+				if(option.type === 'news') {
+					this.content = value
+					return
+				}
 				if (value) {
 					const result = JSON.parse(value)
 					this.title = result.title
@@ -79,6 +92,9 @@
 
 <style>
 	@import url("../../components/mpvue-wxparse/src/wxParse.css");
+	.scontent {
+		margin-top: 210upx;
+	}
 	.iron-contact {
 		text-align: center;
 	}
