@@ -89,11 +89,15 @@
 							})
 						})
 						this.subCategoryList = this.categoryList[0].content;
+						uni.hideLoading();
 					}
 				});
 			}
 		},
 		onLoad: function () {
+			uni.showLoading({
+				title: '加载中'
+			})
 			this.getCategory();
 			this.height = uni.getSystemInfoSync().windowHeight;
 		}

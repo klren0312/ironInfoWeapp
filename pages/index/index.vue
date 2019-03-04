@@ -91,6 +91,9 @@
 			}
 		},
 		mounted(){
+			uni.showLoading({
+				title: '加载中'
+			})
 			this.getIronData()
 			// #ifdef H5
 			this.$nextTick(_ => {
@@ -227,6 +230,7 @@
 				uni.request({
 					url: `${this.$store.state.rootUrl}/weapp/iron?name=${this.ironName}`,
 					success: (res) => {
+						uni.hideLoading();
 						if(res.data.code === 500) {
 							uni.showToast({
 								title: res.data.data,

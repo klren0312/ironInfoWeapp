@@ -24,6 +24,9 @@
 			};
 		},
 		onLoad() {
+			uni.showLoading({
+				title: '加载中'
+			})
 			this.getNews()
 		},
 		onShareAppMessage() {
@@ -42,6 +45,7 @@
 					},
 					success: (res) => {
 						this.newsList = res.data.data.items
+						uni.hideLoading();
 					}
 				})
 			},
