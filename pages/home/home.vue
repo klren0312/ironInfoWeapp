@@ -2,10 +2,10 @@
 	<view>
 		<!-- 轮播图 -->
 		<swiper style="height: 466upx;" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-            <swiper-item v-for="item in itemList" :key="item">
-                <image class="banner-img" :src="item"></image>
-            </swiper-item>
-        </swiper>
+			<swiper-item v-for="item in itemList" :key="item">
+				<image class="banner-img" :src="item"></image>
+			</swiper-item>
+		</swiper>
 		<!-- 热门钢材 -->
 		<view class="hot-iron">
 			<view class="one-line">
@@ -34,7 +34,10 @@
 		<view class="iron-contact">
 			<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
 			<view class="info-text">联系电话(点击即可拨打)</view>
-			<view class="phone"><view @click="call('17625456779')">17625456779</view><view @click="call('13856262575')">13856262575</view></view>
+			<view class="phone">
+				<view @click="call('17625456779')">17625456779</view>
+				<view @click="call('13856262575')">13856262575</view>
+			</view>
 		</view>
 		<view class="qrcodes">
 			<image class="qrcode" src="https://s1.ax1x.com/2018/12/02/FuDQVP.jpg"></image>
@@ -114,7 +117,7 @@
 				} catch (e) {
 					// error
 				}
-				
+
 			},
 			/**
 			 * 获取文章
@@ -131,7 +134,7 @@
 								id: v.id,
 								title: v.title,
 								year: date.getFullYear(),
-								month: date.getMonth()+1,
+								month: date.getMonth() + 1,
 								day: date.getDate(),
 								content: v.content
 							})
@@ -149,12 +152,14 @@
 		width: 100%;
 		height: 100%;
 	}
+
 	.hot-iron .one-line {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		flex-wrap: wrap;
 	}
+
 	.hot-iron .one-line .iron-item {
 		width: 25%;
 		height: 120upx;
@@ -162,27 +167,32 @@
 		padding: 28upx;
 		text-align: center;
 	}
-	.hot-iron .one-line .iron-item .iron-icon{
+
+	.hot-iron .one-line .iron-item .iron-icon {
 		width: 60upx;
 		height: 60upx;
 		border-radius: 50%;
 		background: url(https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/iron-icon2.png) center no-repeat;
 		background-size: contain;
-		margin:0 auto;
+		margin: 0 auto;
 	}
-	.hot-iron .one-line .iron-item:nth-child(even) .iron-icon{
+
+	.hot-iron .one-line .iron-item:nth-child(even) .iron-icon {
 		background: url(https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/iron-icon1.png) center no-repeat;
 		background-size: contain;
 	}
-	.hot-iron .one-line .iron-item .iron-name{
+
+	.hot-iron .one-line .iron-item .iron-name {
 		text-align: center;
 		font-size: 28upx;
 		color: #323232;
 		margin-top: 14upx;
 	}
+
 	.article {
 		padding-top: 28upx;
 	}
+
 	.article-card {
 		padding: 28upx 10upx;
 		display: flex;
@@ -191,37 +201,45 @@
 		border-top: 1upx solid #dfdfdf;
 		line-height: 2;
 	}
+
 	.article-card::last-child {
 		border-bottom: 1upx solid #dfdfdf;
 	}
+
 	.article-card .text .title {
 		font-size: 36upx;
 		color: #323232;
 		font-weight: bold;
 	}
+
 	.article-card .text .info {
 		font-size: 28upx;
 		color: #999;
 	}
+
 	.article-card .date {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 	}
+
 	.article-card .date .year {
 		font-size: 36upx;
 	}
+
 	.article-card .date .other {
 		font-size: 28upx;
 	}
-	
+
 	.iron-contact {
 		text-align: center;
 	}
+
 	.qrcodes {
 		text-align: center;
 	}
+
 	.qrcodes .qrcode {
 		width: 200rpx;
 		height: 200rpx;

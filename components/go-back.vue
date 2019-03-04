@@ -11,7 +11,7 @@
 		name: 'goBack',
 		data() {
 			return {
-				
+
 			};
 		}
 	}
