@@ -42,9 +42,9 @@
             }
         },
         {
-            "path" : "pages/news/news",
+            "path" : "pages/weather/weather",
             "style" : {
-                "navigationBarTitleText" : "钢材信息-新闻资讯"
+                "navigationBarTitleText" : "钢材信息-天气"
             }
         },
         {
@@ -90,10 +90,10 @@
                 "text" : "搜索"
             },
             {
-                "pagePath" : "pages/news/news",
-                "iconPath" : "static/news.png",
-                "selectedIconPath" : "static/news-active.png",
-                "text" : "资讯"
+                "pagePath" : "pages/weather/weather",
+                "iconPath" : "static/weather.png",
+                "selectedIconPath" : "static/weather-active.png",
+                "text" : "天气"
             }
         ]
     }
