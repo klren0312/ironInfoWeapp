@@ -1,11 +1,6 @@
 <template>
-	<view>
-		<view class="header">
-			<view class="header-title">
-				今日天气
-			</view>
-			<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
-		</view>
+	<view class="weather-container">
+		<my-header title="今日天气"></my-header>
 		<view class="weather">
 			<image class="weather-img" :src="image[weather.code]" mode=""></image>
 			<view class="weather-text">
@@ -34,7 +29,11 @@
 </template>
 
 <script>
+	import MyHeader from '../../components/my-header.vue'
 	export default {
+		components: {
+			MyHeader
+		},
 		data() {
 			return {
 				newsList: [],
@@ -131,6 +130,9 @@
 </script>
 
 <style>
+.weather-container {
+	background: url(https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/bg.png) center no-repeat;
+}
 .header {
 	background: #4CD964;
 	text-align:center;
@@ -155,6 +157,7 @@
 }
 .weather {
 	padding-top: 20%;
+	height:calc(100vh - 156rpx);
 	text-align: center;
 }
 .ad-logo {
@@ -177,18 +180,19 @@
 }
 .weather-text {
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	justify-content: flex-start;
-	padding-left:60rpx;
-	padding-top:116rpx;
+	height:calc(100vh - 770rpx);
+
 }
 .weather-title {
 	display: inline-block;
 	font-size: 60upx;
+	color: #fff;
 }
 .weather-tem {
 	display: inline-block;
 	font-size: 150upx;
-	color: #323232;
+	color: #fff;
 }
 </style>

@@ -9,25 +9,39 @@
 			try {
 				const token = uni.getStorageSync('token');
 				if (token === '' || token === undefined || token === null) {
+					console.log('no token')
 					uni.getSetting({
 						success: (res) => {
 							let status = res.authSetting['scope.userInfo']
 							this.$store.commit('SET_INFO', status)
-							console.log(status)
+							// console.log(status)
 							if (!status) {
 								uni.redirectTo({
 									url: '/pages/auth/auth'
 								})
+							} else {
+								this.getInfo()
 							}
 						}
 					})
-				} else {}
+				} else {
+					this.getInfo()
+				}
 			} catch (err) {}
 			// #endif
 			console.log('App Show')
 		},
 		onHide: function () {
 			console.log('App Hide')
+		},
+		methods: {
+			getInfo() {
+				uni.getUserInfo({
+					success: (res) => {
+						this.$store.commit('SAVE_INFO', res.userInfo)
+					}
+				})
+			}
 		}
 	}
 </script>
@@ -52,26 +66,6 @@
 		font-family: iconfont;
 	}
 
-	.header {
-		height: 210upx;
-		background: #376956;
-		position: fixed;
-		width: 100%;
-		top: 0;
-		z-index: 1024;
-		box-shadow: 0 1rpx 6rpx rgba(0, 0, 0, 0.1);
-		text-align: center;
-		line-height: 190rpx;
-		color: #fff;
-		font-size: 54rpx;
-	}
-
-	.go-back {
-		position: absolute;
-		left: 14rpx;
-		/* top:68rpx; */
-		color: #fff;
-	}
 
 	.wave-gif {
 		position: absolute;

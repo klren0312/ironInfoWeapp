@@ -1,12 +1,6 @@
 <template>
 	<view>
-		<view class="header">
-			<go-back></go-back>
-			<view class="header-title">
-				钢材详情
-			</view>
-			<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
-		</view>
+		<my-header title="钢材详情" :goBack="true"></my-header>
 		<view class="chart">
 			<!-- #ifdef H5 -->
 			<view id="h5-chart" style="width: 100%;"></view>
@@ -46,7 +40,7 @@
 </template>
 
 <script>
-	import GoBack from '../../components/go-back.vue'
+	import MyHeader from '../../components/my-header.vue'
 	// #ifndef H5
 	import * as echarts from '../../components/echarts/echarts.common.min'
 	import mpvueEcharts from '../../components/mpvue-echarts/echarts.vue'
@@ -72,7 +66,7 @@
 			}
 		},
 		components:{
-			GoBack,
+			MyHeader,
 			// #ifndef H5
 			mpvueEcharts
 			// #endif
@@ -98,10 +92,10 @@
 					}],
 					dataZoom: [{ 
 						"show": true,
-						fillerColor: 'rgba(94, 225, 198, .5)',
+						fillerColor: '#f96854',
 						"realtime": true, "start": 30, "end": 100, "xAxisIndex": [0], "bottom": "0"},
 					],
-					color: [ '#5ee1c6','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+					color: [ '#f96854','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
 					legend: {
 						show: true,
 						top: 20,
@@ -113,7 +107,7 @@
 							type: 'cross',
 							animation: false,
 							label: {
-								backgroundColor: '#505765'
+								backgroundColor: '#f96854'
 							}
 						},
 						formatter: '时间: {b0} \n 名称: {a} \n 价格:{c0}元/吨'
@@ -166,13 +160,14 @@
 					}],
 					dataZoom: [{ 
 						"show": true,
-						fillerColor: 'rgba(94, 225, 198, .5)',
+						fillerColor: '#f96854',
 						"realtime": true, "start": 30, "end": 100, "xAxisIndex": [0], "bottom": "0"},
 					],
-					color: [ '#5ee1c6','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+					color: [ '#f96854','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
 					legend: {
 						show: true,
-						top: 20
+						top: 20,
+						formatter: '{name}历史价格图'
 					},
 					tooltip : {
 						trigger: 'axis',
@@ -180,7 +175,7 @@
 							type: 'cross',
 							animation: false,
 							label: {
-								backgroundColor: '#505765'
+								backgroundColor: '#f96854'
 							}
 						},
 						formatter: '时间: {b0} \n 名称: {a} \n 价格:{c0}元/吨'
@@ -190,6 +185,10 @@
 						data: this.xaxis
 					},
 					yAxis: {
+						name: '价格(元/吨)',
+						nameTextStyle: {
+							color: '#323232'
+						},
 						type: 'value'
 					},
 					series: this.theSeries
@@ -259,6 +258,9 @@
 </script>
 
 <style>
+.header {
+	height: 100px;
+}
 .chart {
 	height: 500upx;
 	display: flex;
@@ -266,82 +268,82 @@
 	margin-top: 210upx;
 }
 .details-card {
-      margin: 62upx 89upx;
-      border-radius: 1px;
-      box-shadow: 0 1px 2px rgba(0,0,0,.3);
-      background: #fff;
-      color: #333;
-    }
-    .card-header {
-		background-size: cover;
-		background-position: 50%;
-		height:368upx;
-		width:100%;
-		color: #f2f2f2;
-    }
-    .card-body {
-      /* padding: 35upx 90upx; */
-      line-height: 1.6;
-    }
-	.card-body .card-name {
-		border-bottom: 1upx solid #eee;
-		padding:15upx 40upx;
-		display: flex;
-		justify-content: space-between;
-	}
-	.card-body .card-intro {
-		padding:15upx 40upx;
-		min-height: 120upx;
-	}
-	.card-body .card-footer {
-		padding:15upx 40upx;
-		text-align: right;
-		font-size: 24upx;
-		color: #999;
-	}
-	.details {
-		display: flex;
-		justify-content: center;
-		border:1upx solid #dfdfdf;
-		border-radius:20upx;
-		padding:10upx;
-		margin:0 20upx;
-		margin-bottom: 20upx;
-	}
-	.details-infos .iron-photo {
-		width: 300upx;
-		height: 300upx;
-		margin-left: 15upx;
-	}
-	.details .details-text {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		line-height: 2;
-	}
-	.details-info {
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-	}
-	.new-price {
-		color: #007AFF;
-	}
-	.details-title {
-		padding:8rpx 0;
-		text-align:center;
-		background:#dfdfdf;
-		color:#323232;
-		margin:20rpx 0;
-	}
-	.iron-contact {
-		text-align: center;
-	}
-	.qrcodes {
-		text-align: center;
-	}
-	.qrcodes .qrcode {
-		width: 200rpx;
-		height: 200rpx;
-	}
+  margin: 62upx 89upx;
+  border-radius: 1px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.3);
+  background: #fff;
+  color: #333;
+}
+.card-header {
+	background-size: cover;
+	background-position: 50%;
+	height:368upx;
+	width:100%;
+	color: #f2f2f2;
+}
+.card-body {
+  /* padding: 35upx 90upx; */
+  line-height: 1.6;
+}
+.card-body .card-name {
+	border-bottom: 1upx solid #eee;
+	padding:15upx 40upx;
+	display: flex;
+	justify-content: space-between;
+}
+.card-body .card-intro {
+	padding:15upx 40upx;
+	min-height: 120upx;
+}
+.card-body .card-footer {
+	padding:15upx 40upx;
+	text-align: right;
+	font-size: 24upx;
+	color: #999;
+}
+.details {
+	display: flex;
+	justify-content: center;
+	border:1upx solid #dfdfdf;
+	border-radius:20upx;
+	padding:10upx;
+	margin:0 20upx;
+	margin-bottom: 20upx;
+}
+.details-infos .iron-photo {
+	width: 300upx;
+	height: 300upx;
+	margin-left: 15upx;
+}
+.details .details-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	line-height: 2;
+}
+.details-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+.new-price {
+	color: #007AFF;
+}
+.details-title {
+	padding:8rpx 0;
+	text-align:center;
+	background:#dfdfdf;
+	color:#323232;
+	margin:20rpx 0;
+}
+.iron-contact {
+	text-align: center;
+}
+.qrcodes {
+	text-align: center;
+}
+.qrcodes .qrcode {
+	width: 200rpx;
+	height: 200rpx;
+}
 </style>

@@ -92,6 +92,9 @@
 
 <style>
 	@import url("../../components/mpvue-wxparse/src/wxParse.css");
+	.header {
+		height: 100px;
+	}
 	.scontent {
 		margin-top: 210upx;
 	}

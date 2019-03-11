@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<my-header title="铜陵钢材信息" :showGif="false"></my-header>
 		<!-- 轮播图 -->
 		<swiper style="height: 466upx;" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
 			<swiper-item v-for="item in itemList" :key="item">
@@ -48,7 +49,11 @@
 </template>
 
 <script>
+	import MyHeader from '../../components/my-header.vue'
 	export default {
+		components: {
+			MyHeader
+		},
 		data() {
 			return {
 				itemList: [
@@ -124,7 +129,7 @@
 			 */
 			getArticle() {
 				uni.request({
-					url: `${this.$store.state.rootUrl}/weapp/article?pageIndex=1&pageSize=10`,
+					url: `${this.$store.state.rootUrl}/weapp/article?status=true&pageIndex=1&pageSize=10`,
 					success: (res) => {
 						let result = res.data.data.items
 						let arr = []
@@ -148,6 +153,9 @@
 </script>
 
 <style>
+	.header {
+		background: transparent;
+	}
 	.banner-img {
 		width: 100%;
 		height: 100%;

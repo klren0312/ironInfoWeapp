@@ -1,11 +1,6 @@
 <template>
 	<view class="container">
-		<view class="header">
-			<view class="header-title">
-				钢材总览
-			</view>
-			<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
-		</view>
+		<my-header title="钢材总览"></my-header>
 		<view class="page-body">
 			<scroll-view class="nav-left" scroll-y :style="'height:'+height+'px'">
 				<view class="nav-left-item" @click="categoryClickMain(item,index)" :key="index" :class="index==categoryActive?'active':''"
@@ -15,6 +10,7 @@
 			</scroll-view>
 			<scroll-view class="nav-right" scroll-y :scroll-top="scrollTop" @scroll="scroll" :style="'height:'+height+'px'" scroll-with-animation>
 				<view class="content">
+					<view class="content-header">{{subCategoryList.name}}</view>
 					<view class="iron-img">
 						<image class="img-item" :src="subCategoryList.logo!=='' && subCategoryList.logo!==null ? subCategoryList.logo : 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/Ocean.jpg'" />
 					</view>
@@ -39,7 +35,12 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex'
+	import MyHeader from '../../components/my-header.vue'
 	export default {
+		components: {
+			MyHeader
+		},
 		data() {
 			return {
 				categoryList: [],
@@ -47,7 +48,7 @@
 				height: 0,
 				categoryActive: 0,
 				scrollTop: 0,
-				scrollHeight: 0,
+				scrollHeight: 0
 			}
 		},
 		onShareAppMessage() {
@@ -57,7 +58,6 @@
 			}
 		},
 		methods: {
-			
 			call(num) {
 				uni.makePhoneCall({
 					phoneNumber: num
@@ -82,6 +82,7 @@
 							this.categoryList.push({
 								name: v.name,
 								content: {
+									name: v.name,
 									logo: v.photo,
 									price: `${v.new_price}元/吨`,
 									info: v.intro
@@ -107,7 +108,7 @@
 <style>
 	.page-body {
 		display: flex;
-		margin-top: 210upx;
+		margin-top: 140upx;
 	}
 
 	.nav {
@@ -130,9 +131,29 @@
 	}
 
 	.nav-right {
+		padding: 28upx;
 		width: 70%;
+		background: #eee;
 	}
-	
+	.nav-right .content {
+		padding-top: 20upx;
+		background: #fff;
+		box-shadow: 0 20px 40px -15px rgba(0,0,0,.05);
+	}
+	.nav-right .content-header {
+		padding-left: 20upx;
+		font-size: 28upx;
+	}
+	.nav-right .content-header::before {
+		content: '';
+		float: left;
+		margin-top: 15upx;
+		margin-right: 20upx;
+		width: 10upx;
+		height: 10upx;
+		border-radius: 50%;
+		background: #00BFFF;
+	}
 	.nav-right .iron-img {
 		padding: 20upx;
 	}
@@ -169,6 +190,7 @@
 	.active {
 		color: #007AFF;
 		background: #eee;
+		border-left: 4upx solid #00BFFF;
 	}
 	.iron-contact .info-text {
 		font-size: 30rpx;

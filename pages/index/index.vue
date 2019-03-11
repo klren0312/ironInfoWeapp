@@ -1,9 +1,12 @@
 <template>
 	<view class="container">
 		<view class="search">
+			<my-header title="钢材搜索" :showGif="false"></my-header>
 			<!-- <search  @search="searchIron" :disabled="btnDisable"/> -->
-			<a class="search-input" @click="toToSearch">搜索钢材</a>
-			<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
+			<view class="the-search">
+				<a class="search-input" @click="toToSearch">搜索钢材</a>
+				<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
+			</view>
 		</view>
 		<scroll-view scroll-y style="height: 450px;">
 			<view class="chart">
@@ -53,6 +56,7 @@
 	// #ifdef H5
 	import * as h5echarts from '../../components/echarts/echarts.common.min'
 	// #endif
+	import MyHeader from '../../components/my-header.vue'
 	export default {
 		data() {
 			return {
@@ -75,8 +79,9 @@
 		},
 		components:{
 			// #ifndef H5
-			mpvueEcharts
+			mpvueEcharts,
 			// #endif
+			MyHeader
 		},
 		onShow: function () {
 			try {
@@ -107,13 +112,14 @@
 					}],
 					dataZoom: [{ 
 						"show": true,
-						fillerColor: 'rgba(94, 225, 198, .5)',
+						fillerColor: '#f96854',
 						"realtime": true, "start": 30, "end": 100, "xAxisIndex": [0], "bottom": "0"},
 					],
-					color: [ '#5ee1c6','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+					color: [ '#f96854','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
 					legend: {
 						show: true,
-						top: 20
+						top: 20,
+						formatter: '{name}历史价格图'
 					},
 					tooltip : {
 						trigger: 'axis',
@@ -121,7 +127,7 @@
 							type: 'cross',
 							animation: false,
 							label: {
-								backgroundColor: '#505765'
+								backgroundColor: '#f96854'
 							}
 						},
 						formatter: '时间: {b0} \n 名称: {a} \n 价格:{c0}元/吨'
@@ -177,13 +183,14 @@
 					}],
 					dataZoom: [{ 
 						"show": true,
-						fillerColor: 'rgba(94, 225, 198, .5)',
+						fillerColor: '#f96854',
 						"realtime": true, "start": 30, "end": 100, "xAxisIndex": [0], "bottom": "0"},
 					],
-					color: [ '#5ee1c6','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+					color: [ '#f96854','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
 					legend: {
 						show: true,
-						top: 20
+						top: 20,
+						formatter: '{name}历史价格图'
 					},
 					tooltip : {
 						trigger: 'axis',
@@ -191,7 +198,7 @@
 							type: 'cross',
 							animation: false,
 							label: {
-								backgroundColor: '#505765'
+								backgroundColor: '#f96854'
 							}
 						},
 						formatter: '时间: {b0} \n 名称: {a} \n 价格:{c0}元/吨'
@@ -201,6 +208,7 @@
 						data: this.xaxis
 					},
 					yAxis: {
+						name: '价格(元/吨)',
 						type: 'value'
 					},
 					series: this.theSeries
@@ -290,6 +298,9 @@
 		display: flex;
 		flex-direction: column;
 	}
+	.header {
+		background: transparent;
+	}
 	.chart {
 		width: 100%;
 		height: 500upx;
@@ -305,18 +316,18 @@
 		mix-blend-mode: screen;  
 		height: 100upx;
 	}
-	.search {
+	.the-search {
 		position: relative;
 		display: flex;
 		justify-content: center;
-		height:74rpx;
-		padding: 160upx 24upx 64upx;
+		height:100rpx;
+		padding: 175upx 24upx 64upx;
 		background-color: #00BFFF;
 		background-repeat: no-repeat;
 		background-position-y:39px;
 
 	}
-	.search .search-input {
+	.the-search .search-input {
 		-webkit-box-flex: 1;
 		-ms-flex: 1;
 		flex: 1;

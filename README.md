@@ -4,9 +4,6 @@
 # 技术选型
 ![](https://upload-images.jianshu.io/upload_images/2245742-aa8925cdb8e05969.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/579/format/webp)
 
-# 整体看板
-https://trello.com/b/5EvkpRSQ/%E6%B2%BB%E7%94%B5%E7%A7%91%E6%8A%80%E5%8D%81%E5%B9%B4%E8%A7%84%E5%88%92
-
 # 使用的第三方库
 
  - Echarts
@@ -57,3 +54,6 @@ https://trello.com/b/5EvkpRSQ/%E6%B2%BB%E7%94%B5%E7%A7%91%E6%8A%80%E5%8D%81%E5%B
  - 第一版
 ---
 ![](./img/1.png)
+
+# 管理后台
+![](./img/backend.png)

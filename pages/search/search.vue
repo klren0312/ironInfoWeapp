@@ -1,11 +1,13 @@
 <template>
 	<view class="search-container">
 		<view class="search">
-			<go-back></go-back>
+			<my-header title="搜索钢材" :goBack="true" :showGif="false" :scroll="true"></my-header>
 			<!-- <search  @search="searchIron" :disabled="btnDisable"/> -->
-			<input class="search-input" v-model="ironName" placeholder="搜索钢材"></input>
-			<button class="search-btn" @click="searchIron">搜索</button>
-			<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
+			<view class="the-search">
+				<input class="search-input" v-model="ironName" placeholder="搜索钢材"></input>
+				<button class="search-btn" @click="searchIron">搜索</button>
+				<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
+			</view>
 		</view>
 		<view class="content">
 			<view class="hot">
@@ -25,12 +27,12 @@
 
 <script>
 import Search from '../../components/search.vue'
-import GoBack from '../../components/go-back.vue'
+import MyHeader from '../../components/my-header.vue'
 export default {
 	name: 'searchContainer',
 	components:{
 		Search,
-		GoBack
+		MyHeader
 	},
 	data() {
 		return {
@@ -100,6 +102,9 @@ export default {
 </script>
 
 <style>
+.header {
+	background: transparent;
+}
 .wave-gif {
 	position: absolute;
 	width: 100%;
@@ -109,17 +114,17 @@ export default {
 	mix-blend-mode: screen;  
 	height: 100upx;
 }
-.search {
+.the-search {
 	position: relative;
 	display: flex;
 	justify-content: center;
-	height:74rpx;
-	padding: 139upx 24upx 64upx;
+	height:100rpx;
+	padding: 176rpx 24rpx 44rpx;
 	background-color: #00BFFF;
 	background-repeat: no-repeat;
 	background-position-y:39px;
 }
-.search .search-input {
+.the-search .search-input {
 	-webkit-box-flex: 1;
 	-ms-flex: 1;
 	flex: 1;
@@ -143,10 +148,11 @@ export default {
 	background-position:55upx 13upx;
 	margin-right:20rpx;
 }
-.search .search-btn {
+.the-search .search-btn {
 	font-size:14px;
 	background:#fff;
 	border-radius: 18upx;
+	height: 74upx;
 }
 .content .hot .title {
 	font-size: 28upx;
