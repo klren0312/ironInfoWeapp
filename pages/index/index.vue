@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view class="search">
-			<my-header title="钢材搜索" :showGif="false"></my-header>
+			<my-header title="钢材搜索" :showGif="false" :scroll="true" @select="checkoutIron"></my-header>
 			<!-- <search  @search="searchIron" :disabled="btnDisable"/> -->
 			<view class="the-search">
 				<a class="search-input" @click="toToSearch">搜索钢材</a>
@@ -88,7 +88,7 @@
 				const name = uni.getStorageSync('ironName');
 				if (name&&name!=='') {
 					this.ironName = name
-					this.getIronData()
+					this.getIronData(this.ironName)
 					uni.setStorageSync('ironName', '');
 				}
 			} catch (e) {
@@ -99,7 +99,7 @@
 			uni.showLoading({
 				title: '加载中'
 			})
-			this.getIronData()
+			this.getIronData(this.ironName)
 			// #ifdef H5
 			this.$nextTick(_ => {
 				this.myChart = h5echarts.init(document.getElementById('h5-chart'));
@@ -166,7 +166,12 @@
 			}
 		},
 		methods: {
-			
+			/**
+			 * 顶部tab点击事件
+			 */
+			checkoutIron(v) {
+				this.getIronData(v.name)
+			},
 			call(num) {
 				uni.makePhoneCall({
 					phoneNumber: num
@@ -234,9 +239,9 @@
 				chart.setOption(this.options)
 				return chart
 			},
-			getIronData() {
+			getIronData(iron) {
 				uni.request({
-					url: `${this.$store.state.rootUrl}/weapp/iron?name=${this.ironName}`,
+					url: `${this.$store.state.rootUrl}/weapp/iron?name=${iron}`,
 					success: (res) => {
 						uni.hideLoading();
 						if(res.data.code === 500) {
@@ -267,13 +272,6 @@
 							})
 							this.chartName = result[0].name
 							this.xaxis = x
-// 							this.ironObj = {
-// 								name: result[0].name,
-// 								intro: result[0].intro,
-// 								new_price: result[0].new_price,
-// 								photo: result[0].photo
-// 							}
-
 							this.chartInit()
 						}
 						
