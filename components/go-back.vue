@@ -1,7 +1,6 @@
 <template>
 	<view>
 		<navigator class="go-back" open-type="navigateBack" delta="1" hover-class="none">
-			
 			<text class="iconfont">&#xe63e;</text>
 		</navigator>
 	</view>

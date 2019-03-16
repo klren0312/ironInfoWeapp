@@ -1,12 +1,6 @@
 <template>
 	<view>
-		<view class="header">
-			<go-back></go-back>
-			<view class="header-title">
-				文章详情
-			</view>
-			<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
-		</view>
+		<my-header title="文章详情" :goBack="true"></my-header>
 		<scroll-view class="scontent" scroll-x>
 			<!-- #ifndef H5 -->
 			<wxParse :content="content" />
@@ -32,7 +26,7 @@
 </template>
 
 <script>
-	import GoBack from '../../components/go-back.vue'
+	import MyHeader from '../../components/my-header.vue'
 	import marked from '../../components/marked'
 	// #ifndef H5
 	import wxParse from '../../components/mpvue-wxparse/src/wxParse.vue'
@@ -43,7 +37,7 @@
 			// #ifndef H5
 			wxParse,
 			// #endif
-			GoBack
+			MyHeader
 		},
 		data() {
 			return {
