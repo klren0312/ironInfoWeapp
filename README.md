@@ -14,6 +14,7 @@
 # 目录介绍
 ```
 ├─common
+├─api // 请求封装
 ├─components // 组件
 │  ├─echarts
 │  ├─marked
@@ -22,11 +23,13 @@
 ├─img // Readme用的图片文件夹
 ├─pages // 页面
 │  ├─article // 文章页
+│  ├─auth // 登录页
 │  ├─details // 钢材详情页
 │  ├─home // 首页
 │  ├─index // 钢材搜索页
 │  ├─iron // 钢材信息页
-│  └─search // 钢材搜索框
+│  ├─search // 钢材搜索框
+│  └─weather // 天气页
 ├─static // tabbar图片
 └─store // vuex文件
 ```
