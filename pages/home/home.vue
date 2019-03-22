@@ -50,6 +50,7 @@
 
 <script>
 	import MyHeader from '../../components/my-header.vue'
+	import { getHotIron, getArticle } from '../../api/api.js'
 	export default {
 		components: {
 			MyHeader
@@ -93,13 +94,9 @@
 			 * 获取热门钢材
 			 */
 			getIronList() {
-				uni.request({
-					url: `${this.$store.state.rootUrl}/weapp/hot`,
-					success: (res) => {
-						console.log(res)
-						this.listData = res.data.data
-						this.listData.length = 6
-					}
+				getHotIron().then(res => {
+					this.listData = res.data
+					this.listData.length = 6
 				})
 			},
 			/**
@@ -128,24 +125,21 @@
 			 * 获取文章
 			 */
 			getArticle() {
-				uni.request({
-					url: `${this.$store.state.rootUrl}/weapp/article?status=true&pageIndex=1&pageSize=10`,
-					success: (res) => {
-						let result = res.data.data.items
-						let arr = []
-						result.forEach(v => {
-							let date = new Date(v.updated_at)
-							arr.push({
-								id: v.id,
-								title: v.title,
-								year: date.getFullYear(),
-								month: date.getMonth() + 1,
-								day: date.getDate(),
-								content: v.content
-							})
+				getArticle().then(res => {
+					let result = res.data.items
+					let arr = []
+					result.forEach(v => {
+						let date = new Date(v.updated_at)
+						arr.push({
+							id: v.id,
+							title: v.title,
+							year: date.getFullYear(),
+							month: date.getMonth() + 1,
+							day: date.getDate(),
+							content: v.content
 						})
-						this.articlesList = arr
-					}
+					})
+					this.articlesList = arr
 				})
 			}
 		}

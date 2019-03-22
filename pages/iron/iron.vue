@@ -37,6 +37,7 @@
 <script>
 	import {mapState} from 'vuex'
 	import MyHeader from '../../components/my-header.vue'
+	import { getAllIron } from '../../api/api.js'
 	export default {
 		components: {
 			MyHeader
@@ -72,27 +73,22 @@
 				this.scrollTop = -this.scrollHeight * index;
 			},
 			getCategory() {
-				
-				uni.request({
-					url: `${this.$store.state.rootUrl}/weapp/iron/all`,
-					success: (res) => {
-						console.log(res.data);
-						this.categoryList = []
-						res.data.data.map(v => {
-							this.categoryList.push({
+				getAllIron().then(res => {
+					this.categoryList = []
+					res.data.map(v => {
+						this.categoryList.push({
+							name: v.name,
+							content: {
 								name: v.name,
-								content: {
-									name: v.name,
-									logo: v.photo,
-									price: `${v.new_price}元/吨`,
-									info: v.intro
-								}
-							})
+								logo: v.photo,
+								price: `${v.new_price}元/吨`,
+								info: v.intro
+							}
 						})
-						this.subCategoryList = this.categoryList[0].content;
-						uni.hideLoading();
-					}
-				});
+					})
+					this.subCategoryList = this.categoryList[0].content;
+					uni.hideLoading();
+				})
 			}
 		},
 		onLoad: function () {

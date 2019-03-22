@@ -28,6 +28,7 @@
 <script>
 import Search from '../../components/search.vue'
 import MyHeader from '../../components/my-header.vue'
+import { searchFind } from '../../api/api.js'
 export default {
 	name: 'searchContainer',
 	components:{
@@ -50,16 +51,11 @@ export default {
 	},
 	methods: {
 		searchIron() {
-			console.log(this.ironName)
 			this.goToDetails(this.ironName)
 		},
 		getIronData() {
-			uni.request({
-				url: `${this.$store.state.rootUrl}/weapp/iron/option?name=${this.ironName}`,
-				success: (res) => {
-					console.log(res.data)
-					this.listData = res.data.data
-				}
+			searchFind(this.ironName).then(res => {
+				this.listData = res.data
 			})
 		},
 		goToDetails(name) {

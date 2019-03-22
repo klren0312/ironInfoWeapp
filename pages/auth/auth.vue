@@ -7,6 +7,7 @@
 </template>
 
 <script>
+	import { login } from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -19,33 +20,22 @@
 				uni.login({
 				  provider: 'weixin',
 				  success: (loginRes) => {
-					// 获取用户信息
-					uni.getUserInfo({
-					  provider: 'weixin',
-					  lang: 'zh_CN',
-					  success: (infoRes) => {
-						const {encryptedData, iv, signature} = infoRes
-						wx.request({
-							url: `${this.$store.state.rootUrl}/weapp/login`,
-							method: 'POST',
-							data: {
-								crypted: encryptedData,
-								iv: iv,
-								signature: signature,
-								code: loginRes.code
-							},
-							success: (res) => {
-								uni.setStorageSync('token', res.data.token)
-								this.$store.commit('SET_INFO', true)
-								console.log("is", true)
-								// 跳tabbar必须用这个...
-								uni.switchTab({
-									url: '/pages/home/home'
-								});
+						// 获取用户信息
+						uni.getUserInfo({
+							provider: 'weixin',
+							lang: 'zh_CN',
+							success: (infoRes) => {
+								const {encryptedData, iv, signature} = infoRes
+								login(encryptedData, iv, signature, loginRes.code).then(res => {
+									uni.setStorageSync('token', res.token)
+									this.$store.commit('SET_INFO', true)
+									// 跳tabbar必须用这个...
+									uni.switchTab({
+										url: '/pages/home/home'
+									});
+								})
 							}
 						})
-					  }
-					});
 				  }
 				})				
 			}

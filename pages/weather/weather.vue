@@ -30,6 +30,7 @@
 
 <script>
 	import MyHeader from '../../components/my-header.vue'
+	import { getWeather, getNews} from '../../api/api.js'
 	export default {
 		components: {
 			MyHeader
@@ -95,27 +96,16 @@
 		},
 		methods: {
 			getWeather() {
-				uni.request({
-					url: `${this.$store.state.rootUrl}/weapp/weather`,
-					method: 'GET',
-					success: (res) => {
-						this.weather = res.data.data[0].now
-						uni.hideLoading();
-					}
+				getWeather().then(res => {
+					this.weather = res.data[0].now
+					uni.hideLoading()
 				})
 			},
 			// #ifndef MP-WEIXIN
 			getNews() {
-				uni.request({
-					url: `${this.$store.state.rootUrl}/weapp/news`,
-					method: 'POST',
-					data: {
-						url: '/infzm/0'
-					},
-					success: (res) => {
-						this.newsList = res.data.data.items
-						uni.hideLoading();
-					}
+				getNews('/infzm/0').then(res => {
+					this.newsList = res.data.items
+					uni.hideLoading()
 				})
 			},
 			// #endif

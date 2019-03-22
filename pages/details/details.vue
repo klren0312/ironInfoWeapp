@@ -48,6 +48,7 @@
 	// #ifdef H5
 	import * as h5echarts from '../../components/echarts/echarts.common.min'
 	// #endif
+	import { searchIron } from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -215,42 +216,38 @@
 				return chart
 			},
 			getIronData() {
-				uni.request({
-					url: `${this.$store.state.rootUrl}/weapp/iron?name=${this.ironName}`,
-					success: (res) => {
-						if(res.data.code === 500) {
-							uni.showToast({
-								title: res.data.data,
-								duration: 2000,
-								icon: 'none'
-							});
-						} else {
-							let result = res.data.data
-							this.dataArr = []
-							this.infoArr = result.map(v => {
-								let obj = {
-									name: '',
-									data: []
-								}
-								obj.name = v.name
-								v.old_price.map(d => {
-									obj.data.push(d.price)
-								})
-								this.dataArr.push(obj)
-								return v
+				searchIron(this.ironName).then(res => {
+					if(res.code === 500) {
+						uni.showToast({
+							title: res.data,
+							duration: 2000,
+							icon: 'none'
+						});
+					} else {
+						let result = res.data
+						this.dataArr = []
+						this.infoArr = result.map(v => {
+							let obj = {
+								name: '',
+								data: []
+							}
+							obj.name = v.name
+							v.old_price.map(d => {
+								obj.data.push(d.price)
 							})
-							let x = result[0].old_price.map(v => {
-								let date = new Date(v.createdAt)
-								let myDate = (date.getMonth() + 1) + '-' + date.getDate() 
-								return myDate
-							})
-							this.chartName = result[0].name
-							this.xaxis = x
-
-							this.chartInit()
-						}
-						
-					},
+							this.dataArr.push(obj)
+							return v
+						})
+						let x = result[0].old_price.map(v => {
+							let date = new Date(v.createdAt)
+							let myDate = (date.getMonth() + 1) + '-' + date.getDate() 
+							return myDate
+						})
+						this.chartName = result[0].name
+						this.xaxis = x
+					
+						this.chartInit()
+					}
 				})
 			}
 		}

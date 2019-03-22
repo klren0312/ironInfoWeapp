@@ -17,6 +17,7 @@
 <script>
 	import GoBack from './go-back.vue'
 	import {mapState} from 'vuex'
+	import {getHotIron} from '../api/api.js'
 	export default {
 		components: {
 			GoBack
@@ -56,13 +57,9 @@
 			 * 获取热门钢材
 			 */
 			getIronList() {
-				uni.request({
-					url: `${this.$store.state.rootUrl}/weapp/hot`,
-					success: (res) => {
-						console.log(res)
-						this.listData = res.data.data
-						this.listData.length = 6
-					}
+				getHotIron().then(res => {
+					this.listData = res.data
+					this.listData.length = 6
 				})
 			},
 			/**
