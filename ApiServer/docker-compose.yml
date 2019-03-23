@@ -1,0 +1,49 @@
+version: '3'
+services: 
+  livebd:
+    image: tlgc
+    environment:
+      - NODE_ENV=production
+      - EGG_SERVER_ENV=prod
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_DATABASE=tlgc
+      - DB_PORT=3306
+      - DB_PASSWORD=root
+      - RS_PORT=6379
+      - RS_HOST=redis
+    depends_on:
+      - db
+      - redis
+    networks:
+      - docker_tlgc_zzes
+    ports:
+      - 7001:7001
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    restart: always
+    networks:
+      - docker_tlgc_zzes
+  db:
+    image: mysql:5.6
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tlgc
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    networks:
+      - docker_tlgc_zzes
+
+volumes:
+  db_data:
+
+networks:
+  docker_tlgc_zzes:
+    driver: bridge 
