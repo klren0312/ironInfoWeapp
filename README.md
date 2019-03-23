@@ -5,6 +5,7 @@
  - [ApiServer         API服务端](https://github.com/klren0312/ironInfoWeapp/tree/master/ApiServer)
  - [ServerWeb         WEB管理前端](https://github.com/klren0312/ironInfoWeapp/tree/master/ServerWeb)
  - [Weapp             小程序与H5端](https://github.com/klren0312/ironInfoWeapp/tree/master/Weapp)
+ - [相关文档](https://github.com/klren0312/ironInfoWeapp/tree/master/doc)
 
 ## 开源计划
 
