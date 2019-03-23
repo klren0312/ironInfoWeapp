@@ -46,7 +46,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		padding-top: 65upx;
+		/* padding-top: 65upx; */
 		font-size: 30upx;
 	}
 	.input {

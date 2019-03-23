@@ -91,7 +91,11 @@
         /* 小程序特有相关 */
         "appid" : "wxefe389c79a8fec0f",
         "setting" : {
-            "urlCheck" : true
+            "urlCheck" : false
         }
+    },
+    "h5" : {
+        "title" : "铜陵钢材信息网",
+        "domain" : "https://tlgc.zzes1314.cn"
     }
 }
