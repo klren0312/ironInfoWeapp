@@ -16,7 +16,6 @@
     "v-charts": "^1.19.0",
     "vm-markdown": "^0.2.8",
     "vue": "^2.6.6",
-    "vue-friendly-iframe": "^0.12.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "zstorage": "^1.0.4"

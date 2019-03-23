@@ -16,14 +16,13 @@ import myFilter from './utils/myFilter'
 import 'normalize.css'
 import Storage from 'zstorage'
 import Loading from './components/MyLoading'
-// import VueFriendlyIframe from 'vue-friendly-iframe'
 
 for(let key in myFilter) {
   Vue.filter(key, myFilter[key])
 }
 Vue.component(VeLine.name, VeLine)
 Vue.component(VePie.name, VePie)
-// Vue.component('vue-friendly-iframe', VueFriendlyIframe)
+
 Vue.prototype.$http = request
 Vue.prototype.$store = store
 Vue.prototype.$storage = Storage
