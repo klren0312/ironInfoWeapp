@@ -1,5 +1,6 @@
 <template>
-	<view class="header">
+	<view class="header" >
+		<div class="status"></div>
 		<view class="tab">
 			<go-back v-if="goBack"></go-back>
 			<image class="avatar" :src="avatar"></image>
@@ -10,6 +11,7 @@
 				<view class="scroll-view-item_x" v-for="(v,i) in listData" @click="checkoutIron(v)" :key="i">{{v.name}}</view>
 			</scroll-view>
 		</view>
+		<slot></slot>
 		<image v-if="showGif" src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
 	</view>
 </template>
@@ -28,7 +30,7 @@
 			},
 			showGif: {
 				type: 'Boolean',
-				default: true
+				default: false
 			},
 			goBack: {
 				type: 'Boolean',
@@ -44,9 +46,11 @@
 				listData: []
 			}
 		},
-		computed:mapState({
-			avatar: state => state.infos.avatarUrl
-		}),
+		computed:{
+			...mapState({
+				avatar: state => state.infos.avatarUrl
+			})
+		},
 		mounted() {
 			if(this.scroll) {
 				this.getIronList()
@@ -73,6 +77,39 @@
 </script>
 
 <style>
+.status{  
+	height: var(--status-bar-height);  
+}
+.header {
+	height: auto;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1024;
+	box-sizing: border-box;
+	text-align: center;
+	color: #fff;
+	background: #000131;
+	font-size: 54rpx;
+}
+.header .header-title {
+	display: inline-block;
+	font-size: 28upx;
+}
+.header .tab {
+	display: flex;
+	height: 88upx;
+	align-items: center;
+	padding-left: 20upx;
+	text-align: left;
+	background: transparent;
+}
+.header .tab .avatar {
+	margin-right: 20upx;
+	width: 50upx;
+	height: 50upx;
+	border-radius: 50%;
+}
 .scroll-view_x {
 	width:348upx;
 	margin-left: 20upx;
@@ -91,35 +128,8 @@
 	display: inline-block;
 	font-size: 28upx;
 }
-.header {
-	padding-top: 70upx;
-	box-sizing: border-box;
-	height: 78px;
-	background: #376956;
-	position: fixed;
-	width: 100%;
-	top: 0;
-	z-index: 1024;
-	text-align: center;
-	color: #fff;
-	font-size: 54rpx;
-}
-.header .header-title {
-	display: inline-block;
-	font-size: 28upx;
-}
-.header .tab {
-	display: flex;
-	align-items: center;
-	padding-left: 20upx;
-	height: 30px;
-	text-align: left;
-	background: transparent;
-}
-.header .tab .avatar {
-	margin-right: 20upx;
-	width: 50upx;
-	height: 50upx;
-	border-radius: 50%;
-}
+
+
+
+
 </style>

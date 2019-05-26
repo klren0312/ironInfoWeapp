@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<my-header title="文章详情" :goBack="true"></my-header>
 		<scroll-view class="scontent" scroll-x>
 			<!-- #ifndef H5 -->
 			<wxParse :content="content" />
@@ -26,7 +25,6 @@
 </template>
 
 <script>
-	import MyHeader from '../../components/my-header.vue'
 	import marked from '../../components/marked'
 	// #ifndef H5
 	import wxParse from '../../components/mpvue-wxparse/src/wxParse.vue'
@@ -35,9 +33,8 @@
 		name: 'articlePage',
 		components: {
 			// #ifndef H5
-			wxParse,
+			wxParse
 			// #endif
-			MyHeader
 		},
 		data() {
 			return {
@@ -88,9 +85,6 @@
 	@import url("../../components/mpvue-wxparse/src/wxParse.css");
 	.header {
 		height: 100px;
-	}
-	.scontent {
-		margin-top: 210upx;
 	}
 	.iron-contact {
 		text-align: center;
