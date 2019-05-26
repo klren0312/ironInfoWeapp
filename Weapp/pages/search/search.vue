@@ -1,7 +1,6 @@
 <template>
 	<view class="search-container">
 		<view class="search">
-			<my-header title="搜索钢材" :goBack="true" :showGif="false" :scroll="true"></my-header>
 			<!-- <search  @search="searchIron" :disabled="btnDisable"/> -->
 			<view class="the-search">
 				<input class="search-input" v-model="ironName" placeholder="搜索钢材"></input>
@@ -27,13 +26,11 @@
 
 <script>
 import Search from '../../components/search.vue'
-import MyHeader from '../../components/my-header.vue'
 import { searchFind } from '../../api/api.js'
 export default {
 	name: 'searchContainer',
 	components:{
-		Search,
-		MyHeader
+		Search
 	},
 	data() {
 		return {
@@ -45,7 +42,8 @@ export default {
 	mounted() {
 		let hot = uni.getStorageSync('hot')
 		if(hot) {
-			this.hotName = JSON.parse(hot)
+			this.hotName = [...new Set(JSON.parse(hot))]
+			
 		}
 		this.getIronData()
 	},
@@ -115,8 +113,8 @@ export default {
 	display: flex;
 	justify-content: center;
 	height:100rpx;
-	padding: 176rpx 24rpx 44rpx;
-	background-color: #00BFFF;
+	padding:30rpx 24rpx 44rpx;
+	background-color:#000131;
 	background-repeat: no-repeat;
 	background-position-y:39px;
 }

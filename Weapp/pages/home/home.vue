@@ -8,14 +8,30 @@
 			</swiper-item>
 		</swiper>
 		<!-- 热门钢材 -->
-		<view class="hot-iron">
-			<view class="one-line">
-				<view v-for="(v, i) in listData" :key="i" @click="seeDetails(v)" class="iron-item">
-					<view class="iron-icon"></view>
-					<view class="iron-name">{{v.name}}</view>
+		<swiper class="swiper hot-iron" indicator-dots>
+			<swiper-item>
+				<view class="one-line">
+					<view v-for="(v, i) in listData" :key="i" @click="seeDetails(v)" class="iron-item">
+						<view class="iron-icon"></view>
+						<view class="iron-name">{{v.name}}</view>
+					</view>
 				</view>
-			</view>
-		</view>
+			</swiper-item>
+			<swiper-item>
+				<view class="one-line">
+					<view v-for="(v, i) in historyList" :key="i" @click="searchSome(v)" class="iron-item">
+						<template v-if="v !== 'search'">
+							<view class="iron-icon"></view>
+							<view class="iron-name">{{v}}</view>
+						</template>
+						<template v-else>
+							<icon type="search" size="30"/>
+							<view class="iron-name">搜索钢材</view>
+						</template>
+					</view>
+				</view>
+			</swiper-item>
+		</swiper>
 		<!-- 公告栏 -->
 		<view class="article">
 			<view v-for="v in articlesList" :key="v.id" @click="seeArticle(v)" class="article-card">
@@ -50,7 +66,10 @@
 
 <script>
 	import MyHeader from '../../components/my-header.vue'
-	import { getHotIron, getArticle } from '../../api/api.js'
+	import {
+		getHotIron,
+		getArticle
+	} from '../../api/api.js'
 	export default {
 		components: {
 			MyHeader
@@ -67,7 +86,8 @@
 				interval: 5000,
 				duration: 1000,
 				listData: [],
-				articlesList: []
+				articlesList: [],
+				historyList: []
 			};
 		},
 		onShareAppMessage() {
@@ -81,13 +101,24 @@
 		},
 		onPullDownRefresh() {
 			this.getArticle()
-			setTimeout(function () {
+			setTimeout(function() {
 				uni.stopPullDownRefresh();
 			}, 1000);
 		},
-		mounted() {
+		onShow() {
 			this.getIronList()
 			this.getArticle()
+			// 获取搜索历史
+			let history = uni.getStorageSync('hot')
+			this.historyList = []
+			if(history) {
+				this.historyList= [...new Set(JSON.parse(history))]
+				if (this.historyList.length < 6) {
+					this.historyList.push('search')
+				}
+			} else {
+				this.historyList.push('search')
+			}
 		},
 		methods: {
 			/**
@@ -102,10 +133,22 @@
 			/**
 			 * 查看钢材详情
 			 */
-			seeDetails(v) {
+			seeDetails(v, isHistory = false) {
 				uni.navigateTo({
-					url: `/pages/details/details?ironName=${v.name}`
+					url: `/pages/details/details?ironName=${!isHistory ? v.name : v}`
 				});
+			},
+			/**
+			 * 搜索钢材
+			 */
+			searchSome(v) {
+				if (v === 'search') {
+					uni.navigateTo({
+						url: '/pages/search/search'
+					})
+				} else {
+					this.seeDetails(v, true)
+				}
 			},
 			/**
 			 * 查看文章
@@ -150,6 +193,7 @@
 	.header {
 		background: transparent;
 	}
+
 	.banner-img {
 		width: 100%;
 		height: 100%;

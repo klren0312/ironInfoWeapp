@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<my-header title="钢材详情" :goBack="true"></my-header>
 		<view class="chart">
 			<!-- #ifdef H5 -->
 			<view id="h5-chart" style="width: 100%;"></view>
@@ -40,7 +39,6 @@
 </template>
 
 <script>
-	import MyHeader from '../../components/my-header.vue'
 	// #ifndef H5
 	import * as echarts from '../../components/echarts/echarts.common.min'
 	import mpvueEcharts from '../../components/mpvue-echarts/echarts.vue'
@@ -67,7 +65,6 @@
 			}
 		},
 		components:{
-			MyHeader,
 			// #ifndef H5
 			mpvueEcharts
 			// #endif
@@ -255,14 +252,10 @@
 </script>
 
 <style>
-.header {
-	height: 100px;
-}
 .chart {
 	height: 500upx;
 	display: flex;
 	flex: 1;
-	margin-top: 210upx;
 }
 .details-card {
   margin: 62upx 89upx;

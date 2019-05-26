@@ -1,6 +1,13 @@
 <template>
 	<view class="container">
-		<my-header title="钢材总览"></my-header>
+		<my-header title="钢材总览">
+			<view class="iron-num">
+				<view class="num-item">
+					钢材总数: {{total}} 种
+				</view>
+			</view>
+		</my-header>
+		<view class="blank"></view>
 		<view class="page-body">
 			<scroll-view class="nav-left" scroll-y :style="'height:'+height+'px'">
 				<view class="nav-left-item" @click="categoryClickMain(item,index)" :key="index" :class="index==categoryActive?'active':''"
@@ -49,7 +56,8 @@
 				height: 0,
 				categoryActive: 0,
 				scrollTop: 0,
-				scrollHeight: 0
+				scrollHeight: 0,
+				total: 0
 			}
 		},
 		onShareAppMessage() {
@@ -75,6 +83,7 @@
 			getCategory() {
 				getAllIron().then(res => {
 					this.categoryList = []
+					this.total = res.data.length
 					res.data.map(v => {
 						this.categoryList.push({
 							name: v.name,
@@ -96,17 +105,28 @@
 				title: '加载中'
 			})
 			this.getCategory();
-			this.height = uni.getSystemInfoSync().windowHeight;
+			this.height = uni.getSystemInfoSync().windowHeight
 		}
 	}
 </script>
 
 <style>
+	.blank {
+		height: 186upx;
+	}
 	.page-body {
 		display: flex;
-		margin-top: 140upx;
+		/* margin-top: 90px; */
 	}
-
+	.iron-num {
+		padding-left: 20upx;
+		display: flex;
+		align-items: center;
+		line-height: 2;
+		font-size: 24upx;
+		background: #000131;
+		color: #fff;
+	}
 	.nav {
 		display: flex;
 		width: 100%;
@@ -114,7 +134,8 @@
 
 	.nav-left {
 		width: 30%;
-		border: solid 1upx #E0E0E0;
+		overflow-y:auto;
+		/* border: solid 1upx #E0E0E0; */
 	}
 
 	.nav-left-item {
