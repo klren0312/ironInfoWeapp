@@ -28,11 +28,22 @@
 								const {encryptedData, iv, signature} = infoRes
 								login(encryptedData, iv, signature, loginRes.code).then(res => {
 									uni.setStorageSync('token', res.token)
+									uni.setStorageSync('openId', res.openId)
 									this.$store.commit('SET_INFO', true)
 									// 跳tabbar必须用这个...
 									uni.switchTab({
 										url: '/pages/home/home'
 									});
+								}).catch(e => {
+									if (e.hasOwnProperty('token')) {
+										uni.setStorageSync('token', e.token)
+										uni.setStorageSync('openId', e.openId)
+										this.$store.commit('SET_INFO', true)
+										// 跳tabbar必须用这个...
+										uni.switchTab({
+											url: '/pages/home/home'
+										})
+									}
 								})
 							}
 						})

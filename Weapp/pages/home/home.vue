@@ -172,7 +172,7 @@
 					let result = res.data.items
 					let arr = []
 					result.forEach(v => {
-						let date = new Date(v.updated_at)
+						let date = new Date(v.created_at)
 						arr.push({
 							id: v.id,
 							title: v.title,
@@ -287,7 +287,10 @@
 	}
 
 	.qrcodes .qrcode {
-		width: 200rpx;
-		height: 200rpx;
+		width: 200upx;
+		height: 200upx;
+	}
+	.swiper {
+		height: 400upx;
 	}
 </style>

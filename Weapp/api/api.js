@@ -73,3 +73,15 @@ export function login (crypted, iv, signature, code) {
 		}
 	})
 }
+
+// 计数
+export function countUser (openId, history) {
+	console.log(openId)
+	return request ({
+		url: `${store.state.rootUrl}/weapp/${openId}`,
+		method: 'PUT',
+		data: {
+			history: history
+		}
+	})
+}

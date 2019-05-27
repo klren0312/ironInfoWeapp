@@ -50,7 +50,8 @@
         /* 小程序特有相关 */
         "appid" : "wxefe389c79a8fec0f",
         "setting" : {
-            "urlCheck" : false
+            "urlCheck" : false,
+            "postcss" : false
         }
     },
     "h5" : {
