@@ -28,5 +28,9 @@ export function addUser (user) {
 }
 
 export function login (user) {
-  return request(`/user/login`, user)
+  return request({
+    url: `/user/login`,
+    method: 'post',
+    data: user
+  })
 }
