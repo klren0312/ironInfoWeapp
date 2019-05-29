@@ -95,7 +95,7 @@ export default {
       })
     },
     getUser() {
-      getWxSum().get('/wechatUser').then(res => {
+      getWxSum().then(res => {
         this.ageData.rows = res.ages
         this.genderData.rows = res.genders
       })
