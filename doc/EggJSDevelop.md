@@ -145,6 +145,7 @@ $ yarn start
 
 ## 2.5 项目相关文件说明
 所有代码均在'use strict'严格模式下开发
+
 ### 2.5.1 extend
 >包含四个对象对应的文件，以及一个helper工具类
 
@@ -175,33 +176,41 @@ module.exports = {
 >对应Application对象
 
 访问方式：
+
  - ctx.app
  - Controller, Middleware, Helper, Service中都能使用this.app访问，例如this.app.config访问配置对象
  - 将app对象作为函数的第一个参数注入 module.exports = app => {}
+
 3.context.js
 >对应context对象
 
 访问方式：
+
  - middleware中this就是 ctx
  - controller中使用this.ctx访问
  - helper,service中使用this.ctx访问
+
 4.request.js
 >对应request.js对象
 
 访问方式：
  - ctx.request
 相关方法：
+
  - ctx.request.body 获取客户端请求的body参数
  - ctx.request.headers 获取客户端请求的header
  - ctx.request.query/ctx.query 获取URL内的参数
  - ctx.request.params 获取路由配置的参数
+
 5.response.js
 >对应response.js对象
 
 访问方式：
  - ctx.response
 相关方法：
+
  - ctx.response.body/ctx.body 响应给客户端的body参数
+
 6.helper.js
 >工具类，将请求成功和请求失败返回封装的函数以及错误码的封装写到里面
 
@@ -279,6 +288,7 @@ module.exports = {
 ctx.helper.success({ ctx, code:200, res:'success' })
 ctx.helper.fail({ ctx, code:500, res:'fail' })
 ```
+
 ### 2.5.2 配置文件
 1.plugin.js
 >引入第三方插件
@@ -297,10 +307,13 @@ exports.jwt = {
   package: 'egg-jwt'
 }
 ```
+
 2.config.{{env}}.js 
 访问方式：
+
  - this.app.config
  - this.config
+
 代码格式：
 ```javascript
 'use strict'
@@ -332,9 +345,11 @@ module.exports = appInfo => {
   }
 }
 ```
+
  - 默认配置放置在config.default.js,所有环境都会加载
  - 本地环境使用config.local.js
  - 开发环境使用config.prod.js
+
 2.5.3 Middleware
 >中间件。对于一些错误拦截，请求处理，需要使用中间件完成。
 
@@ -399,10 +414,12 @@ module.exports = (option, app) => {
   }
 }
 ```
+
 ### 2.5.4 Service
 >保持Controller中逻辑简洁，以及业务逻辑的独立性，抽象出的Service可以被多个Controller调用。比如封装数据库操作的方法，API请求封装，第三方服务调用等。
 
 访问方式：
+
  - this.service
 Service支持多级目录，访问的时候可以通过目录名级联访问
  - app/service/biz/user.js => ctx.service.biz.user
@@ -411,6 +428,7 @@ Service支持多级目录，访问的时候可以通过目录名级联访问
 代码格式（类的方式）：
  - 类名使用首字母大写的驼峰命名法
  - 获取ctx,app,service,config,logger等对象使用const {对象} = this的方式获取
+
 ```javascript
 'use strict'
 
@@ -445,6 +463,7 @@ async addGift(livecode) {
 >三种功能，处理restful接口用户传来的参数；模板渲染；请求代理
 
 访问方式：
+
  - 可以支持多级目录，访问的时候可以通过目录名级联访问
 例如：
  - app.controller.post.create() // 代码放在 app/controller/post.js
@@ -452,6 +471,7 @@ async addGift(livecode) {
 代码格式（类的方式）：
  - 命名使用文件名首字母大写+Controller
  - 获取ctx,app,service,config,logger等对象使用const {对象} = this的方式获取
+
 ```javascript
 'use strict'
 
@@ -517,6 +537,7 @@ module.exports = app => {
 }
 ```
 带参路由，两种形式，以及获取参数的方式：
+
 1. 使用形如/uri/:id的uri，在Controller中使用ctx.request.params获取 例如：
 ```javascript
 // router.js
@@ -535,6 +556,7 @@ router.get('/user?id=1&age=1', controller.user.msg)
 const { ctx } = this
 const { id, age } = ctx.query
 ```
+
 ## 2.6 安全配置
 >开发的时候关闭csrf，防止无法请求接口
 
@@ -596,6 +618,7 @@ module.exports = app => {
 
  - 文件名为表名
  - 在文件前面引入需要的字段类型const {类型} = Sequelize
+
 代码格式：
 ```javascript
 'use strict'
@@ -711,12 +734,14 @@ module.exports = app => {
 }
 ```
 ### 2.7.4 migrations的使用
+
  - 使用yarn migrate:new生成初始化文件。
  - 将需要生成的表中的字段填入文件的up方法里，在down中填入删除表的方法。
  - 若需生成数据表，则使用yarn migrate:up。
  - 若需要删除数据表，则使用yarn migrate:down。
  - migrations文件命名为'时间+表名.js'。
  - 数据库迁移中要在up方法中要添加id字段、时间字段createAt和updateAt。
+
 ### 2.7.5 操作数据库
 >一般在Service中进行数据库操作，常用方法有findOne, findAll, create, destory, update等。文档参考：https://demopark.github.io/sequelize-docs-Zh-CN/models-usage.html
 
@@ -756,18 +781,23 @@ config.redis = {
 cheat-sheets/redis/
 
 调用方法：
+
  - app.redis
+
 常用方法：
+
  - app.redis.expire(键名, 时间) 设置键的失效时间
  - app.redis.lpush(键名, 值) 存入列表
  - app.redis.lrange(键名, 起始位, 终止位) 读取列表
  - app.redis.set(键名, 值, 时间) 设置单一键值
  - app.redis.get(键名) 获取单一键值
+
 ## 2.9 Socket.IO
 ### 2.9.1 安装
 ```bash
 $ yarn add egg-socket.io uws
 ```
+
 ### 2.9.2 启用与配置
 >在plugin.js中启用Sequlize
 
@@ -795,6 +825,7 @@ config.io = {
   }
 }
 ```
+
 ### 2.9.3 文件格式
 新建名为io的文件夹，并在其中分别建立两个文件夹controller和middleware，控制器和中间件的文件命名格式以及编码格式与eggjs的一样目录如下：
 ```
@@ -802,12 +833,15 @@ io
 ├── controller
 └── middleware
 ```
+
 ### 2.9.4 Socket.IO路由配置
 通过io.of设置命名空间，route()方法第一个参数是订阅的话题，第二个是使用的控制器
 ```javascript
 app.io.of('/').route('new message', io.controller.chat.newMessage)
 ```
+
 ### 2.9.5 使用方法
+
 1. 获取url参数
 ```javascript
 const {参数} = this.socket.handshake.query
@@ -830,15 +864,18 @@ this.app.io.of('/').adapter.clients([房间], (err, clients) => {
 const nsp = this.app.io.of('/')
 ```
 6. 推送数据
+
  - this.ctx.socket.emit('主题', '信息') // 只有发送者能看到
  - this.ctx.socket.broadcast('主题', '信息') // 只要发送者不能看到，其他人都能看到
  - this.app.io.emit('主题', '信息')   // 所有人都能看到
  - this.app.io.of('命名空间').to('房间').emit('主题', '信息') // 向该命名空间下该房间内所有客户端发送
+
 ## 2.10 参数校验
 ### 2.10.1 安装
 ```bash
 $ yarn add egg-validate
 ```
+
 ### 2.10.2 启用
 在plugin.js中启用validate
 
@@ -848,6 +885,7 @@ exports.validate = {
   package: 'egg-validate'
 }
 ```
+
 ### 2.10.3 使用方法
 validate有两个参数，第一个是需要校验的参数，另一个是需要校验的对象。
 ```javascript
@@ -858,13 +896,16 @@ this.ctx.validate({
 }, user)
 ```
 ## 2.11 模板渲染(选用nunjucks)
+
  - 模板文件默认目录在app/view中
  - EggJS结合模板文档：https://eggjs.org/zh-cn/core/view.html
- - 模板语法文档：http://mozilla.github.io/nunjucks/templating.html
+ - 模板语法文档：http://mozilla.github.io/nunjucks/templating.
+
 ### 2.11.1 安装
 ```bash
 $ yarn add egg-view-nunjucks
 ```
+
 ### 2.11.2 启用与配置
 在plugin.js中启用nunjucks
 ```javascript
@@ -874,6 +915,7 @@ exports.nunjucks = {
 }
 ```
 在config.default.js中配置渲染引擎
+
 1. 对指定后缀文件使用模板引擎渲染
 ```javascript
 config.view = {
@@ -888,12 +930,16 @@ config.view = {
   defaultExtension: '.nj'
 }
 ```
+
 ### 2.11.3 使用方法
 Context对象存在三个接口使用模板引擎，使用renderString时需要指定模板引擎，如果定义了defaultViewEngine这里可以省略：
+
  - render(name, locals) 渲染模板文件，并赋值给ctx.body
  - renderView(name, locals) 渲染模板文件，仅返回不赋值
  - renderString(tpl, locals) 渲染模板字符串，仅返回不赋值
+
 例子：
+
 1. controller/home.js
 ```javascript  
 async test() {
@@ -921,17 +967,21 @@ router.get('/', controller.home.test);
   {% endfor%}
 </div>
 ```
+
 ### 2.11.4 静态文件
+
 1. 到config.js中开启static，默认是注释掉的，egg-static属于内置插件
 ```javascript
 exports.static = true;
 ```
 2. 静态文件存放路径：app/public
 3. 引用方式
+
  - 外部查看  
 http://localhost:7001/public/文件名.后缀
  - 模板调用
 public/+文件在public文件夹下的路径
+
 ## 2.12 Git规范
 ### 2.12.1 分支类型
 feature
@@ -948,8 +998,10 @@ master
  - bugfix/bug名称
 
 例子：
+
  - feature/user
  - bugfix/login_error
+
 ### 2.12.3 开发流程
 master 迁出develop分支 -> develop分支迁出feature功能分支 -> 提交pr审查代码 -> 提交QA -> 合并到develop -> 合并到master
 ### 2.12.4 提交格式
@@ -969,6 +1021,7 @@ $ git add .
 $ git cz
 ```
 4. 格式的选择
+
  - feat:     新功能提交
  - fix:      修复一个bug
  - docs:     只修改了文档
@@ -981,8 +1034,10 @@ $ git cz
  - ravis, Circle, BrowserStack, SauceLabs)
  - chore:    没有更改 `src` 或者 `test` 文件的更改
  - revert:   恢复之前的提交
+
 5. 详细问题
 记录修改的文件名? 
+
 - What is the scope of this change (e.g. component or file name)? (press enter t
 o skip)
 简短的说明? 
@@ -993,16 +1048,21 @@ o skip)
  - Are there any breaking changes? 
 修改是否影响到一些开启的issues（可不写）? 
  - Does this change affect any open issues? 
+
 ## 2.13 接口自测
 ### 2.13.1 软件
+
  - 名称：postman
  - 下载地址：https://www.getpostman.com/
+
 ### 2.13.2 操作规范
 对负责的模块单独建立文件夹，将接口存放进去。将接口请求后的数据格式与约定返回的数据格式做对比。
 # 3.RESTful API规范
 ## 3.1 请求协议
+
  - http
  - https
+
 ## 3.2 请求方法
 |请求方法	|功能|
 | -|-|
@@ -1040,27 +1100,33 @@ o skip)
 ### 3.3.4 自定义状态码
 具体而定
 ## 3.4 版本号
+
  - 通过版本号可以区分api的版本
  - 通过/api/v1/*代表v1版本
  - 通过/api/v2/*代表v2版本
+
 ## 3.5 URL规范
 RESTful API的所有操作都是针对特定资源进行的。资源就是URL所表示的，URL需要符合以下规范：
+
  - 只能是名词不能是动词
  - 小写字符
  - 不可使用下划线'_'，可以使用连字符'-'
  - CRUD不可出现在URL中
  - 参数列表要用encode
  - 避免层级过深的URI，尽量使用查询参数代替路径中的实体导航，如GET /user?sex=female&age=30
+
 具体形式如下：
 1. /api/{资源名}/{描述名}
 2. /api/{资源名}/{对象id}/{描述名}
 例子：
+
  - GET http://www.demo.com/api/v1/user/1 获取用户1的信息
  - POST http://www.demo.com/api/v1/user/login 登录
  - PUT http://www.demo.com/api/v1/user/1 更新用户1的全部信息
  - DELETE http://www.demo.com/api/v1/user/1 删除用户1
  - PATCH http://www.demo.com/api/v1/user/1 更新用户1部分信息
  - GET http://www.demo.com/api/v1/user/1/role 获取用户1的权限信息
+
 ## 3.6 请求体格式
 ```javascript
 {
@@ -1123,14 +1189,19 @@ RESTful API的所有操作都是针对特定资源进行的。资源就是URL所
 ## 3.8.1 过滤
 使用唯一的查询参数进行过滤
 例子：
+
  - GET /user?id=1 返回id等于1的用户
+ 
 ### 3.8.2 排序
 使用sort,后面跟着键名和排序方式
 例子：
+
  - GET /user?sort=age,desc 查询用户根据年龄倒序
+
 ### 3.8.4 分页
 使用limit和offset,后面跟具体数字。limit后面跟每页最多数据量，offset后面跟数据起始位。
 请求例子：
+
  - GET /user?limit=10&offset=0 获取从第0位开始的10个用户数据
 返回体例子：
 ```javascript
@@ -1145,6 +1216,8 @@ RESTful API的所有操作都是针对特定资源进行的。资源就是URL所
   }
 }
 ```
+
 ## 3.9 请求格式
+
  - Content-Type:application/json 数据发送
  - Content-Type:multipart/form-data 文件上传
