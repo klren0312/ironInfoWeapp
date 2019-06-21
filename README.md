@@ -38,7 +38,7 @@
 ![](./Weapp/img/weapp.png)
 
 ## 管理后台体验地址
-
+[http://admin.zzes1314.cn](http://admin.zzes1314.cn)
 (**用户名**: `tour`,  **密码**: `tour520`)
 
 ## 界面截图
