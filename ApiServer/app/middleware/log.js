@@ -11,7 +11,7 @@ module.exports = async (ctx, next) => {
       admin: request.body.username,
       ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       time: moment(new Date().toLocaleString()).format('YYYY-MM-DD HH:mm:ss'),
-      comment: '管理员登录'
+      comment: request.body.username === 'tour' ? '游客登录' : '管理员登录'
     })
   } else {
     const res = app.verifyToken(ctx)

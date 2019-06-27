@@ -10,6 +10,7 @@
   gender:      性别
   language:    语言
   name:        昵称
+  count:       访问小程序次数
 */
 module.exports = app => {
   const { STRING, INTEGER } = app.Sequelize
@@ -52,6 +53,10 @@ module.exports = app => {
     },
     country: {
       type: STRING,
+      allowNull: true
+    },
+    count: {
+      type: INTEGER,
       allowNull: true
     }
   }, {

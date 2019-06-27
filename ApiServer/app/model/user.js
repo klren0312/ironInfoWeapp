@@ -7,6 +7,7 @@
   email:       邮箱
   avatar:      头像
   status:      启用状态
+  role:        角色
 */
 module.exports = app => {
   const { STRING, BOOLEAN } = app.Sequelize
@@ -42,6 +43,11 @@ module.exports = app => {
       type: BOOLEAN,
       allowNull: false,
       defaultValue: true
+    },
+    role: {
+      type: STRING,
+      allowNull: false,
+      defaultValue: 'anonymous'
     }
   }, {
       timestamps: true,

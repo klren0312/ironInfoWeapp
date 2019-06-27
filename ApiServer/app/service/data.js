@@ -88,10 +88,9 @@ class DataService extends Service {
    */
   async getWeather() {
     const {ctx} = this
-    const key = ''
     const result = await ctx.helper.request({
       ctx, 
-      url: `https://api.seniverse.com/v3/weather/now.json?key=${key}&location=tongling&language=zh-Hans&unit=c`,
+      url: `https://api.seniverse.com/v3/weather/now.json?key=4mji5aocvnj6nvbo&location=tongling&language=zh-Hans&unit=c`,
       method: 'GET'
     })
     return result

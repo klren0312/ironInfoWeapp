@@ -80,7 +80,8 @@ class WeappController extends Controller {
     ctx.service.wuser.saveInfo(decode)
     const token = 'Bearer ' + app.generateJWT(decode.openId, decode.nickName)
     ctx.body = {
-      token
+      token,
+      openId: openid
     }
   }
 }

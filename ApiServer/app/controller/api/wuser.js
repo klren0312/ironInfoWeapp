@@ -29,6 +29,23 @@ class WuserController extends Controller {
     const res = { total, items, pageSize: page.pageSize, pageIndex: page.pageIndex }
     ctx.helper.success({ ctx, res: res })
   }
+
+  
+  /**
+   * 微信小程序访问计数
+   */
+  async countWx() {
+    const { ctx } = this
+    const { wuser } = ctx.service
+    const { openId } = ctx.params
+    const res = await wuser.countUserByOpenId(openId)
+    console.log(res)
+    if (res) {
+      ctx.helper.success({ ctx, res: '更新成功'})
+    } else {
+      ctx.helper.fail({ ctx, res: '更新失败' })
+    }
+  }
 }
 
 module.exports = WuserController;
