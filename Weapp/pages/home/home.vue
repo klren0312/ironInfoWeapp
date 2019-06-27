@@ -172,7 +172,7 @@
 					let result = res.data.items
 					let arr = []
 					result.forEach(v => {
-						let date = new Date(v.created_at)
+						let date = new Date(v.createdAt)
 						arr.push({
 							id: v.id,
 							title: v.title,
