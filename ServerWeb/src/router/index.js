@@ -96,15 +96,6 @@ const router = new Router({
         component: resolve => require(['@/pages/articleManage/editArticle'], resolve)
       }]
     },
-    // {
-    //   path: '/jenkinsCtrl',
-    //   component: Layout,
-    //   children: [{
-    //     name: 'jenkinsCtrl',
-    //     path: '',
-    //     component: resolve => require(['@/pages/jenkinsCtrl'], resolve)
-    //   }]
-    // },
     {
       path: '/logManage',
       component: Layout,

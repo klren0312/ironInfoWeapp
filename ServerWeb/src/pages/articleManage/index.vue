@@ -25,7 +25,7 @@
           align="center"
           min-width="180">
           <template slot-scope="scope">
-            {{scope.row.created_at | date}}
+            {{scope.row.createdAt | date}}
           </template>
         </el-table-column>
         <el-table-column

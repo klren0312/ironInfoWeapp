@@ -34,6 +34,11 @@
           </template>
         </el-table-column>
         <el-table-column
+          prop="location"
+          label="IP归属地"
+          min-width="200">
+        </el-table-column>
+        <el-table-column
           prop="comment"
           label="操作"
           min-width="150"
@@ -116,7 +121,6 @@ export default {
         this.tableData = res.items
         this.loading = false
       }).catch(() => {
-        this.$message.error('服务器通信错误')
         this.loading = false
       });
     }

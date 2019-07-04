@@ -153,9 +153,9 @@ export default {
         this.total = res.total
         this.$set(this.$data, 'tableData', res.items)
         this.loading = false
-      }).catch(() => {
-        this.$message.error('服务器通信错误')
-      });
+      }).catch(e => {
+        this.loading = false
+      })
     },
 
     openEditDialog(index, row) {

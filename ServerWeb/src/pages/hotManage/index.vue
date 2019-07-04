@@ -115,9 +115,7 @@ export default {
     getList: function() {
       this.$http.get('/iron/all').then(res => {
         this.ironList = res
-      }).catch(() => {
-        this.$message.error('服务器通信错误')
-      });
+      }).catch(e => {})
     },
     /**
      * sortable配置

@@ -6,6 +6,12 @@
         <el-form-item>
           <el-input placeholder="请输入昵称" v-model="query.nickName"></el-input>
         </el-form-item>
+        <el-form-item>
+          <el-select v-model="query.pageField" placeholder="请选择排序方式">
+            <el-option label="按id" value="id"></el-option>
+            <el-option label="按访问次数" value="count"></el-option>
+          </el-select>
+        </el-form-item>
       </el-form> 
     </div>
     <div class="table">
@@ -50,6 +56,12 @@
           </template>
         </el-table-column>
         <el-table-column
+          prop="count"
+          label="访问次数"
+          min-width="90"
+          align="center">
+        </el-table-column>
+        <el-table-column
           prop="createdAt"
           label="创建时间"
           min-width="150"
@@ -83,7 +95,8 @@ export default {
       query: {
         pageIndex: 1,
         pageSize: 10,
-        nikeName: ''
+        nikeName: '',
+        pageField: 'id'
       },
       total: 0,
       tableData: []
@@ -139,9 +152,9 @@ export default {
         this.total = res.total
         this.$set(this.$data, 'tableData', res.items)
         this.loading = false
-      }).catch(() => {
-        this.$message.error('服务器通信错误')
-      });
+      }).catch(e => {
+        this.loading = false
+      })
     }
   },
   watch: {

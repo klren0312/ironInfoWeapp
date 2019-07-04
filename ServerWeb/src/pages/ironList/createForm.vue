@@ -64,9 +64,7 @@ export default {
               photo: ''
             }
             this.$emit('cancel')
-          }).catch(() => {
-            this.$message.error('服务器通信错误')
-          });
+          }).catch(e => {})
         } else {
           return false;
         }

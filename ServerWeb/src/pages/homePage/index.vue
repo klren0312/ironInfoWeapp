@@ -63,6 +63,7 @@ export default {
     return {
       article_num: 0,
       iron_num: 0,
+      wuser_num: 0,
       options: {
         legend: {
           textStyle: {
@@ -95,7 +96,7 @@ export default {
       })
     },
     getUser() {
-      getWxSum().get('/wechatUser').then(res => {
+      getWxSum().then(res => {
         this.ageData.rows = res.ages
         this.genderData.rows = res.genders
       })
