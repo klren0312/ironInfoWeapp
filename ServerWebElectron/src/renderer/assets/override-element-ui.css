@@ -1,0 +1,95 @@
+.el-pagination {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.el-table thead th {
+  background-color: #eaedf1;
+  color: #323232;
+}
+
+/* 左侧导航 */
+.el-menu {
+  background: transparent !important;
+}
+.el-menu-item {
+  border-left: 4px solid transparent;
+  background: transparent !important;
+}
+
+.el-menu-item.is-active {
+  color: #409EFF;
+  background-color: #1890ff!important;
+}
+
+.el-collapse-item__content {
+  padding-left: 7px;
+}
+
+.el-collapse-item__arrow {
+  float: left;
+}
+
+.el-collapse {
+  border-bottom: none;
+}
+.el-pagination__total {
+  color: #fff;
+}
+.el-pagination__jump {
+  color: #fff;
+}
+/* 进度条颜色 */
+#nprogress .bar {
+  background: #1890ff !important;
+}
+
+/*页面切换动画*/
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all .3s;
+}
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(10px);
+}
+
+/* 去除谷歌浏览器自动填入表单的样式 */
+input:-webkit-autofill{
+  -webkit-box-shadow: 0 0 0 1000px white inset; 
+}
+
+/* 步骤条 */
+.el-step__head.is-process {
+  color:#4cce37;
+  border: #4cce37;
+}
+.el-step__title.is-process {
+  color:#4cce37;
+}
+.el-step__description.is-process {
+  color:#4cce37;
+}
+
+.el-button {
+  padding: 9px 12px;
+}
+
+::-webkit-scrollbar {/*滚动条整体样式*/
+  width: 10px;     /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  background: #323232;
+}
+
+::-webkit-scrollbar-track {/*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.51);
+}

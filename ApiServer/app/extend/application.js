@@ -12,10 +12,11 @@ module.exports = {
    * 生成jwt
    * @param {Int} id 用户id
    * @param {String} username 用户名
+   * @param {String} role 权限
    */
-  generateJWT(id, username) {
+  generateJWT(id, username, role) {
     const { config } = this
-    const token = this.jwt.sign({ id, username }, config.jwt.secret, {
+    const token = this.jwt.sign({ id, username, role }, config.jwt.secret, {
       expiresIn: '2 days'
     })
     return token
@@ -45,7 +46,7 @@ module.exports = {
     let token = config.jwt.getToken(ctx)
     if (check === 1) {
       if (!token) {
-        token = 'Bearer ' + this.generateJWT(user.id, user.username, user.username)
+        token = 'Bearer ' + this.generateJWT(user.id, user.username, user.role)
       }
       return {
         token,

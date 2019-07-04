@@ -34,6 +34,19 @@ class WuserService extends Service {
     }
     return info
   }
+
+  /**
+   * 通过openId来记录用户访问次数
+   */
+  async countUserByOpenId(id) {
+    return await this.ctx.model.Wuser.update({
+      count: this.app.Sequelize.literal('count+1')
+    }, {
+      where: {
+        openId: id
+      }
+    })
+  }
 }
 
 module.exports = WuserService;

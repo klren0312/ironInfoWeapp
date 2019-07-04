@@ -1,7 +1,7 @@
 'use strict';
 
 // had enabled by egg
-// exports.static = true;
+exports.static = true;
 
 // Sequelize插件
 exports.sequelize = {
@@ -43,4 +43,10 @@ exports.redis = {
 exports.nunjucks = {
   enable: true,
   package: 'egg-view-nunjucks'
+}
+
+// casbin权限
+exports.zrole = {
+  enable: true,
+  package: 'egg-zrole'
 }

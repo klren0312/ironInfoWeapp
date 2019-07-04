@@ -6,9 +6,10 @@
   id:         价格id
   iron_id:    钢材id
   price:      钢材历史价格
+  staus:      启用状态
 */
 module.exports = app => {
-  const { FLOAT, INTEGER } = app.Sequelize
+  const { FLOAT, INTEGER, BOOLEAN } = app.Sequelize
 
   const Price = app.model.define('price', {
     id: {
@@ -24,6 +25,11 @@ module.exports = app => {
     price: {
       type: FLOAT,
       allowNull: false
+    },
+    status: {
+      type: BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   }, {
       timestamps: true,
