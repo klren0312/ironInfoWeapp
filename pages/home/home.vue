@@ -98,6 +98,9 @@
 		},
 		onLoad() {
 			uni.startPullDownRefresh();
+			uni.showLoading({
+				title: '加载中'
+			})
 		},
 		onPullDownRefresh() {
 			this.getArticle()
@@ -127,7 +130,7 @@
 			getIronList() {
 				getHotIron().then(res => {
 					this.listData = res.data
-					this.listData.length = 6
+					uni.hideLoading()
 				})
 			},
 			/**
@@ -172,7 +175,7 @@
 					let result = res.data.items
 					let arr = []
 					result.forEach(v => {
-						let date = new Date(v.created_at)
+						let date = new Date(v.createdAt)
 						arr.push({
 							id: v.id,
 							title: v.title,
