@@ -9,6 +9,9 @@
 			</view>
 			<!-- #endif -->
 		</scroll-view>
+		<!--  #ifdef  MP-WEIXIN -->
+		<ad unit-id="adunit-299bbc0df0e741aa"></ad>
+		<!-- #endif -->
 		<!-- #ifndef MP-WEIXIN -->
 		<!-- 广告 -->
 		<view class="iron-contact">

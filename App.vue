@@ -4,6 +4,7 @@
 	export default {
 		onLaunch: function () {
 			console.log('App Launch')
+			this.getInfo()
 		},
 		onShow: function () {
 			console.log('App Show')

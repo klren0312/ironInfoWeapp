@@ -44,6 +44,9 @@
 					<div class="other">{{v.month}}.{{v.day}}</div>
 				</div>
 			</view>
+			<!--  #ifdef  MP-WEIXIN -->
+			<ad unit-id="adunit-299bbc0df0e741aa"></ad>
+			<!-- #endif -->
 		</view>
 
 		<!-- #ifndef MP-WEIXIN -->
@@ -70,7 +73,7 @@
 		getHotIron,
 		getArticle
 	} from '../../api/api.js'
-	import auth from '../mixin/auth'
+	import auth from '../mixin/auth.js'
 	export default {
 		name: 'HomePage',
 		mixins: [auth],
@@ -149,6 +152,7 @@
 			 */
 			searchSome(v) {
 				if (v === 'search') {
+					console.log(this.checkAuth())
 					if (this.checkAuth()) {
 						uni.navigateTo({
 							url: '/pages/search/search'
@@ -209,7 +213,7 @@
 
 	.hot-iron .one-line {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-start;
 		align-items: center;
 		flex-wrap: wrap;
 	}
@@ -264,6 +268,10 @@
 		font-size: 36upx;
 		color: #323232;
 		font-weight: bold;
+		white-space: nowrap;
+		width: 590upx;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 
 	.article-card .text .info {
