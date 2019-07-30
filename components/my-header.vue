@@ -48,7 +48,13 @@
 		},
 		computed:{
 			...mapState({
-				avatar: state => state.infos.avatarUrl
+				avatar: state => {
+					if (avatarUrl in state.infos) {
+						return state.infos.avatarUrl
+					} else {
+						return 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/slider11.png'
+					}
+				}
 			})
 		},
 		mounted() {

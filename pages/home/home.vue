@@ -70,7 +70,10 @@
 		getHotIron,
 		getArticle
 	} from '../../api/api.js'
+	import auth from '../mixin/auth'
 	export default {
+		name: 'HomePage',
+		mixins: [auth],
 		components: {
 			MyHeader
 		},
@@ -146,9 +149,11 @@
 			 */
 			searchSome(v) {
 				if (v === 'search') {
-					uni.navigateTo({
-						url: '/pages/search/search'
-					})
+					if (this.checkAuth()) {
+						uni.navigateTo({
+							url: '/pages/search/search'
+						})
+					}
 				} else {
 					this.seeDetails(v, true)
 				}

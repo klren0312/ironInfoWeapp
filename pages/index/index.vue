@@ -58,7 +58,10 @@
 	// #endif
 	import MyHeader from '../../components/my-header.vue'
 	import { searchIron } from '../../api/api.js'
+	import auth from '../mixin/auth'
 	export default {
+		name: 'SearchIndex',
+		mixins: [auth],
 		data() {
 			return {
 				// #ifndef H5
@@ -280,9 +283,11 @@
 				this.getIronData()
 			},
 			toToSearch() {
-				uni.navigateTo({
-					url: '/pages/search/search'
-				})
+				if (this.checkAuth()) {
+					uni.navigateTo({
+						url: '/pages/search/search'
+					})
+				}
 			}
 		}
 	}
