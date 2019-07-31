@@ -51,7 +51,9 @@
         "appid" : "wxefe389c79a8fec0f",
         "setting" : {
             "urlCheck" : false,
-            "postcss" : false
+            "postcss" : false,
+            "minified" : true,
+            "es6" : false
         }
     },
     "h5" : {

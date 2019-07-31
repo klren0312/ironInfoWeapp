@@ -32,6 +32,9 @@
 					</view>
 				</view>
 			</view>
+			<!--  #ifdef  MP-WEIXIN -->
+			<ad unit-id="adunit-299bbc0df0e741aa"></ad>
+			<!-- #endif -->
 			<!-- #ifndef MP-WEIXIN -->
 			<!-- 广告 -->
 			<view class="iron-contact">
@@ -58,7 +61,10 @@
 	// #endif
 	import MyHeader from '../../components/my-header.vue'
 	import { searchIron } from '../../api/api.js'
+	import auth from '../mixin/auth'
 	export default {
+		name: 'SearchIndex',
+		mixins: [auth],
 		data() {
 			return {
 				// #ifndef H5
@@ -280,9 +286,11 @@
 				this.getIronData()
 			},
 			toToSearch() {
-				uni.navigateTo({
-					url: '/pages/search/search'
-				})
+				if (this.checkAuth()) {
+					uni.navigateTo({
+						url: '/pages/search/search'
+					})
+				}
 			}
 		}
 	}

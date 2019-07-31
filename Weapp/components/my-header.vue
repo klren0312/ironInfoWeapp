@@ -1,5 +1,5 @@
 <template>
-	<view class="header" >
+	<view class="header" :class="highlight ? 'highlight' : ''">
 		<div class="status"></div>
 		<view class="tab">
 			<go-back v-if="goBack"></go-back>
@@ -43,13 +43,27 @@
 		},
 		data() {
 			return {
-				listData: []
+				listData: [],
+				highlight: false
 			}
 		},
 		computed:{
 			...mapState({
-				avatar: state => state.infos.avatarUrl
+				avatar: state => {
+					if ('avatarUrl' in state.infos) {
+						return state.infos.avatarUrl
+					} else {
+						return 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/slider11.png'
+					}
+				}
 			})
+		},
+		onPageScroll:function(e){ // 获取滚动条当前位置
+			if (e.scrollTop >= 150) {
+				this.highlight = true
+			} else {
+				this.highlight = false
+			}
 		},
 		mounted() {
 			if(this.scroll) {
@@ -109,6 +123,9 @@
 	width: 50upx;
 	height: 50upx;
 	border-radius: 50%;
+}
+.highlight {
+	background: #000089 !important;
 }
 .scroll-view_x {
 	width:348upx;
