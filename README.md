@@ -66,4 +66,4 @@
 
 ## Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/caarlos0/starcharts.svg)](https://starchart.cc/caarlos0/starcharts)
+[![Stargazers over time](https://starchart.cc/klren0312/ironInfoWeapp.svg)](https://starchart.cc/klren0312/ironInfoWeapp)
