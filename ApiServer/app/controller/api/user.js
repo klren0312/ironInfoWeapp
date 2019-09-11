@@ -1,6 +1,7 @@
 'use strict'
 
 const Controller = require('egg').Controller
+const moment = require('moment');
 
 class UserController extends Controller {
   /**
@@ -8,17 +9,41 @@ class UserController extends Controller {
    */
   async login() {
     const { ctx, app } = this
-    const { user } = ctx.service
+    const { user, log } = ctx.service
     const { password, username } = ctx.request.body
+    const { request, req } = ctx
     ctx.validate({
       username: { type: 'string', required: true },
       password: { type: 'string', required: true }
     }, ctx.request.body)
     const result = await user.findByUsername(username)
-    if (!ctx.helper.bcompare(password, result.password)) {
-      ctx.helper.fail({ ctx, res: '用户密码错误' })
+    if (!result) {
+      ctx.helper.fail({ ctx, res: '用户名或密码错误' })
+      log.addLog({
+        admin: request.body.username,
+        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+        time: moment().format('YYYY-MM-DD HH:mm:ss'),
+        comment: '无此用户, 登录密码: ' + password
+      })
       return
     }
+    if (!ctx.helper.bcompare(password, result.password)) {
+      ctx.helper.fail({ ctx, res: '用户名或密码错误' })
+
+      log.addLog({
+        admin: request.body.username,
+        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+        time: moment().format('YYYY-MM-DD HH:mm:ss'),
+        comment: '企图登录, 登录密码: ' + password
+      })
+      return
+    }
+    log.addLog({
+      admin: request.body.username,
+      ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      time: moment().format('YYYY-MM-DD HH:mm:ss'),
+      comment: request.body.username === 'tour' ? '游客登录' : '管理员登录'
+    })
     ctx.helper.success({ ctx, res: app.getUserJson(result, ctx, 1) })
   }
 
@@ -45,6 +70,19 @@ class UserController extends Controller {
     const result = await user.create(newUser)
     ctx.status = 201
     ctx.helper.success({ ctx, res: app.getUserJson(result, ctx, 0) })
+  }
+
+  /**
+   * 获取验证码
+   */
+  async getCaptcha() {
+    const { ctx } = this
+    const { user } = ctx.service
+    const captcha = await user.createCapcha()
+    ctx.session.verifyCode = captcha.text
+    ctx.set('Content-Type', 'image/svg+xml')
+    ctx.status = 200
+    ctx.body = captcha.data
   }
 
   /**
@@ -91,11 +129,11 @@ class UserController extends Controller {
   async deleteUserById() {
     const { ctx } = this
     const { user } = ctx.service
-    const user = ctx.request.body
+    const userData = ctx.request.body
     ctx.validate({
       id: { type: 'number', required: true }
-    }, user)
-    const result = await user.deleteById(user.id)
+    }, userData)
+    const result = await user.deleteById(userData.id)
     if (result !== 0) {
       ctx.helper.success({ ctx, res: '用户删除成功' })
     } else {
@@ -122,6 +160,20 @@ class UserController extends Controller {
     ])
     const res = { total, items, pageSize: page.pageSize, pageIndex: page.pageIndex }
     ctx.helper.success({ ctx, res: res })
+  }
+
+  /**
+   * 删除一个月前日志
+   */
+  async delLogBeforeMonth () {
+    const { ctx } = this
+    const { log } = ctx.service
+    const res = await log.delBeforeMonth()
+    if (res) {
+      ctx.helper.success({ ctx, res: res})
+    } else {
+      ctx.helper.fail({ ctx, res: '删除日志失败' })
+    }
   }
 
   /**
@@ -178,6 +230,24 @@ class UserController extends Controller {
     }
     cache.del(key)
     ctx.helper.success({ctx, res:'修改成功'})
+  }
+
+  /**
+   * 保存用户操作记录
+   */
+  async updateCtrl() {
+    const { ctx } = this
+    const { log } = ctx.service
+    const data = ctx.request.body
+    ctx.validate({
+      ctrlData: { type: 'string', required: true }
+    }, data)
+    const res = log.updateLogCtrl(data.ctrlData)
+    if (res) {
+      ctx.helper.success({ctx, res:'更新成功'})
+    } else {
+      ctx.helper.fail({ctx, res:'更新失败'})
+    }
   }
 }
 

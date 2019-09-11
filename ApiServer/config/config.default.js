@@ -5,11 +5,28 @@ const {SequelizeAdapter} = require('casbin-sequelize-adapter')
 module.exports = appInfo => {
   const config = exports = {};
 
+  // 修改请求body大小 防止 403 Payload Too Large
+  config.bodyParser = {
+    jsonLimit: '5mb',
+    formLimit: '6mb',
+  }
+
+  // wechat info
+  config.weapp = {
+    appId: '',
+    secret: ''
+  }
+
   // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_15323243025_4828';
+  config.keys = appInfo.name + '_11111111111_1111';
 
   // add your config here
   config.middleware = ['errorHandler', 'notfoundHandler']
+
+  // 文件上传配置
+  config.multipart = {
+    fileExtensions: ['.xlsx']
+  }
 
   // casbin 权限管理配置
   config.zrole = {
@@ -40,7 +57,7 @@ module.exports = appInfo => {
       }
     },
     adapterConfig: async () => {
-      const connect = await SequelizeAdapter.newAdapter(`mysql://${process.env.DB_USER || 'root'}:${process.env.DB_PASSWORD || 'root'}@${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || '3306'}/tlgc`, true)
+      const connect = await SequelizeAdapter.newAdapter(`mysql://${process.env.DB_USER || ''}:${process.env.DB_PASSWORD || ''}@${process.env.DB_HOST || ''}:${process.env.DB_PORT || '3306'}/tlgc`, true)
       return connect
     },
     initPolicy: zrole => {
@@ -66,14 +83,14 @@ module.exports = appInfo => {
     defaultViewEngine: 'nunjucks'
   }
 
-  // sequelize数据库配置 localhost
+  // sequelize数据库配置 
   config.sequelize = {
     dialect: 'mysql',
-    database: process.env.DB_DATABASE || 'tlgc',
-    host: process.env.DB_HOST || 'localhost',
+    database: process.env.DB_DATABASE || '',
+    host: process.env.DB_HOST || '',
     port: process.env.DB_PORT || '3306',
-    username: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || 'root',
+    username: process.env.DB_USER || '',
+    password: process.env.DB_PASSWORD || '',
     charset: 'utf8',
     collate: 'utf8_general_ci',
     timezone: 'Asia/Shanghai'
@@ -81,7 +98,7 @@ module.exports = appInfo => {
 
   // jwt 配置
   config.jwt = {
-    secret: 'jwts',
+    secret: 'ssssss',
     getToken(ctx) {
       if (
         ctx.headers.authorization &&
@@ -115,7 +132,7 @@ module.exports = appInfo => {
       port: process.env.RS_PORT || 6379,          // Redis port
       host: process.env.RS_HOST || '127.0.0.1',   // Redis host
       password: '',
-      db: 12,
+      db: 2,
     },
   }
 

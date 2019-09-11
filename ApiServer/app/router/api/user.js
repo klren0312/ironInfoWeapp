@@ -3,6 +3,8 @@
 module.exports = app => {
   const { controller, middleware, apiV1Router } = app
  
+  // test
+  apiV1Router.get('/test', controller.api.home.index)
 
   // 用户注册
   apiV1Router.post('/user/register', app.jwt, controller.api.user.register)
@@ -22,9 +24,18 @@ module.exports = app => {
   // 获取用户日志
   apiV1Router.get('/log', app.jwt, middleware.pagination, controller.api.user.getUserLog)
 
+  // 获取用户动作日志
+  apiV1Router.put('/log/record', app.jwt, middleware.pagination, controller.api.user.updateCtrl)
+
+  // 删除一个月前日志
+  apiV1Router.delete('/log', app.jwt, controller.api.user.delLogBeforeMonth)
+
   // 发送重置邮件
   apiV1Router.post('/email', controller.api.user.sentResetPassCode)
 
   // 重置密码
   apiV1Router.post('/reset', controller.api.user.resetPassword)
+
+  // 图片验证码
+  apiV1Router.get('/captcha', controller.api.user.getCaptcha)
 }

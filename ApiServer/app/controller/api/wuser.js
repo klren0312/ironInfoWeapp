@@ -7,20 +7,24 @@ class WuserController extends Controller {
    * 分页获取小程序用户
    */
   async getInfo() {
-    const { ctx } = this
+    const { ctx, app } = this
     let { page } = ctx
     const { common } = ctx.service
     const search = ctx.request.query
     let where = {}
-    if(search.hasOwnProperty('nickName')&& search.nickName !== '') {
+    if(search.hasOwnProperty('nickName') && search.nickName !== '') {
       where = {
-        nickName: { $like: `%${search.nickName}%` }
+        nickName: {
+          [app.Sequelize.Op.like]: `%${search.nickName}%`
+        }
       }
     }
     page = {
       ...page,
-      pageField: 'id',
       pageSort: 'DESC'
+    }
+    if (!page.hasOwnProperty('pageField')) {
+      page.pageField = 'id'
     }
     const [total, items] = await Promise.all([
       common.findCount({ modelName: 'Wuser' }),
@@ -44,6 +48,21 @@ class WuserController extends Controller {
       ctx.helper.success({ ctx, res: '更新成功'})
     } else {
       ctx.helper.fail({ ctx, res: '更新失败' })
+    }
+  }
+
+  /**
+   * 微信小程序接口请求数量
+   */
+  async countReq() {
+    const { ctx } = this
+    const { wuser } = ctx.service
+    const res = await wuser.getReqCount()
+    if (res) {
+      ctx.status = 201
+      ctx.helper.success({ ctx, res: res })
+    } else {
+      ctx.helper.fail({ ctx, res: '获取失败' })
     }
   }
 }

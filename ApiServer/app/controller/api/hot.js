@@ -20,6 +20,7 @@ class HotController extends Controller {
       iron
     )
     if (result) {
+      ctx.status = 201
       ctx.helper.success({ ctx, res: '录入成功' })
     } else {
       ctx.helper.fail({ ctx, res: '录入失败' })
@@ -88,7 +89,7 @@ class HotController extends Controller {
     let where = {}
     if(search.hasOwnProperty('name')&& search.name !== '') {
       where = {
-        name: { $like: `%${search.name}%` }
+        name: { [app.Sequelize.Op.like]: `%${search.name}%` }
       }
     }
     page = {

@@ -51,8 +51,9 @@ class WeappController extends Controller {
    * @param {String} code 小程序wx.login获取的code
    */
   async getSessionKey(code) {
-    let appid = '';
-    let secret = '';
+    const { app } = this
+    let appid = app.config.weapp.appId;
+    let secret = app.config.weapp.secret;
     let grant_type = 'authorization_code';
     let wecode = code;
     // 登录接口地址

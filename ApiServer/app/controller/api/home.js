@@ -4,7 +4,9 @@ const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
   async index() {
-    this.ctx.body = 'hi, egg';
+    const { ctx, app } =  this
+    console.log(app.zrole.getFilteredPolicy(0, 'tour'))
+    ctx.body = 'hi, egg';
   }
 }
 

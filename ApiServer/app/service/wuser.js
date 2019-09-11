@@ -47,6 +47,13 @@ class WuserService extends Service {
       }
     })
   }
+
+  /**
+   * 获取微信小程序接口请求数量
+   */
+  async getReqCount() {
+    return await this.ctx.model.Path.findAll()
+  }
 }
 
 module.exports = WuserService;

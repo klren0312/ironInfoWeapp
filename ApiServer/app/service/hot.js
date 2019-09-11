@@ -9,7 +9,12 @@ class HotService extends Service {
    * @return {Object} 钢材信息
    */
   async create(iron) {
-    return await this.ctx.model.Hot.create(iron)
+    const allHotNum = await this.ctx.model.Hot.count()
+    if (allHotNum >= 6) { // 不允许超过六个
+      return false
+    } else {
+      return await this.ctx.model.Hot.create(iron)
+    }
   }
 
   /**
@@ -32,7 +37,7 @@ class HotService extends Service {
     let where = {}
     if(search.hasOwnProperty('name')&&search.name!=='') {
       where = {
-        name: { $like: `%${search.name}%` }
+        name: { [app.Sequelize.Op.like]: `%${search.name}%` }
       }
     } 
     else if (search.hasOwnProperty('id')&&search.id!=='') {

@@ -1,6 +1,8 @@
 'use strict'
 
 const Service = require('egg').Service
+const toArray = require('stream-to-array')
+const XLSX = require('node-xlsx')
 
 class IronService extends Service {
   /**
@@ -30,7 +32,9 @@ class IronService extends Service {
     let where = {}
     if(search && search.hasOwnProperty('name')) {
       where = {
-        name: { $like: `%${search.name}%` }
+        name: {
+          [this.app.Sequelize.Op.like]: `%${search.name}%`
+        }
       }
     }
     return await this.ctx.model.Iron.findAll({
@@ -49,7 +53,9 @@ class IronService extends Service {
     let where = {}
     if(search.hasOwnProperty('name')&&search.name!=='') {
       where = {
-        name: { $like: `%${search.name}%` }
+        name: {
+          [this.app.Sequelize.Op.like]: `%${search.name}%`
+        }
       }
     } 
     else if (search.hasOwnProperty('id')&&search.id!=='') {
@@ -115,6 +121,17 @@ class IronService extends Service {
       iron_id: iron.id,
       price: parseFloat(iron.price) 
     })
+  }
+
+  /**
+   * 解析excel
+   * @param {Object} stream
+   */
+  async parseExcel(stream) {
+    const parts = await toArray(stream)
+    const buffers = parts.map(part => Buffer.isBuffer(part) ? part : Buffer.from(part))
+    const buffer = Buffer.concat(buffers)
+    return XLSX.parse(buffer)
   }
 }
 

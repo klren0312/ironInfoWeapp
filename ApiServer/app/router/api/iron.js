@@ -21,4 +21,7 @@ module.exports = app => {
 
   // 更新钢材价格
   apiV1Router.post('/iron/price', middleware.log, app.jwt, controller.api.iron.updateIronPrice)
+
+  // upload file
+  apiV1Router.post('/iron/excel', middleware.log, app.jwt, controller.api.iron.upParseExcel)
 }

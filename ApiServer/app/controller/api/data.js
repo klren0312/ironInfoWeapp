@@ -10,7 +10,7 @@ class DataController extends Controller {
     const {ctx} = this
     const { data } = ctx.service
     let result = await data.getWechatToken()
-    ctx.body =   result.data
+    ctx.body = result
   }
 
   /**

@@ -29,6 +29,7 @@ class IronController extends Controller {
       price: tiron.new_price
     })
     if (priceResult) {
+      ctx.status = 201
       ctx.helper.success({ ctx, res: '录入成功' })
     } else {
       ctx.helper.fail({ ctx, res: '录入失败' })
@@ -75,14 +76,14 @@ class IronController extends Controller {
    * 获取钢材列表
    */
   async getIronList() {
-    const { ctx } = this
+    const { ctx, app } = this
     let { page } = ctx
     const { common } = ctx.service
     const search = ctx.request.query
     let where = {}
     if(search.hasOwnProperty('name')&& search.name !== '') {
       where = {
-        name: { $like: `%${search.name}%` }
+        name: { [app.Sequelize.Op.like]: `%${search.name}%` }
       }
     }
     page = {
@@ -127,7 +128,17 @@ class IronController extends Controller {
     } else {
       ctx.helper.fail({ ctx, res: '价格更新失败' })
     }
+  }
 
+  /**
+   * 上传并解析excel
+   */
+  async upParseExcel() {
+    const { ctx } = this
+    const { iron } = ctx.service
+    const stream = await ctx.getFileStream()
+    const content = await iron.parseExcel(stream)
+    ctx.helper.success({ctx, res: content})
   }
 }
 
