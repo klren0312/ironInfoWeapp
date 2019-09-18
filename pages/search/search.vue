@@ -19,9 +19,6 @@
 				<scroll-view scroll-y style="height: 400px;">
 					<view v-for="(v, i) in listData" :key="i" class="list-item" @click="goToDetails(v.name)">{{v.name}}</view>
 				</scroll-view>
-				<!--  #ifdef  MP-WEIXIN -->
-				<ad unit-id="adunit-299bbc0df0e741aa"></ad>
-				<!-- #endif -->
 			</view>
 		</view>
 	</view>

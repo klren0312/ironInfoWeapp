@@ -1,18 +1,19 @@
 <template>
-	<view class="header" :class="highlight ? 'highlight' : ''">
-		<div class="status"></div>
-		<view class="tab">
-			<go-back v-if="goBack"></go-back>
-			<image class="avatar" :src="avatar"></image>
-			<view class="header-title">
-				{{title}}
+	<view :style="[{height:CustomBar + 'px'}]">
+		<view class="header fixed" :class="highlight ? 'highlight' : ''" >
+			<view class="tab">
+				<go-back v-if="goBack"></go-back>
+				<image class="avatar" :src="avatar"></image>
+				<view class="header-title">
+					{{title}}
+				</view>
+				<scroll-view v-if="scroll" class="scroll-view_x" scroll-x="true"  scroll-left="120">
+					<view class="scroll-view-item_x" v-for="(v,i) in listData" @click="checkoutIron(v)" :key="i">{{v.name}}</view>
+				</scroll-view>
 			</view>
-			<scroll-view v-if="scroll" class="scroll-view_x" scroll-x="true"  scroll-left="120">
-				<view class="scroll-view-item_x" v-for="(v,i) in listData" @click="checkoutIron(v)" :key="i">{{v.name}}</view>
-			</scroll-view>
+			<slot></slot>
+			<image v-if="showGif" src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
 		</view>
-		<slot></slot>
-		<image v-if="showGif" src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
 	</view>
 </template>
 
@@ -95,16 +96,27 @@
 	height: var(--status-bar-height);  
 }
 .header {
-	height: auto;
-	position: fixed;
-	width: 100%;
-	top: 0;
-	z-index: 1024;
 	box-sizing: border-box;
 	text-align: center;
 	color: #fff;
 	background: #000131;
 	font-size: 54rpx;
+	min-height: 0px;
+	/* #ifdef MP-WEIXIN */
+	padding-right: 220upx;
+	/* #endif */
+	/* #ifdef MP-ALIPAY */
+	padding-right: 150upx;
+	/* #endif */
+	box-shadow: 0upx 0upx 0upx;
+	z-index: 9999;
+}
+.header.fixed {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1024;
+	box-shadow: 0 1upx 6upx rgba(0, 0, 0, 0.1);
 }
 .header .header-title {
 	display: inline-block;
@@ -112,7 +124,6 @@
 }
 .header .tab {
 	display: flex;
-	height: 88upx;
 	align-items: center;
 	padding-left: 20upx;
 	text-align: left;
