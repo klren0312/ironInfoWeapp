@@ -1,18 +1,19 @@
 <template>
-	<view class="header" :class="highlight ? 'highlight' : ''">
-		<div class="status"></div>
-		<view class="tab">
-			<go-back v-if="goBack"></go-back>
-			<image class="avatar" :src="avatar"></image>
-			<view class="header-title">
-				{{title}}
+	<view class="my-header bg-gradual-blue" :style="{height: CustomBar + 'px'}">
+		<view class="header fixed bg-gradual-blue" :style="{paddingTop: StatusBar + 'px', height: CustomBar + 'px'}">
+			<view class="tab">
+				<go-back v-if="goBack"></go-back>
+				<image class="avatar" :src="avatar"></image>
+				<view class="header-title">
+					{{title}}
+				</view>
+				<scroll-view v-if="scroll" class="scroll-view_x" scroll-x="true"  scroll-left="120">
+					<view class="scroll-view-item_x" v-for="(v,i) in listData" @click="checkoutIron(v)" :key="i">{{v.name}}</view>
+				</scroll-view>
 			</view>
-			<scroll-view v-if="scroll" class="scroll-view_x" scroll-x="true"  scroll-left="120">
-				<view class="scroll-view-item_x" v-for="(v,i) in listData" @click="checkoutIron(v)" :key="i">{{v.name}}</view>
-			</scroll-view>
+			<slot></slot>
+			<image v-if="showGif" src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
 		</view>
-		<slot></slot>
-		<image v-if="showGif" src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
 	</view>
 </template>
 
@@ -26,25 +27,28 @@
 		},
 		props: {
 			title: {
-				type: 'String'
+				type: String,
+				default: ''
 			},
 			showGif: {
-				type: 'Boolean',
+				type: Boolean,
 				default: false
 			},
 			goBack: {
-				type: 'Boolean',
+				type: Boolean,
 				default: false
 			},
 			scroll: {
-				type: 'Boolean',
+				type: Boolean,
 				default: false
 			}
 		},
 		data() {
 			return {
 				listData: [],
-				highlight: false
+				highlight: false,
+				StatusBar: this.StatusBar,
+				CustomBar: this.CustomBar
 			}
 		},
 		computed:{
@@ -57,13 +61,6 @@
 					}
 				}
 			})
-		},
-		onPageScroll:function(e){ // 获取滚动条当前位置
-			if (e.scrollTop >= 150) {
-				this.highlight = true
-			} else {
-				this.highlight = false
-			}
 		},
 		mounted() {
 			if(this.scroll) {
@@ -91,20 +88,33 @@
 </script>
 
 <style>
-.status{  
-	height: var(--status-bar-height);  
+.my-header {
+	background: #000131;
 }
 .header {
-	height: auto;
+	display: flex;
+	align-items: center;
+	min-height: 0px;
+	/* #ifdef MP-WEIXIN */
+	padding-right: 220upx;
+	/* #endif */
+	/* #ifdef MP-ALIPAY */
+	padding-right: 150upx;
+	/* #endif */
+	box-shadow: 0upx 0upx 0upx;
+	box-sizing: border-box;
+	text-align: center;
+	color: #fff;
+	font-size: 54rpx;
+	background: #000131;
+	z-index: 9999;
+}
+.header.fixed {
 	position: fixed;
 	width: 100%;
 	top: 0;
 	z-index: 1024;
-	box-sizing: border-box;
-	text-align: center;
-	color: #fff;
-	background: #000131;
-	font-size: 54rpx;
+	box-shadow: 0 1upx 6upx rgba(0, 0, 0, 0.1);
 }
 .header .header-title {
 	display: inline-block;
@@ -112,7 +122,6 @@
 }
 .header .tab {
 	display: flex;
-	height: 88upx;
 	align-items: center;
 	padding-left: 20upx;
 	text-align: left;
@@ -124,11 +133,9 @@
 	height: 50upx;
 	border-radius: 50%;
 }
-.highlight {
-	background: #000089 !important;
-}
+
 .scroll-view_x {
-	width:348upx;
+	width: 290upx;
 	margin-left: 20upx;
 	font-size: 24upx;
 	white-space: nowrap;
@@ -145,8 +152,33 @@
 	display: inline-block;
 	font-size: 28upx;
 }
+.bg-gradual-red {
+	background-image: linear-gradient(45deg, #f43f3b, #ec008c);
+	color: #ffffff;
+}
 
+.bg-gradual-orange {
+	background-image: linear-gradient(45deg, #ff9700, #ed1c24);
+	color: #ffffff;
+}
 
+.bg-gradual-green {
+	background-image: linear-gradient(45deg, #39b54a, #8dc63f);
+	color: #ffffff;
+}
 
+.bg-gradual-purple {
+	background-image: linear-gradient(45deg, #9000ff, #5e00ff);
+	color: #ffffff;
+}
 
+.bg-gradual-pink {
+	background-image: linear-gradient(45deg, #ec008c, #6739b6);
+	color: #ffffff;
+}
+
+.bg-gradual-blue {
+	background-image: linear-gradient(45deg, #0081ff, #1cbbb4);
+	color: #ffffff;
+}
 </style>

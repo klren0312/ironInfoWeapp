@@ -12,7 +12,7 @@
 .wxParse {
   width: 100%;
   font-family: Helvetica, sans-serif;
-  font-size: 30px;
+  font-size: 30upx;
   color: #666;
   line-height: 1.8;
 }
@@ -32,43 +32,44 @@
   padding: 0;
 }
 
-.wxParse .h1 {
+.wxParse .h1 .text {
   font-size: 2em;
   margin: 0.67em 0;
 }
-.wxParse .h2 {
+.wxParse .h2 .text {
   font-size: 1.5em;
   margin: 0.83em 0;
 }
-.wxParse .h3 {
+.wxParse .h3 .text {
   font-size: 1.17em;
   margin: 1em 0;
 }
-.wxParse .h4 {
+.wxParse .h4 .text {
   margin: 1.33em 0;
 }
-.wxParse .h5 {
+.wxParse .h5 .text {
   font-size: 0.83em;
   margin: 1.67em 0;
 }
-.wxParse .h6 {
+.wxParse .h6 .text {
   font-size: 0.67em;
   margin: 2.33em 0;
 }
 
-.wxParse .h1,
-.wxParse .h2,
-.wxParse .h3,
-.wxParse .h4,
-.wxParse .h5,
-.wxParse .h6,
+.wxParse .h1 .text,
+.wxParse .h2 .text,
+.wxParse .h3 .text,
+.wxParse .h4 .text,
+.wxParse .h5 .text,
+.wxParse .h6 .text,
 .wxParse .b,
 .wxParse .strong {
   font-weight: bolder;
 }
 
+
 .wxParse .p {
-  margin: 0 0;
+  margin: 1em 0;
 }
 
 .wxParse .i,
@@ -89,9 +90,9 @@
 .wxParse .pre {
   overflow: auto;
   background: #f5f5f5;
-  padding: 16px;
+  padding: 16upx;
   white-space: pre;
-  margin: 1em 0px;
+  margin: 1em 0upx;
 }
 .wxParse .code {
   display: inline;
@@ -132,7 +133,7 @@
 
 .wxParse .video {
   text-align: center;
-  margin: 22px 0;
+  margin: 22upx 0;
 }
 
 .wxParse .video-video {
@@ -148,11 +149,11 @@
 }
 
 .wxParse .blockquote {
-  margin: 10px 0;
-  padding: 22px 0 22px 22px;
+  margin: 10upx 0;
+  padding: 22upx 0 22upx 22upx;
   font-family: Courier, Calibri, "宋体";
   background: #f5f5f5;
-  border-left: 6px solid #dbdbdb;
+  border-left: 6upx solid #dbdbdb;
 }
 .wxParse .blockquote .p {
   margin: 0;
@@ -161,7 +162,7 @@
 .wxParse .ul, .wxParse .ol {
   display: block;
   margin: 1em 0;
-  padding-left: 33px;
+  padding-left: 33upx;
 }
 .wxParse .ol {
   list-style-type: disc;
@@ -169,7 +170,13 @@
 .wxParse .ol {
   list-style-type: decimal;
 }
-.wxParse .li {
+.wxParse .ol>weixin-parse-template,.wxParse .ul>weixin-parse-template {
+  display: list-item;
+  align-items: baseline;
+  text-align: match-parent;
+}
+
+.wxParse .ol>.li,.wxParse .ul>.li {
   display: list-item;
   align-items: baseline;
   text-align: match-parent;
@@ -204,22 +211,22 @@
 .wxParse .tr {
   width:100%;
   display: flex;
-  border-right: 2px solid #e0e0e0;
-  border-bottom: 2px solid #e0e0e0;
+  border-right: 2upx solid #e0e0e0;
+  border-bottom: 2upx solid #e0e0e0;
 }
 .wxParse .th,
 .wxParse .td {
   display: flex;
-  width: 1276px;
+  width: 1276upx;
   overflow: auto;
   flex: 1;
-  padding: 11px;
-  border-left: 2px solid #e0e0e0;
+  padding: 11upx;
+  border-left: 2upx solid #e0e0e0;
 }
 .wxParse .td:last {
-  border-top: 2px solid #e0e0e0;
+  border-top: 2upx solid #e0e0e0;
 }
 .wxParse .th {
   background: #f0f0f0;
-  border-top: 2px solid #e0e0e0;
+  border-top: 2upx solid #e0e0e0;
 }

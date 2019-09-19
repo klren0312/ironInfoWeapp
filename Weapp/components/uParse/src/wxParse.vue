@@ -1,15 +1,15 @@
 <!--**
- * author: F-loat <chaimaoyuan@foxmail.com>
+ * forked from：https://github.com/F-loat/mpvue-wxParse
  *
- * github地址: https://github.com/F-loat/mpvue-wxParse
+ * github地址: https://github.com/dcloudio/uParse
  *
- * for: Mpvue框架下 微信小程序富文本解析
+ * for: uni-app框架下 富文本解析
  */-->
 
 <template>
 <!--基础元素-->
 <div class="wxParse" :class="className" v-if="!loading">
-  <block v-for="node of nodes" :key="node.index">
+  <block v-for="(node,index) of nodes" :key="index">
     <wxParseTemplate :node="node" />
   </block>
 </div>
@@ -36,7 +36,7 @@ export default {
     },
     noData: {
       type: String,
-      default: '<div style="color: red;"></div>',
+      default: '<div style="color: red;">数据不能为空</div>',
     },
     startHandler: {
       type: Function,
@@ -67,12 +67,17 @@ export default {
       },
     },
   },
+	provide() {
+		return {
+			uparse: this
+		}
+	},
   components: {
     wxParseTemplate,
   },
   data() {
     return {
-      imageUrls: [],
+      imageUrls: []
     };
   },
   computed: {

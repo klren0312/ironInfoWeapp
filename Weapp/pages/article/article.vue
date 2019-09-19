@@ -2,7 +2,7 @@
 	<view>
 		<scroll-view class="scontent" scroll-x>
 			<!-- #ifndef H5 -->
-			<wxParse :content="content" />
+			<uParse :content="content" />
 			<!-- #endif -->
 			<!-- #ifdef H5 -->
 			<view class="content" v-html="content">
@@ -30,13 +30,13 @@
 <script>
 	import marked from '../../components/marked'
 	// #ifndef H5
-	import wxParse from '../../components/mpvue-wxparse/src/wxParse.vue'
+	import uParse from '../../components/uParse/src/wxParse.vue'
 	// #endif
 	export default {
 		name: 'articlePage',
 		components: {
 			// #ifndef H5
-			wxParse
+			uParse
 			// #endif
 		},
 		data() {
@@ -85,7 +85,7 @@
 </script>
 
 <style>
-	@import url("../../components/mpvue-wxparse/src/wxParse.css");
+	@import url("../../components/uParse/src/wxParse.css");
 	.header {
 		height: 100px;
 	}
