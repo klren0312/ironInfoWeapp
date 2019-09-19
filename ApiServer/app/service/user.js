@@ -1,6 +1,7 @@
 'use strict'
 
 const Service = require('egg').Service
+const svgCaptcha = require('svg-captcha')
 
 class UserService extends Service {
   /**
@@ -10,6 +11,14 @@ class UserService extends Service {
    */
   async create(user) {
     return await this.ctx.model.User.create(user)
+  }
+
+  /**
+   * 生成验证码 
+   */
+  async createCapcha() {
+    const captcha = svgCaptcha.create()
+    return captcha
   }
 
   /**
@@ -34,9 +43,6 @@ class UserService extends Service {
     const user = await this.ctx.model.User.findOne({
       where: { username }
     })
-    if (!user) {
-      this.ctx.throw(404, 'user not found')
-    }
     return user
   }
 
@@ -48,16 +54,7 @@ class UserService extends Service {
   async findById(id) {
     const { ctx } = this
     const user = await ctx.model.User.findOne({
-      where: { id },
-      include: {
-        model: this.ctx.model.UserRole,
-        attributes: ['roleId'],
-        include: {
-          model: this.ctx.model.Role,
-          as: 'role',
-          attributes: ['name'],
-        }
-      }
+      where: { id }
     })
     if (!user) {
       this.ctx.throw(404, 'user not found')
@@ -72,7 +69,7 @@ class UserService extends Service {
    * @return {Object} 更新结果
    */
   async update(values) {
-    const user = await this.ctx.model.User.findById(values.id)
+    const user = await this.ctx.service.user.findById(values.id)
     if (!user) {
       this.ctx.throw(404, 'user not found')
     }

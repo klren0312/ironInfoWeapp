@@ -63,3 +63,7 @@
 
 # 管理后台
 ![](./Weapp/img/backend.png)
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/klren0312/ironInfoWeapp.svg)](https://starchart.cc/klren0312/ironInfoWeapp)

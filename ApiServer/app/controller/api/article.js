@@ -15,6 +15,7 @@ class ArticleController extends Controller {
     }, articleInfo)
     const result = await article.create(articleInfo)
     if (result) {
+      ctx.status = 201
       ctx.helper.success({ ctx, res: '录入成功' })
     } else {
       ctx.helper.fail({ ctx, res: '录入失败' })

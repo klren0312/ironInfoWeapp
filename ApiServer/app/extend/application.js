@@ -60,5 +60,9 @@ module.exports = {
     } else {
       return { error: '联系管理员吧' }
     }
-  }
+  },
+  // 保存全局的用户wechat数据
+  wechatQueue:{},
+  // 用户批量添加好友的队列。
+  wechatAddContactQueue:[],
 }

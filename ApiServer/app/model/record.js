@@ -5,15 +5,13 @@
   admin:   用户
   ip:      登录IP
   time:    登录时间
-  comment: 说明
-  location:地点
   ctrl:    操作数据
 */
 
 module.exports = app => {
   const { INTEGER, STRING, DATE, TEXT } = app.Sequelize
 
-  const Log = app.model.define('log', {
+  const Record = app.model.define('record', {
     id: {
       type: INTEGER(11),
       primaryKey: true,
@@ -28,16 +26,8 @@ module.exports = app => {
       type: STRING(30),
       allowNull: true
     },
-    comment: {
-      type: STRING(30),
-      allowNull: true,
-    },
     time: {
       type: DATE,
-      allowNull: true,
-    },
-    location: {
-      type: STRING(233),
       allowNull: true,
     },
     ctrl: {
@@ -47,14 +37,9 @@ module.exports = app => {
   }, {
       timestamps: false,
       freezeTableName: true,
-      tableName: 'log'
+      tableName: 'record'
     })
 
 
-  Log.associate = function () {
-    app.model.Log.belongsTo(app.model.User, { foreignKey: 'user_id', targetKey: 'id' });
-  }
-
-
-  return Log
+  return Record
 }

@@ -3,11 +3,6 @@ const dayjs = require('dayjs')
 let Parser = require('rss-parser');
 let parser = new Parser();
 const Service = require('egg').Service;
-const wechat = {
-  url: 'https://api.weixin.qq.com',
-  appId: '',
-  secret: ''
-}
 
 class DataService extends Service {
   /**
@@ -15,8 +10,8 @@ class DataService extends Service {
    */
   async getWechatToken() {
     const {ctx, app} = this
-    let result = await ctx.helper.request({ctx, url: `${wechat.url}/cgi-bin/token?grant_type=client_credential&appid=${wechat.appId}&secret=${wechat.secret}`})
-    console.log('token', result.data)
+    let result = await ctx.helper.request({ctx, url: `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${app.config.weapp.appId}&secret=${app.config.weapp.secret}`})
+    ctx.logger.info('token', result.data)
     app.redis.set('weToken', result.data.access_token, 'EX', result.data.expires_in)
     return result.data.access_token
   }
@@ -31,7 +26,7 @@ class DataService extends Service {
     if(token && token !== '') {
       const result = await ctx.helper.request({
         ctx, 
-        url: `${wechat.url}/datacube/getweanalysisappiduserportrait?access_token=${token}`,
+        url: `https://api.weixin.qq.com/datacube/getweanalysisappiduserportrait?access_token=${token}`,
         method: 'POST',
         data: {
           begin_date: yesterday,
@@ -43,7 +38,7 @@ class DataService extends Service {
       token = await ctx.service.data.getWechatToken()
       const result = await ctx.helper.request({
         ctx, 
-        url: `${wechat.url}/datacube/getweanalysisappiduserportrait?access_token=${token}`,
+        url: `https://api.weixin.qq.com/datacube/getweanalysisappiduserportrait?access_token=${token}`,
         method: 'POST',
         data: {
           begin_date: yesterday,
