@@ -5,7 +5,12 @@
 			<view id="h5-chart" style="width: 100%;"></view>
 			<!-- #endif -->
 			<!-- #ifndef H5 -->
-			<mpvue-echarts lazyLoad style="width: 100%;" :echarts="echarts" :onInit="handleChart" ref="echarts" />
+			<mpvue-echarts
+				lazyLoad
+				style="width: 100%;"
+				class="ec-canvas"
+				@onInit="handleChart"
+				ref="echarts" />
 			<!-- #endif -->
 		</view>
 		<view class="details-card" v-for="(ironObj, i) in infoArr" :key="i">
@@ -203,7 +208,8 @@
 				})
 				// #endif
 			},
-			handleChart(canvas, width, height) {
+			handleChart({canvas, width, height}) {
+				echarts.setCanvasCreator(() => canvas)
 				const chart = echarts.init(canvas, null, {
 					width: width,
 					height: height
