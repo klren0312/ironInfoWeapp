@@ -5,7 +5,9 @@
 		onLaunch: function () {
 			console.log('App Launch')
 			this.getStatusBarInfo()
-			this.getInfo()
+			// #ifdef MP-WEIXIN
+			this.getInfo()			
+			// #endif
 		},
 		onShow: function () {
 			console.log('App Show')

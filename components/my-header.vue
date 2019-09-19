@@ -1,6 +1,6 @@
 <template>
-	<view :style="[{height:CustomBar + 'px'}]">
-		<view class="header fixed" :class="highlight ? 'highlight' : ''" >
+	<view class="my-header bg-gradual-blue" :style="{height: CustomBar + 'px'}">
+		<view class="header fixed bg-gradual-blue" :style="{paddingTop: StatusBar + 'px', height: CustomBar + 'px'}">
 			<view class="tab">
 				<go-back v-if="goBack"></go-back>
 				<image class="avatar" :src="avatar"></image>
@@ -27,25 +27,28 @@
 		},
 		props: {
 			title: {
-				type: 'String'
+				type: String,
+				default: ''
 			},
 			showGif: {
-				type: 'Boolean',
+				type: Boolean,
 				default: false
 			},
 			goBack: {
-				type: 'Boolean',
+				type: Boolean,
 				default: false
 			},
 			scroll: {
-				type: 'Boolean',
+				type: Boolean,
 				default: false
 			}
 		},
 		data() {
 			return {
 				listData: [],
-				highlight: false
+				highlight: false,
+				StatusBar: this.StatusBar,
+				CustomBar: this.CustomBar
 			}
 		},
 		computed:{
@@ -58,13 +61,6 @@
 					}
 				}
 			})
-		},
-		onPageScroll:function(e){ // 获取滚动条当前位置
-			if (e.scrollTop >= 150) {
-				this.highlight = true
-			} else {
-				this.highlight = false
-			}
 		},
 		mounted() {
 			if(this.scroll) {
@@ -92,15 +88,12 @@
 </script>
 
 <style>
-.status{  
-	height: var(--status-bar-height);  
+.my-header {
+	background: #000131;
 }
 .header {
-	box-sizing: border-box;
-	text-align: center;
-	color: #fff;
-	background: #000131;
-	font-size: 54rpx;
+	display: flex;
+	align-items: center;
 	min-height: 0px;
 	/* #ifdef MP-WEIXIN */
 	padding-right: 220upx;
@@ -109,6 +102,11 @@
 	padding-right: 150upx;
 	/* #endif */
 	box-shadow: 0upx 0upx 0upx;
+	box-sizing: border-box;
+	text-align: center;
+	color: #fff;
+	font-size: 54rpx;
+	background: #000131;
 	z-index: 9999;
 }
 .header.fixed {
@@ -135,11 +133,9 @@
 	height: 50upx;
 	border-radius: 50%;
 }
-.highlight {
-	background: #000089 !important;
-}
+
 .scroll-view_x {
-	width:348upx;
+	width: 290upx;
 	margin-left: 20upx;
 	font-size: 24upx;
 	white-space: nowrap;
@@ -156,8 +152,33 @@
 	display: inline-block;
 	font-size: 28upx;
 }
+.bg-gradual-red {
+	background-image: linear-gradient(45deg, #f43f3b, #ec008c);
+	color: #ffffff;
+}
 
+.bg-gradual-orange {
+	background-image: linear-gradient(45deg, #ff9700, #ed1c24);
+	color: #ffffff;
+}
 
+.bg-gradual-green {
+	background-image: linear-gradient(45deg, #39b54a, #8dc63f);
+	color: #ffffff;
+}
 
+.bg-gradual-purple {
+	background-image: linear-gradient(45deg, #9000ff, #5e00ff);
+	color: #ffffff;
+}
 
+.bg-gradual-pink {
+	background-image: linear-gradient(45deg, #ec008c, #6739b6);
+	color: #ffffff;
+}
+
+.bg-gradual-blue {
+	background-image: linear-gradient(45deg, #0081ff, #1cbbb4);
+	color: #ffffff;
+}
 </style>

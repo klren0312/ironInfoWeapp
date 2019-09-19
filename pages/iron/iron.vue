@@ -7,7 +7,6 @@
 				</view>
 			</view>
 		</my-header>
-		<view class="blank"></view>
 		<view class="page-body">
 			<scroll-view class="nav-left" scroll-y :style="'height:'+height+'px'">
 				<view class="nav-left-item" @click="categoryClickMain(item,index)" :key="index" :class="index==categoryActive?'active':''"
@@ -105,7 +104,7 @@
 				title: '加载中'
 			})
 			this.getCategory();
-			this.height = uni.getSystemInfoSync().windowHeight
+			this.height = uni.getSystemInfoSync().windowHeight - this.CustomBar
 		}
 	}
 </script>
@@ -124,7 +123,6 @@
 		align-items: center;
 		line-height: 2;
 		font-size: 24upx;
-		background: #000131;
 		color: #fff;
 	}
 	.nav {
@@ -148,11 +146,12 @@
 	}
 
 	.nav-right {
-		padding: 28upx;
+		padding: 0 28upx 0;
 		width: 70%;
 		background: #eee;
 	}
 	.nav-right .content {
+		margin-top: 20rpx;
 		padding-top: 20upx;
 		background: #fff;
 		box-shadow: 0 20px 40px -15px rgba(0,0,0,.05);
