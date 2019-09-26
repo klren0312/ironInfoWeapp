@@ -1,0 +1,41 @@
+{
+  "name": "tlgc",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "echarts": "^4.1.0",
+    "element-ui": "^2.5.4",
+    "lz-string": "^1.4.4",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "sortablejs": "^1.8.3",
+    "v-charts": "^1.19.0",
+    "vm-markdown": "^0.2.8",
+    "vue": "^2.6.6",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1",
+    "zstorage": "^1.0.4"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.5",
+    "@vue/cli-service": "^3.0.5",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

@@ -17,18 +17,21 @@
  - 2018.10 - 2019.03 开发, 上线, 迭代
  - 2019.06 管理后台添加权限
  - 2019.07 小程序登录位置调整, 广告位添加
+ - 2019.09 管理后台手机端
 
 ## 项目目录
 
  - [ApiServer         API服务端](https://github.com/klren0312/ironInfoWeapp/tree/master/ApiServer)
- - [ServerWeb         WEB管理前端](https://github.com/klren0312/ironInfoWeapp/tree/master/ServerWeb)
+ - [ServerWeb         WEB管理后台PC端](https://github.com/klren0312/ironInfoWeapp/tree/master/ServerWeb)
+ - [ServerWebMobile   WEB管理后台手机端](https://github.com/klren0312/ironInfoWeapp/tree/master/ServerWebMobile)
  - [Weapp             小程序与H5端](https://github.com/klren0312/ironInfoWeapp/tree/master/Weapp)
  - [相关文档](https://github.com/klren0312/ironInfoWeapp/tree/master/doc)
 
 ## 开源计划
 
-* [x] API服务端  
-* [x] 管理前端
+* [x] API服务端
+* [x] 管理后台PC端
+* [x] 管理后台手机端
 * [x] 小程序与H5
 * [x] 文档: 需求文档 
 * [x] 文档: API文档 
@@ -63,6 +66,9 @@
 
 # 管理后台
 ![](./Weapp/img/backend.png)
+
+# 管理后台手机端
+![](./ServerWebMobile/imgs/mobile.jpg)
 
 ## Stargazers over time
 
