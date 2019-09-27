@@ -65,11 +65,47 @@
         :total="total">
       </el-pagination>
     </div>
+    <white-space></white-space>
+    <div class="table">
+      <el-table 
+        :data="pathList" 
+        style="width: 100%" 
+        v-loading="pathLoading">
+        <el-table-column
+          prop="id"
+          label="ID"
+          min-width="80"
+          align="center">
+        </el-table-column>
+        <el-table-column
+          prop="path"
+          label="API地址"
+          min-width="180"
+          align="center">
+        </el-table-column>
+        <el-table-column
+          prop="times"
+          label="请求次数"
+          min-width="80"
+          align="center">
+        </el-table-column>
+        <el-table-column
+          prop="updatedAt"
+          label="更新时间"
+          min-width="180"
+          align="center">
+          <template slot-scope="scope">
+            {{ scope.row.updatedAt | date }}
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 <script>
 import { debounce } from '../../utils'
 import { getLog } from '@/api/log.api'
+import { getReqPath } from '@/api/wuser.api'
 export default {
   name: 'logManage',
   data() {
@@ -80,7 +116,9 @@ export default {
         pageSize: 10,
         pageIndex: 1
       },
-      tableData: []
+      tableData: [],
+      pathList: [],
+      pathLoading: false
     }
   },
   computed: {
@@ -92,6 +130,7 @@ export default {
   },
   mounted() {
     this.getDataList()
+    this.getPathList()
   },
   methods: {
     refreshData: debounce(
@@ -120,6 +159,15 @@ export default {
         this.query.pageSize = res.pageSize
         this.tableData = res.items
         this.loading = false
+      }).catch(() => {
+        this.loading = false
+      });
+    },
+    getPathList() {
+      this.pathLoading = true
+      getReqPath().then(res => {
+        this.pathList = res
+        this.pathLoading = false
       }).catch(() => {
         this.loading = false
       });

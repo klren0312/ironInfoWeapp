@@ -6,3 +6,10 @@ export function getWuser (queryString) {
     method: 'GET'
   })
 }
+
+export function getReqPath () {
+  return request({
+    url: '/wpath',
+    method: 'GET'
+  })
+}

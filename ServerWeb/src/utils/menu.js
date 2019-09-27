@@ -1,4 +1,4 @@
-module.exports = [
+const menu = [
   {
     index: 'homePage',
     name: '首页总览',
@@ -29,6 +29,11 @@ module.exports = [
     name: '用户管理',
     icon: 'el-icon-setting',
   },
+  // {
+  //   index: 'wechatPage',
+  //   name: '微信助手',
+  //   icon: 'el-icon-setting',
+  // },
   {
     index: 'logManage',
     name: '日志列表',
@@ -40,3 +45,5 @@ module.exports = [
   //   icon: 'el-icon-rank',
   // }
 ]
+
+export default menu

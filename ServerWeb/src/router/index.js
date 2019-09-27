@@ -97,6 +97,15 @@ const router = new Router({
       }]
     },
     {
+      path: '/wechatPage',
+      component: Layout,
+      children: [{
+        name: 'wechatPage',
+        path: '',
+        component: resolve => require(['@/pages/wechatPage'], resolve)
+      }]
+    },
+    {
       path: '/logManage',
       component: Layout,
       children: [{

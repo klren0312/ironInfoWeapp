@@ -6,8 +6,7 @@
       :visible.sync="updateDialog"
       width="30%">
       <div>
-        <p>1. 添加热门钢材设置, 可以添加热门钢材, 最多六个, 可以拖动列表排序</p>
-        <p>2. 添加日志列表页, 可以查看系统日志</p>
+        <p>1. 删除天气组件(导致导航无法切换的元凶)</p>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="updateDialog = false">确 定</el-button>
@@ -16,6 +15,9 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
+import { saveEvent } from '@/api/log.api'
+import LZString from 'lz-string'
 export default {
   name: 'App',
   provide() {
@@ -26,10 +28,20 @@ export default {
   data() {
     return {
       isRouterAlive: true,
-      updateDialog: false
+      updateDialog: false,
+      record: null,
+      events: [],
+      finish: false
     }
   },
+  created() {
+    // if (!process.env.NODE_ENV === 'development') {
+    //   this.initEventRecord()
+    // }
+
+  },
   mounted() {
+    this.initEventRecord()
     this.checkUpdate()
   },
   methods: {
@@ -45,6 +57,27 @@ export default {
         this.updateDialog = true
         this.$storage.set('update', true)
       }
+    },
+    initEventRecord () {
+      const that = this
+      this.record = rrweb.record({
+        emit(event) {
+          if (that.events.length >= 150) {
+            if (!that.finish) {
+              that.saveEventRecord()
+            }
+            that.record()
+            return
+          }
+          that.events.push(event)
+        }
+      })
+    },
+    saveEventRecord () {
+      const eventStr = JSON.stringify(this.events)
+      const compress = LZString.compress(eventStr)
+      this.finish = true
+      saveEvent(compress)
     }
   },
   created() {
