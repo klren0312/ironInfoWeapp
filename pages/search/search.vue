@@ -20,6 +20,12 @@
 					<view v-for="(v, i) in listData" :key="i" class="list-item" @click="goToDetails(v.name)">{{v.name}}</view>
 				</scroll-view>
 			</view>
+			<!-- #ifdef MP-WEIXIN -->
+			<view @longpress="startRecord" @touchend="stopRecord" class="voice-block" hover-class="voice-block-hover">
+				<view class="voice-icon">
+				</view>
+			</view>
+			<!-- #endif -->
 		</view>
 	</view>
 </template>
@@ -36,7 +42,8 @@ export default {
 		return {
 			hotName: [],
 			ironName: '',
-			listData: []
+			listData: [],
+			manager: null
 		}
 	},
 	mounted() {
@@ -46,8 +53,44 @@ export default {
 			
 		}
 		this.getIronData()
+		// #ifdef MP-WEIXIN
+		this.recognizeVoice()
+		// #endif
 	},
 	methods: {
+		// #ifdef MP-WEIXIN
+		recognizeVoice () {
+			const plugin = requirePlugin("WechatSI")
+			this.manager = plugin.getRecordRecognitionManager()
+			this.manager.onRecognize = function(res) {
+				console.log("current result", res.result)
+			}
+			this.manager.onStart = (res) => {
+				uni.showToast({
+					icon: 'none',
+					title: '录音开始, 请开始说话'
+				})
+			}
+			this.manager.onStop = (res) => {
+				console.log("识别结果", res.result.replace(/(。|，)/g, ''))
+				this.ironName = res.result.replace(/(。|，)/g, '')
+				uni.showToast({
+					icon: 'none',
+					title: '录音结束'
+				})
+			}
+			this.manager.onError = function(res) {
+				console.error("error msg", res.msg)
+			}
+		},
+		// #endif
+		startRecord () {
+			this.manager.start()
+		},
+		stopRecord () {
+			console.log('watch', this.manager)
+			this.manager.stop()
+		},
 		searchIron() {
 			this.goToDetails(this.ironName)
 		},
@@ -95,7 +138,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .header {
 	background: transparent;
 }
@@ -148,27 +191,61 @@ export default {
 	border-radius: 18upx;
 	height: 74upx;
 }
-.content .hot .title {
-	font-size: 28upx;
-	padding:20px;
-	padding-bottom: 0;
+.content {
+	position: relative;
+	.hot {
+		.title {
+			font-size: 28upx;
+			padding:20px;
+			padding-bottom: 0;
+		}
+		.history {
+			margin: 20upx;
+			.history-item {
+				display:inline-block;
+				font-size:28upx;
+				padding:6upx 20upx;
+				border-radius:200upx;
+				border:1upx solid #5ee1c6;
+				margin:5upx 10upx;
+			}
+		}
+	}
+	.list {
+		margin-top:40rpx;
+		.list-item {
+			padding:24rpx;
+			border-top:1px solid #dfdfdf;
+		}
+	}
 }
-.content .hot .history {
-	margin: 20upx;
+
+.voice-block {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 40rpx;
+	margin: auto;
+	width: 140upx;
+	height: 140upx;
+	line-height: 140upx;
+	border-radius: 50%;
+	border: 1upx solid #6a7cff;
+	background: #FFFFFF;
+	&.pause {
+		border: 1upx solid #d81e06;
+	}
+	.voice-icon {
+		width: 80upx;
+		height: 100%;
+		margin: 0 auto;
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAADMElEQVRYR+2XTWhUVxTHf2cmWfkFIkR0U6liBTELtYUaJe2iRVDRtZuKGp0XxUW1KckbHJkXaRq7KDV3NCp247pihKALFY2CxiwigoZW7CZioBT8WmXmHbnji4QYZ957k6ZB58Is3pt77/93zz33vv8RZniTGc7Hhw+490f9JFFLClgBrA52ZAB44I+SO/GT/F3JLlUUQadVvyPBcWDWeyBe4bPPHJXf40LGBkyldb0o1wPhfnyM73PNPicSNJLAAdbaZxU25LJyIw5kLMCmjC5I5hkSmA8cMZ5kJhN3XLXvDyv8W6hheXdG/okKGQvQSWsnykGEHpOVLaVEnbReQNmMcMxk5dD0ALp6CfhGhT25rHSXEk2ltUmUk8Bl48m30wX4FKijhmUmI3+VjGBGl5LnT2DEeLJwugDVChlPQqWI42qk/uMXEUpg4qqjCkbtXwWsNOLVCFYjWO6uinoqo/av5uD/n4NpHUZZ5OdZUs6QFg1tDY8RnpisLC6XPhP/j/clGXMoPjvKmdHA1J4N43wmgw8F6Lh6E/hShTW5rAw4ae1A+QHoN558XtIsuHqnaFyFn01WWlJpXS3KXeCW8WRduYiGAmx2tVkpWvszxpNdwbbdD6x+WcMKvPLzrLTp4Lh6GtgpsK/Lk64pAdzbposTwkNg9tsovqlHzhYFhB6Fi5LkStHiF/haYFPRqNoWpMK46L30lc9OtMvwlADaSRxXjwHf222t9dn861EZsXUJyvnA+r+jZa0+wlZbjxxo1brRBD1BnfKL8eRgObg3a4/QUq5eFWgc745tfVJToAVlFVAfTDeIcC+fpGOsDnHGXDhcy3nyVVjZSIBBJJ8Dc4DbKL+ZdjlX8pC06XaE/cAXwAvjydywcJEjODax46qtQ3YH+derSq/AUK3PoH03mqBeYbkIG1E2BuNOGU+aosDFBrQDm9t0G0KnwqelRAUeoRzqapc/osJVBGgHN7XovGSSBknSgNIAxZ9tfQh9WqCvUKCvu0OexYGrGHCiaCWu5X0LiHxISh6ICqq3/xRw3PXzVkcjXicfN2DcAxBm3JTmYBjBqH2qgFEjNrH/jI/ga6ZxcDhlML01AAAAAElFTkSuQmCC);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: contain;
+	}
 }
-.content .hot .history .history-item {
-	display:inline-block;
-	font-size:28upx;
-	padding:6upx 20upx;
-	border-radius:200upx;
-	border:1upx solid #5ee1c6;
-	margin:5upx 10upx;
-}
-.content .list {
-	margin-top:40rpx;
-}
-.content .list .list-item {
-	padding:24rpx;
-	border-top:1px solid #dfdfdf;
+.voice-block-hover {
+	background: #ddd;
 }
 </style>
