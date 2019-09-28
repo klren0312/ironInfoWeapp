@@ -54,7 +54,13 @@
             "postcss" : false,
             "minified" : true,
             "es6" : false
-        }
+        },
+				"plugins": {
+					"WechatSI": {
+						"version": "0.3.1",
+						"provider": "wx069ba97219f66d99"
+					}
+				}
     },
     "h5" : {
         "title" : "铜陵钢材信息网",
