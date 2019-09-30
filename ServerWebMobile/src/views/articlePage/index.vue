@@ -20,7 +20,7 @@
           </div>
           <template slot="right">
             <div class="ctrl-btn-group">
-              <md-switch v-model="v.status" @change="changeStatus($event, v.id)"></md-switch>
+              <md-switch v-model="v.status" @change.stop="changeStatus(v.status, v.id)"></md-switch>
             </div>
           </template>
           <template slot="btn">
@@ -121,9 +121,9 @@ export default {
      * 禁用启用文章
      */
     changeStatus (v, id) {
-      updateArticleStatus(id, status).then(res => {
+      updateArticleStatus(id, v).then(res => {
         if (res) {
-          Toast.succeed(res.message)
+          Toast.succeed(res)
         }
       })
     },
