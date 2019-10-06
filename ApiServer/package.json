@@ -37,6 +37,7 @@
     "egg-mock": "^3.14.0",
     "eslint": "^4.11.0",
     "eslint-config-egg": "^6.0.0",
+    "sequelize-cli": "^5.5.1",
     "webstorm-disable-index": "^1.2.0"
   },
   "engines": {
@@ -53,7 +54,11 @@
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
-    "autod": "autod"
+    "autod": "autod",
+    "migrate:new": "sequelize-cli migration:create",
+    "migrate:up": "sequelize-cli db:migrate",
+    "migrate:down": "sequelize-cli db:migrate:undo",
+    "create-user": "sequelize-cli db:seed:all"
   },
   "ci": {
     "version": "8"
