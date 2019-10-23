@@ -58,7 +58,7 @@ import { login } from '@/api/user.api'
       login () {
          this.$refs['loginForm'].validate((valid) => {
           if (valid) {
-            // this.loginForm.password = md5(this.loginForm.password)
+            this.loginForm.username = this.loginForm.username.trim()
             login(this.loginForm).then(res => {
               if(res) {
                 this.$message.success('登录成功')
