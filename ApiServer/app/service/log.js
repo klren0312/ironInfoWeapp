@@ -144,13 +144,13 @@ class LogService extends Service {
     const { ctx } = this
     const result = await ctx.helper.request({
       ctx, 
-      url: `http://ip.taobao.com/service/getIpInfo.php?ip=${ip}`,
+      url: `http://ip-api.com/json/${ip}?lang=zh-CN`,
       method: 'GET'
     })
     ctx.logger.info(result.data)
-    if (result.data.code === 0) {
-      const data = result.data.data
-      return `${data.country} | ${data.region} | ${data.city} | ${data.isp}`
+    if (result.data && result.data.status === 'success') {
+      const data = result.data
+      return `${data.country} | ${data.regionName} | ${data.city} | ${data.isp}`
     } else {
       return null
     }
