@@ -46,6 +46,7 @@ export default {
   },
   methods: {
     login () {
+      this.loginForm.username = this.loginForm.username.trim()
       login(this.loginForm).then(res => {
         if (res) {
           Toast.succeed('登录成功')

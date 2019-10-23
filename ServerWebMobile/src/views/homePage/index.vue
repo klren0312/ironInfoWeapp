@@ -1,6 +1,9 @@
 <template>
   <div class="home-page">
-    <z-header title="治电科技管理中心" left-icon="home"></z-header>
+    <z-header title="治电科技管理中心"
+      left-icon="back"
+      @leftClick="logout">
+    </z-header>
     <div class="dashboard">
       <div class="dashboard-item">
         <div class="number">{{articleSum}}</div>
@@ -77,6 +80,13 @@ export default {
         this.wuserSum = res.wuser_sum
         this.ironSum = res.iron_sum
       })
+    },
+    /**
+     * 退出登录
+     */
+    logout () {
+      this.$store.dispatch('LOG_OUT')
+      this.$router.push('/login')
     }
   }
 }
