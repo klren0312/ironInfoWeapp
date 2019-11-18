@@ -17,6 +17,17 @@ module.exports = appInfo => {
     secret: ''
   }
 
+  // mysql config
+  config.dbConfig = {
+    database: process.env.DB_DATABASE || 'tlgc',
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || '3306',
+    username: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    charset: 'utf8',
+    collate: 'utf8_general_ci'
+  }
+
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_11111111111_1111';
 
@@ -57,7 +68,7 @@ module.exports = appInfo => {
       }
     },
     adapterConfig: async () => {
-      const connect = await SequelizeAdapter.newAdapter(`mysql://${process.env.DB_USER || ''}:${process.env.DB_PASSWORD || ''}@${process.env.DB_HOST || ''}:${process.env.DB_PORT || '3306'}/tlgc`, true)
+      const connect = await SequelizeAdapter.newAdapter(`mysql://${config.dbConfig.username}:${config.dbConfig.password}@${config.dbConfig.host}:${config.dbConfig.port}/tlgc`, true)
       return connect
     },
     initPolicy: zrole => {
@@ -83,17 +94,16 @@ module.exports = appInfo => {
     defaultViewEngine: 'nunjucks'
   }
 
-  // sequelize数据库配置 
+  // sequelize数据库配置
   config.sequelize = {
     dialect: 'mysql',
-    database: process.env.DB_DATABASE || '',
-    host: process.env.DB_HOST || '',
-    port: process.env.DB_PORT || '3306',
-    username: process.env.DB_USER || '',
-    password: process.env.DB_PASSWORD || '',
-    charset: 'utf8',
-    collate: 'utf8_general_ci',
-    timezone: 'Asia/Shanghai'
+    database: config.dbConfig.database,
+    host: config.dbConfig.host,
+    port: config.dbConfig.port,
+    username: config.dbConfig.username,
+    password: config.dbConfig.password,
+    charset: config.dbConfig.charset,
+    collate: config.dbConfig.collate
   }
 
   // jwt 配置
