@@ -16,8 +16,8 @@
           :useSlide="false">
           <div slot="left">
             <div class="z-card-title">{{v.comment}}</div>
-            <div class="z-card-info">{{v.admin}}</div>
-            <div class="z-card-info">{{day(v.time).format('YYYY-MM-DD')}}</div>
+            <div class="z-card-info">{{v.admin}}&nbsp;&nbsp;{{day(v.time).format('YYYY-MM-DD')}}</div>
+            <div class="z-card-info">{{v.location | locationFilter}}</div>
           </div>
         </z-card>
         <md-scroll-view-more
@@ -89,6 +89,16 @@ export default {
         this.query.pageIndex = res.pageIndex
         this.logList = res.items
       })
+    }
+  },
+  filters: {
+    locationFilter: function (v) {
+      if (v) {
+        const arr = v.split('|')
+        return `${arr[0]}-${arr[1]}-${arr[2]}`
+      } else {
+        return v
+      }
     }
   }
 }
