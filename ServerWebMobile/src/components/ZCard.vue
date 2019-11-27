@@ -43,9 +43,11 @@ export default {
   },
   methods: {
     touchStart (e) {
+      if (!this.useSlide) return
       this.start = e.touches[0].clientX
     },
     touchEnd (e) {
+      if (!this.useSlide) return
       this.end = e.changedTouches[0].clientX
       // console.log(this.start, this.end, this.current)
       // console.log(this.current === 0 && this.end - this.start < -30, this.current === 1 && this.end - this.start > 30)
@@ -121,6 +123,7 @@ export default {
     position: absolute;
     right: 0;
     height: 100%;
+    border: 2px solid #fff;
     z-index: 0;
   }
   .z-card-btn {
