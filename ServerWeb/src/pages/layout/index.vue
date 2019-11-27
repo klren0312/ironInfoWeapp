@@ -62,6 +62,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.main-content {
+  height: calc(100vh - 60px);
+  box-sizing: border-box;
+}
 </style>
 
 
