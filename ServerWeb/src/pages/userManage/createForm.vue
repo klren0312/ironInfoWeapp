@@ -47,7 +47,7 @@ export default {
     submitForm: function(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.loginForm.username = this.loginForm.username.trim()
+          this.userForm.username = this.userForm.username.trim()
           addUser(this.userForm).then(res => {
             this.$message({
               type: 'success',

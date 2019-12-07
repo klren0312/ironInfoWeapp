@@ -43,6 +43,7 @@ service.interceptors.response.use(
           type: 'error',
           duration: 5 * 1000
         })
+        return false
       }
     } catch (e) { // 用于文件下载
       return response.data

@@ -9,7 +9,7 @@
       </el-form>
     </div>
     <el-dialog title="热门钢材录入" width="24%" :visible.sync="createDialog">
-      <create-form feature="create" @cancel="createDialog = false,  refreshData()"/>
+      <create-form v-if="createDialog" feature="create" :currentHot="hotData" @cancel="createDialog = false,  refreshData()"/>
     </el-dialog>
     <div class="table">
        <el-table
@@ -158,12 +158,14 @@ export default {
     getHotData() {
       this.loading = true
       getHot().then(res => {
-        this.hotData = res
-        this.total= res.length
-        this.$nextTick(_ => {
-          this.setSort()
-          this.loading = false
-        })
+        if(res !== false) {
+          this.hotData = res
+          this.total= res.length
+          this.$nextTick(_ => {
+            this.setSort()
+            this.loading = false
+          })
+        }
       })
     },
     /**
@@ -176,11 +178,13 @@ export default {
         type: 'warning'
       }).then(() => {
         deleteHot(row.id).then(res => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-          this.refreshData()
+          if(res !== false) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+            this.refreshData()
+          }
         }) 
       }).catch(() => {   
         this.$message({

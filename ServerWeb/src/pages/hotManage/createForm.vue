@@ -2,7 +2,7 @@
   <el-form  class="user-form" ref="ironForm" label-position="right" label-width="80px"  :model="ironForm">
     <el-form-item label="名称" prop="name">
       <el-select v-model="select">
-        <el-option v-for="(v,i) in ironList" :key="i" :value="JSON.stringify(v)" :label="v.name"></el-option>
+        <el-option v-for="(v,i) in canSelect" :key="i" :value="JSON.stringify(v)" :label="v.name"></el-option>
       </el-select>
     </el-form-item>
     <el-form-item label="图标链接" prop="icon">
@@ -19,6 +19,12 @@ import {createHot} from '@/api/hot.api'
 import {getAllIron} from '@/api/iron.api'
 export default {
   name: 'createForm',
+  props: {
+    currentHot: {
+      type: Array,
+      default: []
+    }
+  },
   data() {
     return {
       ironForm: {
@@ -26,7 +32,8 @@ export default {
         ironId: '',
         icon: 'default'
       },
-      ironList: [],
+      canSelect: [],
+      allIron: [],
       select: ''
     }
   },
@@ -68,7 +75,10 @@ export default {
      */
     getList: function() {
       getAllIron().then(res => {
-        this.ironList = res
+        this.allIron = res
+        this.canSelect = this.allIron.filter(a => {
+          return this.currentHot.findIndex(v => v.ironId === a.id) === -1
+        })
       }).catch(() => {
         this.$message.error('服务器通信错误')
       });

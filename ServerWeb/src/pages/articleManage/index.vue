@@ -103,11 +103,12 @@ export default {
     ),
     getArticle() {
       getArticle(this.queryString).then(res => {
-        // console.log(res)
-        this.tableData = res.items
-        this.total = res.total
-        this.query.pageIndex = res.pageIndex
-        this.query.pageSize = res.pageSize
+        if(res !== false) {
+          this.tableData = res.items
+          this.total = res.total
+          this.query.pageIndex = res.pageIndex
+          this.query.pageSize = res.pageSize
+        }
       })
     },
     deleteArticle(row) {
@@ -152,7 +153,9 @@ export default {
     },
     changeStatus(row) {
       updateArticleStatus(row.id, row.status).then(res => {
-        this.$message.success('状态修改成功')
+        if (res !== false) {
+          this.$message.success('状态修改成功')
+        }
         this.refreshData()
       })
     }
