@@ -1,107 +1,80 @@
 {
-    "pages" : [
-        //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-        {
-            "path" : "pages/home/home",
-            "style" : {
-                "navigationBarTitleText" : "钢材信息-首页",
-                "enablePullDownRefresh" : true,
-				"navigationStyle" : "custom"
-            }
-        },
-        {
-            "path" : "pages/index/index",
-            "style" : {
-                "navigationBarTitleText" : "钢材信息-搜索",
-				"navigationStyle" : "custom"
-            }
-        },
-        {
-            "path" : "pages/iron/iron",
-            "style" : {
-                "navigationBarTitleText" : "钢材信息-总览",
-				"navigationStyle" : "custom"
-            }
-        },
-        {
-            "path" : "pages/search/search",
-            "style" : {
-                "navigationBarTitleText" : "钢材信息-搜索"
-            }
-        },
-        {
-            "path" : "pages/details/details",
-            "style" : {
-                "navigationBarTitleText" : "钢材信息-钢材详情"
-            }
-        },
-        {
-            "path" : "pages/article/article",
-            "style" : {
-                "navigationBarTitleText" : "钢材信息-文章详情"
-            }
-        },
-
-        {
-            "path" : "pages/auth/auth",
-            "style" : {}
-        }
-    ],
-    //         {
-    //             "path" : "pages/my/my",
-    //             "style" : {
-    //             	"navigationBarTitleText" : "钢材信息-我的"
-    //             }
-    //         }
-	// {
-	//     "path" : "pages/weather/weather",
-	//     "style" : {
-	//         "navigationBarTitleText" : "钢材信息-天气"
-	//     }
-	// },
-    "globalStyle" : {
-        "navigationBarTextStyle" : "white",
-        "navigationBarTitleText" : "铜陵钢材信息",
-        "navigationBarBackgroundColor" : "#000131",
-        "backgroundColor" : "#000131"
-    },
-    "tabBar" : {
-        "color" : "#999",
-        "selectedColor" : "#007AFF",
-        "borderStyle" : "black",
-        "backgroundColor" : "#fff",
-        "list" : [
-            {
-                "pagePath" : "pages/home/home",
-                "iconPath" : "static/home.png",
-                "selectedIconPath" : "static/home-active.png",
-                "text" : "首页"
-            },
-            {
-                "pagePath" : "pages/iron/iron",
-                "iconPath" : "static/iron.png",
-                "selectedIconPath" : "static/iron-active.png",
-                "text" : "钢材"
-            },
-            {
-                "pagePath" : "pages/index/index",
-                "iconPath" : "static/search.png",
-                "selectedIconPath" : "static/search-active.png",
-                "text" : "搜索"
-            }
-        ]
-    }
+	"pages": [
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/home/home",
+			"style": {
+				"navigationBarTitleText": "钢材信息-首页",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "钢材信息-搜索",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/iron/iron",
+			"style": {
+				"navigationBarTitleText": "钢材信息-总览",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "钢材信息-搜索"
+			}
+		},
+		{
+			"path": "pages/details/details",
+			"style": {
+				"navigationBarTitleText": "钢材信息-钢材详情"
+			}
+		},
+		{
+			"path": "pages/article/article",
+			"style": {
+				"navigationBarTitleText": "钢材信息-文章详情"
+			}
+		},
+		{
+			"path": "pages/auth/auth",
+			"style": {}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "铜陵钢材信息",
+		"navigationBarBackgroundColor": "#000131",
+		"backgroundColor": "#000131"
+	},
+	"tabBar": {
+		"color": "#999",
+		"selectedColor": "#007AFF",
+		"borderStyle": "black",
+		"backgroundColor": "#fff",
+		"list": [{
+				"pagePath": "pages/home/home",
+				"iconPath": "static/home.png",
+				"selectedIconPath": "static/home-active.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/iron/iron",
+				"iconPath": "static/iron.png",
+				"selectedIconPath": "static/iron-active.png",
+				"text": "钢材"
+			},
+			{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/search.png",
+				"selectedIconPath": "static/search-active.png",
+				"text": "搜索"
+			}
+		]
+	}
 }
-// {
-//      "pagePath" : "pages/weather/weather",
-//      "iconPath" : "static/weather.png",
-//      "selectedIconPath" : "static/weather-active.png",
-//      "text" : "天气"
-//  }
-// 			{
-// 				"pagePath" : "pages/my/my",
-// 				"iconPath" : "static/my.png",
-// 				"selectedIconPath" : "static/my-active.png",
-// 				"text" : "我的"
-// 			}
-
