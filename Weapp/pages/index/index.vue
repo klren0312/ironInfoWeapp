@@ -10,17 +10,10 @@
 		</view>
 		<scroll-view scroll-y style="height: 450px;">
 			<view class="chart">
-				<!-- #ifdef H5 -->
-				<view id="h5-chart" style="width: 100%;"></view>
-				<!-- #endif -->
-				<!-- #ifndef H5 -->
-				<mpvue-echarts
-					lazyLoad
-					style="width: 100%;"
-					class="ec-canvas"
-					@onInit="handleChart"
-					ref="echarts" />
-				<!-- #endif -->
+				<!--#ifdef MP-ALIPAY -->
+				<canvas canvas-id="chart" id="chart" class="the-chart" disable-scroll=true @touchstart="touchLine" @touchmove="moveLine" @touchend="touchEndLine" :style="{'width':cWidth*pixelRatio+'px','height':cHeight*pixelRatio+'px', 'transform': 'scale('+(1/pixelRatio)+')','margin-left':-cWidth*(pixelRatio-1)/2+'px','margin-top':-cHeight*(pixelRatio-1)/2+'px'}"></canvas>
+				<!--#endif-->
+				<canvas canvas-id="chart" id="chart" class="the-chart" disable-scroll=true @touchstart="touchLine" @touchmove="moveLine" @touchend="touchEndLine"></canvas>
 			</view>
 			<view class="details-card" v-for="(ironObj, i) in infoArr" :key="i">
 				<image class="card-header" :src="ironObj.photo !== ''&&ironObj.photo !== null ? ironObj.photo : 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/Ocean.jpg'"></image>
@@ -33,7 +26,7 @@
 						<view>{{ironObj.intro}}</view>
 					</view>
 					<view class="card-footer">
-						{{ironObj.updatedAt}}
+						{{ironObj.updatedAt | formatDate}}
 					</view>
 				</view>
 			</view>
@@ -54,32 +47,24 @@
 </template>
 
 <script> 
-	// #ifndef H5
-	import * as echarts from '../../components/echarts/echarts.common.min'
-	import mpvueEcharts from '../../components/mpvue-echarts/echarts.vue'
-	// #endif
-	// #ifdef H5
-	import * as h5echarts from '../../components/echarts/echarts.common.min'
-	// #endif
+	import uCharts from '../../components/u-charts/u-charts.js'
 	import MyHeader from '../../components/my-header.vue'
 	import { searchIron } from '../../api/api.js'
 	import auth from '../mixin/auth'
+	let theChart = null
 	export default {
 		name: 'SearchIndex',
 		mixins: [auth],
 		data() {
 			return {
-				// #ifndef H5
-				echarts,
-				// #endif
-				// #ifdef H5
-				myChart: '',
-				// #endif
+				cWidth: '',
+				cHeight: '',
+				pixelRatio: 1,
 				btnDisable: false,
 				xaxis: null,
-				dataArr: [],
+				theSeries: [],
 				chartName: '',
-				ironName: '钢',
+				ironName: '螺纹(22mm)',
 				current: 0,
 				options: null,
 				ironObj: {},
@@ -87,10 +72,24 @@
 			}
 		},
 		components:{
-			// #ifndef H5
-			mpvueEcharts,
-			// #endif
 			MyHeader
+		},
+		onLoad() {
+			//#ifdef MP-ALIPAY
+			uni.getSystemInfo({
+				success: (res) => {
+					if(res.pixelRatio > 1){
+						this.pixelRatio = 2
+					}
+				}
+			})
+			//#endif
+			this.cWidth = uni.upx2px(750)
+			this.cHeight = uni.upx2px(500)
+			uni.showLoading({
+				title: '加载中'
+			})
+			this.getIronData(this.ironName)
 		},
 		onShow: function () {
 			try {
@@ -102,70 +101,6 @@
 				}
 			} catch (e) {
 				// error
-			}
-		},
-		mounted(){
-			uni.showLoading({
-				title: '加载中'
-			})
-			this.getIronData(this.ironName)
-			// #ifdef H5
-			this.$nextTick(_ => {
-				this.myChart = h5echarts.init(document.getElementById('h5-chart'));
-				this.myChart.setOption({
-					grid: {
-						left: 60
-					},
-					dataZoom: [{
-						type: 'slider'
-					}],
-					dataZoom: [{ 
-						"show": true,
-						fillerColor: '#f96854',
-						"realtime": true, "start": 30, "end": 100, "xAxisIndex": [0], "bottom": "0"},
-					],
-					color: [ '#f96854','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
-					legend: {
-						show: true,
-						top: 20,
-						formatter: '{name}历史价格图'
-					},
-					tooltip : {
-						trigger: 'axis',
-						axisPointer: {
-							type: 'cross',
-							animation: false,
-							label: {
-								backgroundColor: '#f96854'
-							}
-						},
-						formatter: '时间: {b0} \n 名称: {a} \n 价格:{c0}元/吨'
-					},
-					xAxis: {
-						type: 'category',
-						data: this.xaxis
-					},
-					yAxis: {
-						name: '价格(元/吨)',
-						type: 'value'
-					},
-					series: this.theSeries
-				})
-			})
-			// #endif
-		},
-		computed: {
-			theSeries: function() {
-				return this.dataArr.map(v => {
-					return {
-						name: v.name,
-						data: v.data,
-						type: 'line',
-						symbol:'circle',
-						areaStyle: {
-						}
-					}
-				})
 			}
 		},
 		onShareAppMessage() {
@@ -186,68 +121,63 @@
 					phoneNumber: num
 				});
 			},
-			chartInit(){
-				// #ifndef H5
-				this.options = {
-					grid: {
-						left: 60
-					},
-					dataZoom: [{
-						type: 'slider'
-					}],
-					dataZoom: [{ 
-						"show": true,
-						fillerColor: '#f96854',
-						"realtime": true, "start": 30, "end": 100, "xAxisIndex": [0], "bottom": "0"},
-					],
-					color: [ '#f96854','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
-					legend: {
+			initCharts(canvasId){
+				theChart = new uCharts({
+					$this:this,
+					canvasId: canvasId,
+					type: 'area',
+					enableScroll: true,
+					dataPointShape: true,
+					padding: [0, 15, 0, 15],
+					colors: ['#60ACFC', '#35C5EB', '#4DBECF', '#65D5B2', '#5BC4A0', '#9DDD81', '#D4ED58', '#FFDB43', '#FEB54E', '#FF9D68'],
+					legend:  {
 						show: true,
-						top: 20,
-						formatter: '{name}历史价格图'
+						position: 'top',
+						padding: 20
 					},
-					tooltip : {
-						trigger: 'axis',
-						axisPointer: {
-							type: 'cross',
-							animation: false,
-							label: {
-								backgroundColor: '#f96854'
-							}
-						},
-						formatter: '时间: {b0} \n 名称: {a} \n 价格:{c0}元/吨'
-					},
+					fontSize: 11,
+					background: '#FFFFFF',
+					pixelRatio: this.pixelRatio,
+					animation: false,
+					categories: this.xaxis,
+					series: this.theSeries,
 					xAxis: {
 						type: 'category',
-						data: this.xaxis
+						disableGrid: true,
+						scrollShow: true,
+						scrollAlign: 'right',
+						itemCount: 5
 					},
 					yAxis: {
 						name: '价格(元/吨)',
 						type: 'value'
 					},
-					series: this.theSeries
-				};
-				this.$refs.echarts.init()
-				// #endif
-				// #ifdef H5
-				this.myChart.setOption({
-					xAxis: {
-						type: 'category',
-						data: this.xaxis
-					},
-					series: this.theSeries
+					dataLabel: true,
+					width: this.cWidth * this.pixelRatio,
+					height: this.cHeight * this.pixelRatio,
+					extra: {
+						column: {
+							width: this.cWidth * this.pixelRatio * 0.45 /  this.xaxis.length
+						},
+						extra: {
+							tooltip:{
+								showBox:false,
+								bgColor:'#000000',
+								bgOpacity:0.7,
+								gridType:'dash',
+								dashLength:5,
+								gridColor:'#1890ff',
+								fontColor:'#FFFFFF',
+								horizentalLine:true,
+								xAxisLabel:true,
+								yAxisLabel:true,
+								labelBgColor:'#DFE8FF',
+								labelBgOpacity:0.95,
+								labelFontColor:'#666666'
+							}
+						}
+					}
 				})
-				// #endif
-			},
-			handleChart({canvas, width, height}) {
-				echarts.setCanvasCreator(() => canvas)
-				const chart = echarts.init(canvas, null, {
-					width: width,
-					height: height
-				})
-				canvas.setChart(chart)	
-				chart.setOption(this.options)
-				return chart
 			},
 			getIronData(iron) {
 				searchIron(iron).then(res => {
@@ -260,7 +190,7 @@
 						});
 					} else {
 						let result = res.data
-						this.dataArr = []
+						let dataArr = []
 						this.infoArr = result.map(v => {
 							let obj = {
 								name: '',
@@ -270,7 +200,7 @@
 							v.old_price.map(d => {
 								obj.data.push(d.price)
 							})
-							this.dataArr.push(obj)
+							dataArr.push(obj)
 							return v
 						})
 						let x = result[0].old_price.map(v => {
@@ -280,9 +210,33 @@
 						})
 						this.chartName = result[0].name
 						this.xaxis = x
-						this.chartInit()
+						this.theSeries = dataArr.map(v => {
+							return {
+								name: `${v.name}价格`,
+								data: v.data,
+								type: 'area',
+								legendShape: 'circle'
+							}
+						})
+						this.initCharts('chart')
 					}
 				})
+			},
+			touchLine(e){
+				theChart.scrollStart(e);
+			},
+			moveLine(e) {
+				theChart.scroll(e);
+			},
+			touchEndLine(e) {
+				theChart.scrollEnd(e);
+				//下面是toolTip事件，如果滚动后不需要显示，可不填写
+				theChart.touchLegend(e);
+				theChart.showToolTip(e, {
+					format: function (item, category) {
+						return category + ' ' + item.name + ':' + item.data 
+					}
+				});
 			},
 			searchIron(search) {
 				this.ironName = search.name
@@ -294,6 +248,12 @@
 						url: '/pages/search/search'
 					})
 				}
+			}
+		},
+		filters: {
+			formatDate (v) {
+				let date = new Date(v)
+				return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay()
 			}
 		}
 	}
@@ -307,7 +267,7 @@
 	.header {
 		background: transparent;
 	}
-	.chart {
+	.the-chart {
 		width: 100%;
 		height: 500upx;
 		display: flex;
