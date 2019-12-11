@@ -83,7 +83,7 @@
 		data() {
 			return {
 				itemList: [
-					'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/slider11.png',
+					// 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/slider11.png',
 					'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/banner2.png',
 					'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/banner3.png'
 				],

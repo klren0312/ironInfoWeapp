@@ -45,12 +45,12 @@
 				content: ''
 			};
 		},
-		onShareAppMessage() {
-			return {
-				title: '钢材信息文章',
-				path: '/pages/article/article'
-			}
-		},
+		// onShareAppMessage() {
+		// 	return {
+		// 		title: '钢材信息文章',
+		// 		path: '/pages/article/article'
+		// 	}
+		// },
 		onLoad(option) {
 			try {
 				const value = uni.getStorageSync('article');
