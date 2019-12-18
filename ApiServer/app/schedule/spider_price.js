@@ -33,7 +33,7 @@ const ironDict = {
 class SpiderPrice extends Subscription {
   static get schedule () {
     return {
-      cron: '* 30 12 * * *',
+      cron: '1 30 12 * * *',
       type: 'worker'
     }
   }
@@ -57,13 +57,13 @@ class SpiderPrice extends Subscription {
               price: v.price
             })
           }
-          console.log('录入')
+         ctx.logger.info('录入')
         })
       } else {
-        console.log('今日无数据')
+       ctx.logger.info('今日无数据')
       }
     } else {
-      console.log(`today(${date}) is complete`)
+      ctx.logger.info(`today is complete`)
     }
   }
 }
