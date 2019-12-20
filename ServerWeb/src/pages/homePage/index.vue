@@ -56,6 +56,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import {getHomeSum, getWxSum} from '@/api/home.api'
 export default {
   name: 'homePage',
@@ -83,9 +84,20 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapState({
+      themeValue: state => state.themeValue
+    })
+  },
   mounted() {
     this.getSum()
     this.getUser()
+    const theme = this.$storage.get('themeValue')
+    if (theme) {
+      if (theme === 'white') {
+        this.options.legend.textStyle.color = '#333'
+      }
+    }
   },
   methods: {
     getSum() {
@@ -101,10 +113,21 @@ export default {
         this.genderData.rows = res.genders
       })
     }
+  },
+  watch: {
+    themeValue () {
+      if (this.themeValue) {
+        if (this.themeValue === 'white') {
+          this.options.legend.textStyle.color = '#333'
+        } else {
+          this.options.legend.textStyle.color = '#fff'
+        }
+      }
+    }
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
   .home-page {
     .card-group {
       .card-item {

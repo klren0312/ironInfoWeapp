@@ -6,7 +6,7 @@
       :visible.sync="updateDialog"
       width="30%">
       <div>
-        <p>1. 删除天气组件(导致导航无法切换的元凶)</p>
+        <p>1. 添加换肤操作</p>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="updateDialog = false">确 定</el-button>
@@ -16,8 +16,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import { saveEvent } from '@/api/log.api'
-import LZString from 'lz-string'
+
 export default {
   name: 'App',
   provide() {
@@ -28,20 +27,10 @@ export default {
   data() {
     return {
       isRouterAlive: true,
-      updateDialog: false,
-      record: null,
-      events: [],
-      finish: false
+      updateDialog: false
     }
   },
-  created() {
-    // if (!process.env.NODE_ENV === 'development') {
-    //   this.initEventRecord()
-    // }
-
-  },
   mounted() {
-    this.initEventRecord()
     this.checkUpdate()
   },
   methods: {
@@ -57,27 +46,6 @@ export default {
         this.updateDialog = true
         this.$storage.set('update', true)
       }
-    },
-    initEventRecord () {
-      const that = this
-      this.record = rrweb.record({
-        emit(event) {
-          if (that.events.length >= 150) {
-            if (!that.finish) {
-              that.saveEventRecord()
-            }
-            that.record()
-            return
-          }
-          that.events.push(event)
-        }
-      })
-    },
-    saveEventRecord () {
-      const eventStr = JSON.stringify(this.events)
-      const compress = LZString.compress(eventStr)
-      this.finish = true
-      saveEvent(compress)
     }
   },
   created() {
@@ -112,55 +80,23 @@ body {
   background-size: cover;
 }
 #app {
-  &::before {
-      content: "";
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      z-index: -1;
-      // background: linear-gradient(to right bottom,rgba(0,0,0,0.9),rgba(0,0,0,0)),url(./assets/bg1.jpg) no-repeat center;
-      background-image: url(./assets/bg1.jpg) no-repeat center;
-      opacity: 0.5;
-      background-position: 50%;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: cover;
-    }
   font-family: '微软雅黑', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  .aside-content,
-  .main-content {
-    min-height: calc(100vh - 60px);
-  }
-  .aside-content {
-    overflow: hidden;
-  }
-  .header-content {
-    height: 64px;
-    padding: 0 30px 0 0;
-    background: rgba(255, 255, 255, 0.14);
-    -webkit-box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-    position: relative;
-    color: #fff;
-    .right {
-      float: right;
-      padding: 22px 0;
-      cursor: pointer;
-    }
-    .el-dropdown {
-      color: #fff;
-    }
-  }
-  .el-icon-d-arrow-left,
-  .el-icon-d-arrow-right {
-    font-size: 20px;
-    cursor: pointer;
-    -webkit-transition: all 0.3s, padding 0s;
-    transition: all 0.3s, padding 0s;
-    padding: 22px 24px;
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: -1;
+    // background: linear-gradient(to right bottom,rgba(0,0,0,0.9),rgba(0,0,0,0)),url(./assets/bg1.jpg) no-repeat center;
+    background-image: url(./assets/bg1.jpg) no-repeat center;
+    opacity: 0.5;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
   }
 }
 .header-title {

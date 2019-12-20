@@ -73,7 +73,6 @@ export default {
       .logo-img {
         height: 66px;
         width: 66px;
-        background: rgb(26, 39, 66);
         margin: 0 auto;
         text-align: center;
       }

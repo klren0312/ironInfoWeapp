@@ -7,7 +7,8 @@ Vue.use(Vuex)
 const state = {
   user: null,
   baseUrl: apiServer,
-  token: ''
+  token: '',
+  themeValue: 'black'
 }
 
 const mutations = {
@@ -20,6 +21,9 @@ const mutations = {
   },
   SET_TOKEN(state, token) {
     state.token = token
+  },
+  SET_THEME(state, theme) {
+    state.themeValue = theme
   }
 }
 
@@ -32,6 +36,9 @@ const actions = {
   },
   SET_TOKEN(state, token) {
     state.commit('SET_TOKEN', token)
+  },
+  SET_THEME(state, theme) {
+    state.commit('SET_THEME', theme)
   }
 }
 

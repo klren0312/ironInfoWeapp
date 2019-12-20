@@ -1,0 +1,63 @@
+body {
+  background: #e4e4e4 !important;
+}
+#app {
+  &::before {
+    background: #e4e4e4 !important;
+    opacity: 1;
+  }
+}
+
+.tac {
+  background-color: #333;
+  .el-menu .logo {
+    background: #333;
+  }
+  .el-menu-item {
+    border-left: 4px solid transparent;
+    background: #333 !important;
+  }
+  .el-menu-item.is-active {
+    color: #409EFF;
+    background-color: #1890ff!important;
+  }
+}
+.layout {
+  .header-title {
+    color: #333 !important;
+  }
+  .header-content {
+    height: 64px;
+    padding: 0 30px 0 0;
+    background: #fff !important;
+    color: #333333 !important;
+  
+    .right {
+      .theme-btn {
+        -webkit-line-clamp: 2;
+        background-image: -webkit-linear-gradient(bottom, #00ea53, #f58659);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 26px;
+      }
+    }
+  
+    .el-dropdown {
+      color: #333333 !important;
+    }
+  }
+  
+  .header-title {
+    color: #333333;
+  }
+}
+
+.home-page .card-group .card-item {
+  background: #fff;
+  .card-text .title {
+    color: #333333;
+  }
+  .card-header {
+    color: #333333;
+  }
+}
