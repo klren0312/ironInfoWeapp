@@ -73,7 +73,9 @@
 ![](./Weapp/img/1.png)
 
 # 管理后台
-![](./Weapp/img/backend.png)
+![](./Weapp/img/backend1.png)
+![](./Weapp/img/backend2.png)
+
 
 # 管理后台手机端
 ![](./ServerWebMobile/imgs/mobile.jpg)
