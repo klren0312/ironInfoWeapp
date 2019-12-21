@@ -243,11 +243,18 @@
 				this.getIronData()
 			},
 			toToSearch() {
+				// #ifdef MP
 				if (this.checkAuth()) {
 					uni.navigateTo({
 						url: '/pages/search/search'
 					})
 				}
+				// #endif
+				// #ifndef MP
+				uni.navigateTo({
+					url: '/pages/search/search'
+				})
+				// #endif
 			}
 		},
 		filters: {
