@@ -81,16 +81,16 @@
           head.appendChild(link)
         }
         this.themeValue = theme
-        this.$storage.set("themeValue", theme)
+        this.$storage.set('themeValue', theme)
         this.$store.dispatch('SET_THEME', theme)
         function removeCss(href) {
-          const links = document.getElementsByTagName("link");
-          const head = document.getElementsByTagName('head')[0];
+          const links = document.getElementsByTagName('link')
+          const head = document.getElementsByTagName('head')[0]
           let arr = []
           if (links && links.length > 0) {
             for (let i = 0, len = links.length; i < len; i++) {
-              if (links[i]) {
-                arr.push(links[i]);
+              if (links[i].href.match('white')) {
+                arr.push(links[i])
               }
             }
             for (let i = 0, len = arr.length; i < len; i++) {
