@@ -42,7 +42,7 @@ class SpiderPrice extends Subscription {
     const { ctx } = this
     const { iron } = ctx.service
 
-    const today = `${new Date().getMonth() + 1}-${zeroPadding(new Date().getDate())}`
+    const today = `${zeroPadding(new Date().getMonth() + 1)}-${zeroPadding(new Date().getDate())}`
     if (!complete.has(today)) {
       const link = await checkNew()
       if (link) {
@@ -76,7 +76,7 @@ async function checkNew () {
   const body = await rp({ uri: listUrl })
   const $ = cheerio.load(body)
   let list = $('body > div.wrap > div.cslm_tit > div.hq_con > div.fl.lm_left > div.lm_list > ul:nth-child(2)').children('li:first-child').text().trim()
-  if (list.match(/(\d+-\d+)/)[0] === `${new Date().getMonth() + 1}-${zeroPadding(new Date().getDate())}`) {
+  if (list.match(/(\d+-\d+)/)[0] === `${zeroPadding(new Date().getMonth() + 1)}-${zeroPadding(new Date().getDate())}`) {
     const link = $('body > div.wrap > div.cslm_tit > div.hq_con > div.fl.lm_left > div.lm_list > ul:nth-child(2) li:first-child a').attr('href')
     return `http://hq.zgw.com${link}`
   } else {
