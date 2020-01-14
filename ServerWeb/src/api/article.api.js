@@ -16,7 +16,7 @@ export function updateArticleStatus (id, status) {
 }
 
 export function updateArticle (id, title, content) {
-  return requestthis.put('/article', {
+  return request.put('/article', {
     id: id,
     title: title,
     content: content
