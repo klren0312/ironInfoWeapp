@@ -26,6 +26,8 @@
     "mysql2": "^1.6.1",
     "node-xlsx": "^0.15.0",
     "nodemailer": "^5.1.1",
+    "puppeteer": "^2.0.0",
+    "qiniu": "^7.3.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
     "rss-parser": "^3.6.3",

@@ -461,3 +461,13 @@ $ npm run dev  /   yarn dev
 ```bash
 $ npm run start /  yarn start
 ```
+
+## 七、相关模块安装
+
+相关中文字体安装, 用于爬虫
+
+```shell
+yum install wqy-unibit-fonts.noarch wqy-zenhei-fonts.noarch -y
+```
+
+
