@@ -61,6 +61,9 @@
 				if (value) {
 					const result = JSON.parse(value)
 					this.title = result.title
+					uni.setNavigationBarTitle({
+						title: this.title
+					})
 					// #ifndef H5
 					this.content = marked(result.content)
 					// #endif

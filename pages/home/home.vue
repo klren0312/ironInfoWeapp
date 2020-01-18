@@ -48,7 +48,11 @@
 			<ad unit-id="adunit-299bbc0df0e741aa"></ad>
 			<!-- #endif -->
 		</view>
-
+		<view class="flat-btn" @click="toCalc">
+			<view class="calc-icon">
+				重量计算
+			</view>
+		</view>
 		<!-- #ifndef MP-WEIXIN -->
 		<!-- 广告 -->
 		<view class="iron-contact">
@@ -196,6 +200,14 @@
 					})
 					this.articlesList = arr
 				})
+			},
+			/**
+			 * 前往计算器
+			 */
+			toCalc () {
+				uni.navigateTo({
+					url: '../calc/calc'
+				})
 			}
 		}
 	}
@@ -308,5 +320,32 @@
 	}
 	.swiper {
 		height: 400upx;
+	}
+	
+	.flat-btn {
+		padding: 0 20upx;
+		position: fixed;
+		bottom: 20upx;
+		right: 20upx;
+		width: 150upx;
+		height: 150upx;
+		line-height: 150upx;
+		text-align: center;
+		border-radius: 10upx;
+		background: #ff0000;
+		animation: blink .5s ease-in infinite;
+	}
+	.calc-icon {
+		font-weight: bolder;
+		color: #fcd052;
+	}
+	
+	@keyframes blink{
+		from{
+			background: #007AFF;
+		}
+		to{
+			background: #FF0000;
+		}
 	}
 </style>

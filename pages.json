@@ -42,6 +42,12 @@
 			}
 		},
 		{
+			"path": "pages/calc/calc",
+			"style": {
+				"navigationBarTitleText": "钢材计算器"
+			}
+		},
+		{
 			"path": "pages/auth/auth",
 			"style": {}
 		}
