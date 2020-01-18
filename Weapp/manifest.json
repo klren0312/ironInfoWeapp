@@ -55,15 +55,15 @@
             "minified" : true,
             "es6" : false
         },
-				"plugins": {
-					"WechatSI": {
-						"version": "0.3.3",
-						"provider": "wx069ba97219f66d99"
-					}
-				}
+        "plugins" : {
+            "WechatSI" : {
+                "version" : "0.3.3",
+                "provider" : "wx069ba97219f66d99"
+            }
+        }
     },
     "h5" : {
         "title" : "铜陵钢材信息网",
-        "domain" : "https://tlgc.zzes1314.cn"
+        "domain" : "https://www.zzes1314.cn"
     }
 }
