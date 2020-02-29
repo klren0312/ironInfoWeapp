@@ -1,4 +1,5 @@
 <template>
+	<!-- #ifndef MP-ALIPAY -->
 	<view class="my-header bg-gradual-blue" :style="{height: CustomBar + 'px'}">
 		<view class="header fixed bg-gradual-blue" :style="{paddingTop: StatusBar + 'px', height: CustomBar + 'px'}">
 			<view class="tab">
@@ -15,6 +16,7 @@
 			<image v-if="showGif" src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
 		</view>
 	</view>
+	<!-- #endif -->
 </template>
 
 <script>

@@ -53,7 +53,7 @@
 				重量计算
 			</view>
 		</view>
-		<!-- #ifndef MP-WEIXIN -->
+		<!-- #ifndef MP -->
 		<!-- 广告 -->
 		<view class="iron-contact">
 			<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
@@ -236,6 +236,7 @@
 		/* background: #4CD964; */
 		padding: 28upx;
 		text-align: center;
+		background: #fff;
 	}
 
 	.hot-iron .one-line .iron-item .iron-icon {
@@ -270,6 +271,7 @@
 		align-items: center;
 		border-top: 1upx solid #dfdfdf;
 		line-height: 2;
+		background: #fff;
 	}
 
 	.article-card::last-child {
