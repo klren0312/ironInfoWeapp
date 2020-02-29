@@ -2,9 +2,11 @@
 	<view>
 		<view class="chart">
 			<!--#ifdef MP-ALIPAY -->
-			<canvas canvas-id="chart" id="chart" class="the-chart" disable-scroll=true @touchstart="touchLine" @touchmove="moveLine" @touchend="touchEndLine" :style="{'width':cWidth*pixelRatio+'px','height':cHeight*pixelRatio+'px', 'transform': 'scale('+(1/pixelRatio)+')','margin-left':-cWidth*(pixelRatio-1)/2+'px','margin-top':-cHeight*(pixelRatio-1)/2+'px'}"></canvas>
+			<canvas canvas-id="chart" id="chart" class="the-chart" disable-scroll=true @touchstart="touchLine" @touchmove="moveLine" @touchend="touchEndLine" :style="{'width':cWidth*pixelRatio+'px','height':cHeight*pixelRatio+'px', 'transform': 'scale('+(1/pixelRatio)+')','margin-left':-cWidth*(pixelRatio-1)/2 +'px','margin-top':-cHeight*(pixelRatio-1)/2+'px'}"></canvas>
 			<!--#endif-->
+			<!-- #ifndef MP-ALIPAY -->
 			<canvas canvas-id="chart" id="chart" class="the-chart" disable-scroll=true @touchstart="touchLine" @touchmove="moveLine" @touchend="touchEndLine"></canvas>
+			<!-- #endif -->
 		</view>
 		<view class="details-card" v-for="(ironObj, i) in infoArr" :key="i">
 			<image class="card-header" :src="ironObj.photo !== ''&&ironObj.photo !== null ? ironObj.photo : 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/Ocean.jpg'"></image>
@@ -21,7 +23,7 @@
 				</view>
 			</view>
 		</view>
-		<!-- #ifndef MP-WEIXIN -->
+		<!-- #ifndef MP -->
 		<!-- 广告 -->
 		<view class="iron-contact">
 			<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
@@ -63,12 +65,14 @@
 		onLoad: function (option) {
 			//#ifdef MP-ALIPAY
 			uni.getSystemInfo({
-				success: (res) => {
-					if(res.pixelRatio > 1){
-						this.pixelRatio = 2
+				success: function (res) {
+					if(res.pixelRatio>1){
+						//正常这里给2就行，如果pixelRatio=3性能会降低一点
+						//_self.pixelRatio =res.pixelRatio;
+						_self.pixelRatio =2;
 					}
 				}
-			})
+			});
 			//#endif
 			this.cWidth = uni.upx2px(750)
 			this.cHeight = uni.upx2px(500)

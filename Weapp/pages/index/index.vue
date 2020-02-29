@@ -4,16 +4,18 @@
 			<my-header title="钢材搜索" :showGif="false" :scroll="true" @select="checkoutIron"></my-header>
 			<!-- <search  @search="searchIron" :disabled="btnDisable"/> -->
 			<view class="the-search">
-				<a class="search-input" @click="toToSearch">搜索钢材</a>
+				<view class="search-input" @click="toToSearch">搜索钢材</view>
 				<image src="https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/wave.gif" class="wave-gif" mode=""></image>
 			</view>
 		</view>
 		<scroll-view scroll-y style="height: 450px;">
 			<view class="chart">
 				<!--#ifdef MP-ALIPAY -->
-				<canvas canvas-id="chart" id="chart" class="the-chart" disable-scroll=true @touchstart="touchLine" @touchmove="moveLine" @touchend="touchEndLine" :style="{'width':cWidth*pixelRatio+'px','height':cHeight*pixelRatio+'px', 'transform': 'scale('+(1/pixelRatio)+')','margin-left':-cWidth*(pixelRatio-1)/2+'px','margin-top':-cHeight*(pixelRatio-1)/2+'px'}"></canvas>
+				<canvas canvas-id="chart" id="chart" class="the-chart" disable-scroll=true @touchstart="touchLine" @touchmove="moveLine" @touchend="touchEndLine" :style="{'width':cWidth*pixelRatio+'px','height':cHeight*pixelRatio+'px', 'transform': 'scale('+(1/pixelRatio)+')','margin-left':-cWidth*(pixelRatio-1)/2 +'px','margin-top':-cHeight*(pixelRatio-1)/2+'px'}"></canvas>
 				<!--#endif-->
+				<!-- #ifndef MP-ALIPAY -->
 				<canvas canvas-id="chart" id="chart" class="the-chart" disable-scroll=true @touchstart="touchLine" @touchmove="moveLine" @touchend="touchEndLine"></canvas>
+				<!-- #endif -->
 			</view>
 			<view class="details-card" v-for="(ironObj, i) in infoArr" :key="i">
 				<image class="card-header" :src="ironObj.photo !== ''&&ironObj.photo !== null ? ironObj.photo : 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/Ocean.jpg'"></image>
@@ -30,7 +32,7 @@
 					</view>
 				</view>
 			</view>
-			<!-- #ifndef MP-WEIXIN -->
+			<!-- #ifndef MP -->
 			<!-- 广告 -->
 			<view class="iron-contact">
 				<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
@@ -77,12 +79,14 @@
 		onLoad() {
 			//#ifdef MP-ALIPAY
 			uni.getSystemInfo({
-				success: (res) => {
-					if(res.pixelRatio > 1){
-						this.pixelRatio = 2
+				success: function (res) {
+					if(res.pixelRatio>1){
+						//正常这里给2就行，如果pixelRatio=3性能会降低一点
+						//_self.pixelRatio =res.pixelRatio;
+						_self.pixelRatio =2;
 					}
 				}
-			})
+			});
 			//#endif
 			this.cWidth = uni.upx2px(750)
 			this.cHeight = uni.upx2px(500)
@@ -181,7 +185,7 @@
 			},
 			getIronData(iron) {
 				searchIron(iron).then(res => {
-					uni.hideLoading();
+					uni.hideLoading()
 					if(res.data.code === 500) {
 						uni.showToast({
 							title: res.data,
@@ -221,6 +225,9 @@
 						this.initCharts('chart')
 					}
 				})
+				.catch(e => {
+					uni.hideLoading()
+				})
 			},
 			touchLine(e){
 				theChart.scrollStart(e);
@@ -243,14 +250,15 @@
 				this.getIronData()
 			},
 			toToSearch() {
-				// #ifdef MP
+				console.log('tosearch')
+				// #ifdef MP-WEIXIN
 				if (this.checkAuth()) {
 					uni.navigateTo({
 						url: '/pages/search/search'
 					})
 				}
 				// #endif
-				// #ifndef MP
+				// #ifndef MP-WEIXIN
 				uni.navigateTo({
 					url: '/pages/search/search'
 				})

@@ -23,7 +23,7 @@
 					
 					<view class="price">最新价格:<text class="price-num">{{subCategoryList.price}}</text></view>
 					<view class="info">{{subCategoryList.info}}</view>
-					<!-- #ifndef MP-WEIXIN -->
+					<!-- #ifndef MP -->
 					<view class="iron-contact">
 						<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
 						<view class="info-text">联系电话(点击即可拨打)</view>

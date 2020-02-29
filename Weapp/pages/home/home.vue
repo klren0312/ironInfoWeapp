@@ -53,7 +53,7 @@
 				重量计算
 			</view>
 		</view>
-		<!-- #ifndef MP-WEIXIN -->
+		<!-- #ifndef MP -->
 		<!-- 广告 -->
 		<view class="iron-contact">
 			<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
@@ -156,12 +156,18 @@
 			 */
 			searchSome(v) {
 				if (v === 'search') {
-					console.log(this.checkAuth())
+					// #ifdef MP-WEIXIN
 					if (this.checkAuth()) {
 						uni.navigateTo({
 							url: '/pages/search/search'
 						})
 					}
+					// #endif
+					// #ifndef MP-WEIXIN
+					uni.navigateTo({
+						url: '/pages/search/search'
+					})
+					// #endif
 				} else {
 					this.seeDetails(v, true)
 				}
@@ -236,6 +242,7 @@
 		/* background: #4CD964; */
 		padding: 28upx;
 		text-align: center;
+		background: #fff;
 	}
 
 	.hot-iron .one-line .iron-item .iron-icon {
@@ -270,6 +277,7 @@
 		align-items: center;
 		border-top: 1upx solid #dfdfdf;
 		line-height: 2;
+		background: #fff;
 	}
 
 	.article-card::last-child {

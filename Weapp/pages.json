@@ -56,7 +56,7 @@
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "铜陵钢材信息",
 		"navigationBarBackgroundColor": "#000131",
-		"backgroundColor": "#000131"
+		"backgroundColor": "#fff"
 	},
 	"tabBar": {
 		"color": "#999",
