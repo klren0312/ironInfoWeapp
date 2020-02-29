@@ -156,12 +156,18 @@
 			 */
 			searchSome(v) {
 				if (v === 'search') {
-					console.log(this.checkAuth())
+					// #ifdef MP-WEIXIN
 					if (this.checkAuth()) {
 						uni.navigateTo({
 							url: '/pages/search/search'
 						})
 					}
+					// #endif
+					// #ifndef MP-WEIXIN
+					uni.navigateTo({
+						url: '/pages/search/search'
+					})
+					// #endif
 				} else {
 					this.seeDetails(v, true)
 				}
