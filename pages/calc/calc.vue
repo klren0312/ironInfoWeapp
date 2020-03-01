@@ -61,6 +61,11 @@
 </template>
 
 <script>
+// #ifdef MP-WEIXIN
+// 在页面中定义插屏广告
+let interstitialAd = null
+// #endif
+
 export default {
 	name: 'Calc',
 	data () {
@@ -90,6 +95,30 @@ export default {
 	},
 	onLoad () {
 		this.currentCalc.param = this.ironCalcObj[this.selectIron]
+		// #ifdef MP-WEIXIN
+		// 在页面onLoad回调事件中创建插屏广告实例
+		if (wx.createInterstitialAd) {
+		  interstitialAd = wx.createInterstitialAd({
+		    adUnitId: 'adunit-34fec84c45de31e8'
+		  })
+		  interstitialAd.onLoad(() => {})
+		  interstitialAd.onError((err) => {})
+		  interstitialAd.onClose(() => {})
+		}
+		
+		// 在适合的场景显示插屏广告
+		if (interstitialAd) {
+		  interstitialAd.show().catch((err) => {
+		    console.error(err)
+		  })
+		}
+		// #endif
+	},
+	onShareAppMessage() {
+		return {
+			title: '钢材信息首页',
+			path: '/pages/home/home?page=/pages/calc/calc'
+		}
 	},
 	methods: {
 		ironSelectHandler (e) {
