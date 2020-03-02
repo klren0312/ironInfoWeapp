@@ -34,18 +34,23 @@
 		</swiper>
 		<!-- 公告栏 -->
 		<view class="article">
-			<view v-for="v in articlesList" :key="v.id" @click="seeArticle(v)" class="article-card">
-				<div class="text">
-					<div class="title">{{v.title}}</div>
-					<div class="info">钢材信息</div>
-				</div>
-				<div class="date">
-					<div class="year">{{v.year}}</div>
-					<div class="other">{{v.month}}.{{v.day}}</div>
-				</div>
-			</view>
+			<block v-for="(v, i) in articlesList" :key="v.id">
+				<!-- #ifdef MP-WEIXIN -->
+				<ad v-if="i === 5" unit-id="adunit-299bbc0df0e741aa" ad-intervals="40"></ad>
+				<!-- #endif -->
+				<view @click="seeArticle(v, v.id)" class="article-card">
+					<div class="text">
+						<div class="title">{{v.title}}</div>
+						<div class="info">钢材信息</div>
+					</div>
+					<div class="date">
+						<div class="year">{{v.year}}</div>
+						<div class="other">{{v.month}}.{{v.day}}</div>
+					</div>
+				</view>
+			</block>
 			<!--  #ifdef  MP-WEIXIN -->
-			<ad unit-id="adunit-299bbc0df0e741aa"></ad>
+			<ad unit-id="adunit-e33e3aad6c575346" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="black"></ad>
 			<!-- #endif -->
 		</view>
 		<view class="flat-btn" @click="toCalc">
@@ -106,7 +111,13 @@
 				path: '/pages/home/home'
 			}
 		},
-		onLoad() {
+		onLoad(option) {
+			// 若从分享进入, 则跳转到分享对应页面
+			if (option.hasOwnProperty('page') && option.page) {
+				uni.navigateTo({
+					url: option.page
+				})
+			}
 			uni.startPullDownRefresh();
 			uni.showLoading({
 				title: '加载中'
@@ -175,16 +186,15 @@
 			/**
 			 * 查看文章
 			 */
-			seeArticle(v) {
+			seeArticle(v, id) {
 				try {
-					uni.setStorageSync('article', JSON.stringify(v));
+					uni.setStorageSync('article', JSON.stringify(v))
 					uni.navigateTo({
-						url: `/pages/article/article`
+						url: `/pages/article/article?id=${id}`
 					})
 				} catch (e) {
 					// error
 				}
-
 			},
 			/**
 			 * 获取文章

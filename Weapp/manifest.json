@@ -65,5 +65,8 @@
     "h5" : {
         "title" : "铜陵钢材信息网",
         "domain" : "https://www.zzes1314.cn"
+    },
+    "mp-toutiao" : {
+        "appid" : "ttb802cebf2728d4c4"
     }
 }

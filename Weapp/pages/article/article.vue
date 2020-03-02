@@ -10,9 +10,9 @@
 			<!-- #endif -->
 		</scroll-view>
 		<!--  #ifdef  MP-WEIXIN -->
-		<ad unit-id="adunit-299bbc0df0e741aa"></ad>
+		<ad unit-id="adunit-492721b6adcf46a0"></ad>
 		<!-- #endif -->
-		<!-- #ifndef MP-WEIXIN -->
+		<!-- #ifndef MP -->
 		<!-- 广告 -->
 		<view class="iron-contact">
 			<view class="info-text">感觉价格不合理？ 欢迎联系我们议价</view>
@@ -42,16 +42,18 @@
 		data() {
 			return {
 				title: '',
-				content: ''
+				content: '',
+				articleId: null
 			};
 		},
 		// onShareAppMessage() {
 		// 	return {
 		// 		title: '钢材信息文章',
-		// 		path: '/pages/article/article'
+		// 		path: `/pages/home/home?page=/pages/article/article?id=${this.articleId}`
 		// 	}
 		// },
 		onLoad(option) {
+			this.articleId = option.id
 			try {
 				const value = uni.getStorageSync('article');
 				if(option.type === 'news') {
@@ -74,7 +76,6 @@
 				}
 			} catch (e) {
 				console.log(e)
-				// error
 			}
 		},
 		destroyed(){

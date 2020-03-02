@@ -148,13 +148,13 @@
 	.nav-right {
 		padding: 0 28upx 0;
 		width: 70%;
-		background: #eee;
+		background: #fcfcfc;
 	}
 	.nav-right .content {
 		margin-top: 20rpx;
 		padding-top: 20upx;
 		background: #fff;
-		box-shadow: 0 20px 40px -15px rgba(0,0,0,.05);
+		box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 	}
 	.nav-right .content-header {
 		padding-left: 20upx;
@@ -205,7 +205,7 @@
 
 	.active {
 		color: #007AFF;
-		background: #eee;
+		background: #fcfcfc;
 		border-left: 4upx solid #00BFFF;
 	}
 	.iron-contact .info-text {
