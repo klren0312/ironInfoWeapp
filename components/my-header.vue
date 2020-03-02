@@ -1,5 +1,5 @@
 <template>
-	<!-- #ifndef MP-ALIPAY -->
+	<!-- #ifdef MP-WEIXIN -->
 	<view class="my-header bg-gradual-blue" :style="{height: CustomBar + 'px'}">
 		<view class="header fixed bg-gradual-blue" :style="{paddingTop: StatusBar + 'px', height: CustomBar + 'px'}">
 			<view class="tab">
