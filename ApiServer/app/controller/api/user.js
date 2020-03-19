@@ -17,6 +17,7 @@ class UserController extends Controller {
       password: { type: 'string', required: true }
     }, ctx.request.body)
     const result = await user.findByUsername(username)
+    // 无用户
     if (!result) {
       ctx.helper.fail({ ctx, res: '用户名或密码错误' })
       log.addLog({
@@ -27,6 +28,7 @@ class UserController extends Controller {
       })
       return
     }
+    // 密码错误
     if (!ctx.helper.bcompare(password, result.password)) {
       ctx.helper.fail({ ctx, res: '用户名或密码错误' })
 
@@ -38,11 +40,12 @@ class UserController extends Controller {
       })
       return
     }
+    console.log(result)
     log.addLog({
       admin: request.body.username,
       ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       time: moment().format('YYYY-MM-DD HH:mm:ss'),
-      comment: request.body.username === 'tour' ? '游客登录' : '管理员登录'
+      comment: result.role + '登录'
     })
     ctx.helper.success({ ctx, res: app.getUserJson(result, ctx, 1) })
   }

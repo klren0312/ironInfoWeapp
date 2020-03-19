@@ -81,7 +81,7 @@ class IronController extends Controller {
     const { common } = ctx.service
     const search = ctx.request.query
     let where = {}
-    if(search.hasOwnProperty('name')&& search.name !== '') {
+    if(search.hasOwnProperty('name') && search.name !== '') {
       where = {
         name: { [app.Sequelize.Op.like]: `%${search.name}%` }
       }
