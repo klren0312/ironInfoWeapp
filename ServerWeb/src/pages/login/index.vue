@@ -25,6 +25,19 @@
             </el-input>
           </el-form-item>
           <el-form-item>
+            <el-switch
+              v-model="switchServer"
+              inactive-text="主网"
+              active-text="自建">
+            </el-switch>
+          </el-form-item>
+          <el-form-item v-if="switchServer">
+            <el-input
+              v-model="customServer"
+              placeholder="请输入自建服务地址">
+            </el-input>
+          </el-form-item>
+          <el-form-item>
             <el-button class="login-btn" type="primary" @click="login()">登录</el-button>
           </el-form-item>
         </el-form>
@@ -39,6 +52,7 @@ import { login } from '@/api/user.api'
   export default {
     data() {
       return {
+        customServer: 'http://localhost:7001/api/v1',
         loginForm: {
           username: '',
           password: ''
@@ -51,12 +65,16 @@ import { login } from '@/api/user.api'
             { required: true, message: '请输入密码', trigger: 'blur'}
           ]
         },
-        redirect: undefined
+        redirect: undefined,
+        switchServer: false
       }
     },
     methods: {
       login () {
-         this.$refs['loginForm'].validate((valid) => {
+        if (this.switchServer) {
+          this.$store.dispatch('SET_SERVER', this.customServer)
+        }
+        this.$refs['loginForm'].validate((valid) => {
           if (valid) {
             // this.loginForm.password = md5(this.loginForm.password)
             this.loginForm.username = this.loginForm.username.trim()
@@ -106,7 +124,7 @@ import { login } from '@/api/user.api'
   justify-content: center;
   .login-form {
     width: 500px;
-    height: 600px;
+    min-height: 600px;
 
     .title {
       color: #fff;
@@ -117,11 +135,15 @@ import { login } from '@/api/user.api'
       text-align: center;
     }
     .form-container {
+      margin-top: 20px;
+      padding-bottom: 20px;
       width: 452px;
-      height: 436px;
+      min-height: 436px;
       background: #fff;
       border-radius: 10px;
-      margin-top: 20px;
+      ::v-deep .el-input__inner {
+        color: #333;
+      }
       .header {
         color: #333;
         font-size: 18px;

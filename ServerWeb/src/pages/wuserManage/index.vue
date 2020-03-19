@@ -4,10 +4,10 @@
     <div class="header-filters">
       <el-form :inline="true">
         <el-form-item>
-          <el-input placeholder="请输入昵称" v-model="query.nickName"></el-input>
+          <el-input size="medium" placeholder="请输入昵称" v-model="query.nickName"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-select v-model="query.pageField" placeholder="请选择排序方式">
+          <el-select size="medium" v-model="query.pageField" placeholder="请选择排序方式">
             <el-option label="按id" value="id"></el-option>
             <el-option label="按访问次数" value="count"></el-option>
           </el-select>

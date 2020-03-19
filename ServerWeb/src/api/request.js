@@ -11,8 +11,8 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
+    config.url = store.state.baseUrl  + config.url
     let token = Storage.get('admin_user') ? Storage.get('admin_user').token : ''
-    // console.log(token)
     if (token) {
       config.headers['Authorization'] = token
       config.headers['Content-Type'] = 'application/json'

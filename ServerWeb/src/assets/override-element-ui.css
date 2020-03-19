@@ -92,6 +92,40 @@ input:-webkit-autofill{
   border-color: #EBEEF5;
 }
 
+.el-pagination .btn-next, .el-pagination .btn-prev {
+  background: transparent;
+  background-size: 16px;
+  cursor: pointer;
+  margin: 0;
+  color: #fff;
+}
+
+.el-pager li,
+.el-pager li.btn-quicknext, .el-pager li.btn-quickprev {
+  background: transparent;
+  color: #fff;
+}
+
+.el-pagination button:disabled {
+  background: transparent;
+}
+
+.el-input__inner {
+  background: rgba(255, 255, 255, 0);
+  color: #fff;
+}
+
+.el-dialog .el-input__inner {
+  background: #fff;
+  color: #333;
+}
+
+
+.el-button--primary {
+  background-image: linear-gradient( 135deg, #72EDF2 10%, #5151E5 100%);
+  border: 0;
+}
+
 ::-webkit-scrollbar {/*滚动条整体样式*/
   width: 10px;     /*高宽分别对应横竖滚动条的尺寸*/
   height: 1px;

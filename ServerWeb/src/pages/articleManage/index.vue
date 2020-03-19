@@ -4,7 +4,7 @@
     <div class="header-filters">
       <el-form :inline="true">
         <el-form-item>
-          <el-select v-model="query.status">
+          <el-select v-model="query.status" size="medium">
             <el-option label="全部" value=""></el-option>
             <el-option label="启用" :value="true"></el-option>
             <el-option label="禁用" :value="false"></el-option>
@@ -18,7 +18,8 @@
     <div class="table">
       <el-table
         :data="tableData"
-        style="width: 100%">
+        style="width: 100%"
+        v-loading="loading">
         <el-table-column
           prop="createdAt"
           label="发布日期"
@@ -80,7 +81,8 @@ export default {
         pageSize: 10,
         pageIndex: 1,
         status: ''
-      }
+      },
+      loading: false
     }
   },
   computed: {
@@ -102,6 +104,7 @@ export default {
       800
     ),
     getArticle() {
+      this.loading = true
       getArticle(this.queryString).then(res => {
         if(res !== false) {
           this.tableData = res.items
@@ -109,6 +112,7 @@ export default {
           this.query.pageIndex = res.pageIndex
           this.query.pageSize = res.pageSize
         }
+        this.loading = false
       })
     },
     deleteArticle(row) {

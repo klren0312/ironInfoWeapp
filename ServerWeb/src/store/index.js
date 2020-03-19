@@ -24,6 +24,9 @@ const mutations = {
   },
   SET_THEME(state, theme) {
     state.themeValue = theme
+  },
+  SET_SERVER(state, server) {
+    state.baseUrl = server
   }
 }
 
@@ -39,6 +42,9 @@ const actions = {
   },
   SET_THEME(state, theme) {
     state.commit('SET_THEME', theme)
+  },
+  SET_SERVER(state, server) {
+    state.commit('SET_SERVER', server)
   }
 }
 

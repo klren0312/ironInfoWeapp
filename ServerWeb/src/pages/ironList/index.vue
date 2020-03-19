@@ -4,7 +4,7 @@
     <div class="header-filters">
       <el-form :inline="true">
         <el-form-item>
-          <el-input v-model="query.name" placeholder="钢材名称" prefix-icon="el-icon-search"></el-input>
+          <el-input size="medium" v-model="query.name" placeholder="钢材名称" prefix-icon="el-icon-search"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="el-icon-plus" @click="createDialog=true">钢材录入</el-button>

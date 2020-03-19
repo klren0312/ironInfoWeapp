@@ -6,7 +6,7 @@
       :visible.sync="updateDialog"
       width="30%">
       <div>
-        <p>1. 添加换肤操作</p>
+        <p>1. 添加服务器选择</p>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="updateDialog = false">确 定</el-button>
