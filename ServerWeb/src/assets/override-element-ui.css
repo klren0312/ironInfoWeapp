@@ -115,7 +115,8 @@ input:-webkit-autofill{
   color: #fff;
 }
 
-.el-dialog .el-input__inner {
+.el-dialog .el-input__inner,
+.el-message-box .el-input__inner {
   background: #fff;
   color: #333;
 }

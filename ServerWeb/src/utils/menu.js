@@ -38,6 +38,11 @@ const menu = [
     index: 'logManage',
     name: '日志列表',
     icon: 'el-icon-document',
+  },
+  {
+    index: 'productPage',
+    name: '商品列表',
+    icon: 'el-icon-goods',
   }
   // {
   //   index: 'jenkinsCtrl',

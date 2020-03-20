@@ -115,6 +115,15 @@ const router = new Router({
       }]
     },
     {
+      path: '/productPage',
+      component: Layout,
+      children: [{
+        name: 'productPage',
+        path: '',
+        component: resolve => require(['@/pages/productPage'], resolve)
+      }]
+    },
+    {
       path: '/404',
       component: Layout,
       children: [{
