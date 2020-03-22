@@ -8,7 +8,8 @@
     <md-scroll-view
       ref="scrollView"
       :scrolling-x="false"
-      style="height: calc(100vh - 60px)">
+      style="height: calc(100vh - 60px)"
+      auto-reflow>
       <div class="product-list">
         <template v-for="v in irons">
           <div class="product-item" :key="v.id">
