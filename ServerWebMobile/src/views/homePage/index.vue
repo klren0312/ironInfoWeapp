@@ -18,6 +18,7 @@
         <div class="text">访客数</div>
       </div>
     </div>
+    <div class="shop-block" @click="toShop">钢材商店</div>
     <div class="feature-container">
       <div class="feature-item" @click="$router.push('/ironPage')">
         <div class="iconfont icon-iron"></div>
@@ -87,6 +88,12 @@ export default {
     logout () {
       this.$store.dispatch('LOG_OUT')
       this.$router.push('/login')
+    },
+    /**
+     * 去商店
+     */
+    toShop () {
+      this.$router.push('/shopPage')
     }
   }
 }
@@ -100,6 +107,15 @@ export default {
     .ad-img {
       margin-top: 0.8rem;
       width: 100%;
+    }
+    .shop-block {
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      border-bottom: 1px solid #ddd;
+      &:active {
+        background: #eee;
+      }
     }
     .dashboard {
       display: flex;

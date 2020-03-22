@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition name="md-slide-left">
+    <transition name="fade">
       <router-view></router-view>
     </transition>
   </div>

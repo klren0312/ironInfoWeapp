@@ -60,6 +60,11 @@ const router = new Router({
       name: 'logPage',
       path: '/logPage',
       component: resolve => require(['@/views/logPage'], resolve)
+    },
+    {
+      name: 'shopPage',
+      path: '/shopPage',
+      component: resolve => require(['@/views/shopPage'], resolve)
     }
   ]
 })

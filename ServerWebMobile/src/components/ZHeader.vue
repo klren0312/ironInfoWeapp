@@ -32,7 +32,7 @@ export default {
     },
     rightClick () {
       if (this.rightIcon === 'question') {
-        location.href = 'https://www.zzes1314.cn'
+        location.href = 'https://www.zzes1314.cn/home'
       } else {
         this.$emit('rightClick')
       }
