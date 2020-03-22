@@ -73,6 +73,10 @@ import { login } from '@/api/user.api'
       login () {
         if (this.switchServer) {
           this.$store.dispatch('SET_SERVER', this.customServer)
+        } else {
+          /* eslint-disable */
+          this.$store.dispatch('SET_SERVER', apiServer)
+          /* eslint-enable */
         }
         this.$refs['loginForm'].validate((valid) => {
           if (valid) {
