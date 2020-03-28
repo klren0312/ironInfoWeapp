@@ -29,6 +29,7 @@
  - [ServerWeb         WEB管理后台PC端](https://github.com/klren0312/ironInfoWeapp/tree/master/ServerWeb)
  - [ServerWebMobile   WEB管理后台手机端](https://github.com/klren0312/ironInfoWeapp/tree/master/ServerWebMobile)
  - [Weapp             小程序与H5端](https://github.com/klren0312/ironInfoWeapp/tree/master/Weapp)
+ - [bigScreen         视察用数据大屏](https://github.com/klren0312/ironInfoWeapp/tree/master/bigScreen)
  - [相关文档](https://github.com/klren0312/ironInfoWeapp/tree/master/doc)
 
 ## 开源计划
