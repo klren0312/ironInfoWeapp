@@ -6,24 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>大屏</title>
   <link rel="stylesheet" href="./css/app.css">
-  <!-- 自适应 -->
-  <script>
-    window.onload = function () {
-      const container = document.querySelector('.container')
-      setSize(container)
-      document.addEventListener('resize', setSize)
-    }
-    function setSize (dom) {
-      const { width: allWidth, height } = screen
-      const currentWidth = document.body.clientWidth
-      dom.style.width = allWidth + 'px'
-      dom.style.height = height + 'px'
-      dom.style.transform = `scale(${currentWidth / allWidth})`
-      scatterMap.resize()
-    }
-  </script>
 </head>
 <body>
+  <div class="loading" id="js-loading">
+    <div class="swapping-squares-spinner" :style="spinnerStyle">
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+    </div>
+  </div>
   <div class="container">
     <div class="header">
       <div class="title">治电普钢数据总览</div>
@@ -93,12 +85,30 @@
   <script src="./js/anhui.js"></script>
   <script src="./js/map.js"></script>
   <script src="./js/app.js"></script>
+    <!-- 自适应 -->
   <script>
+    window.onload = function () {
+      const container = document.querySelector('.container')
+      setSize(container)
+      document.addEventListener('resize', setSize)
+      // 关闭loading
+      document.getElementById('js-loading').remove()
+    }
+    function setSize (dom) {
+      const { width: allWidth, height } = screen
+      const currentWidth = document.body.clientWidth
+      dom.style.width = allWidth + 'px'
+      dom.style.height = height + 'px'
+      dom.style.transform = `scale(${currentWidth / allWidth})`
+      scatterMap.resize()
+    }
+    // 全屏的提示
     const dialog = document.getElementById('js-dialog')
     dialog.onclick = function () {
       dialog.close()
       document.body.requestFullscreen()
     }
+
   </script>
 </body>
 </html>
