@@ -21,6 +21,7 @@
  - 2019.12 小程序图表改为ucharts
  - 2020.01 后端添加钢材价格汇总文章定时发布任务
  - 2020.01 小程序添加钢材重量计算器
+ - 2020.03 高层视察数据大屏
 
 ## 项目目录
 
@@ -49,6 +50,18 @@
 [http://admin.zzes1314.cn](http://admin.zzes1314.cn)
 (**用户名**: `tour`,  **密码**: `tour520`)
 
+# 高层视察数据大屏
+![](./bigScreen/1.gif)
+
+# 管理后台
+![](./Weapp/img/backend1.png)
+![](./Weapp/img/backend2.png)
+
+
+# 管理后台手机端
+![](./ServerWebMobile/imgs/mobile.jpg)
+
+
 ## 界面截图
  - 第七版, 钢材计算器, 图表样式修改, 底部tabbar图标修改
 ---
@@ -74,14 +87,6 @@
  - 第一版
 ---
 ![](./Weapp/img/1.png)
-
-# 管理后台
-![](./Weapp/img/backend1.png)
-![](./Weapp/img/backend2.png)
-
-
-# 管理后台手机端
-![](./ServerWebMobile/imgs/mobile.jpg)
 
 ## Stargazers over time
 

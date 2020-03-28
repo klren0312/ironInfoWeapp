@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>大屏</title>
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">治电普钢数据总览</div>
+    </div>
+    <div class="main-content">
+      <div class="left-content">
+        <div class="panel has-title panel-1" data-title="安徽钢材价格">
+          <table>
+            <thead>
+              <tr>
+                <td>地区</td>
+                <td>钢材类型</td>
+                <td>价格</td>
+              </tr>
+            </thead>
+            <tbody id="js-area-tbody">
+            </tbody>
+          </table>
+        </div>
+        <div class="panel has-title panel-2" data-title="钢材类型分布">
+          <div id="type-chart" class="the-chart"></div>
+        </div>
+        <div class="panel has-title panel-3" data-title="月度钢材销售量">
+          <div id="line-chart" class="the-chart"></div>
+        </div>
+      </div>
+      <div class="center-content">
+        <div class="panel panel-4">
+          <div class="data-card-group">
+            <div class="card-item">
+              <div class="card-icon num-icon"></div>
+              <div class="data">
+                <div class="title">钢材流通统计</div>
+                <div class="number num-num" id="js-num-num">0</div>
+              </div>
+            </div>
+            <div class="card-item">
+              <div class="card-icon watch-icon"></div>
+              <div class="data">
+                <div class="title">治电普钢掌控统计</div>
+                <div class="number watch-num" id="js-watch-num">0</div>
+              </div>
+            </div>
+          </div>
+          <!-- 地图 -->
+          <div class="map-container">
+            <div class="map" id="scatterMap"></div>
+          </div>
+        </div>
+      </div>
+      <div class="right-content">
+        <div class="panel panel-5" id="js-card-list">
+          <div class="msg-card">
+            <div class="title" title="铜陵钢材今日售出40吨">铜陵钢材今日售出40吨</div>
+            <div class="content">螺纹总计 30 吨, 盘螺总计 10 吨</div>
+            <div class="date">2020-3-10</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <script src="./js/echarts.min.js"></script> -->
+  <script src="https://cdn.bootcss.com/echarts/4.7.0/echarts.js"></script>
+  <script src="./js/anhui.js"></script>
+  <script src="./js/map.js"></script>
+  <script src="./js/app.js"></script>
+  <!-- 自适应 -->
+  <script>
+    window.onload = function () {
+      const container = document.querySelector('.container')
+      setSize(container)
+      document.addEventListener('resize', setSize)
+    }
+    function setSize (dom) {
+      const { width: allWidth, height } = screen
+      const currentWidth = document.body.clientWidth
+      dom.style.width = allWidth + 'px'
+      dom.style.height = height + 'px'
+      dom.style.transform = `scale(${currentWidth / allWidth})`
+      scatterMap.resize()
+    }
+  </script>
+</body>
+</html>
