@@ -85,10 +85,20 @@
       </div>
     </div>
   </div>
+  <dialog id="js-dialog" open>
+    <p>请按 <strong>F11</strong> 进入全屏查看, 谢谢!</p>
+  </dialog>
   <script src="https://cdn.bootcss.com/echarts/4.7.0/echarts.min.js"></script>
   <script>window.echarts || document.write('<script src="../js/echarts.min.js"><\/script>')</script>
   <script src="./js/anhui.js"></script>
   <script src="./js/map.js"></script>
   <script src="./js/app.js"></script>
+  <script>
+    const dialog = document.getElementById('js-dialog')
+    dialog.onclick = function () {
+      dialog.close()
+      document.body.requestFullscreen()
+    }
+  </script>
 </body>
 </html>
