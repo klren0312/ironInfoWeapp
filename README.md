@@ -47,14 +47,16 @@
 ## 小程序码
 ![](./Weapp/img/weapp.png)
 
-## 管理后台体验地址
-[http://admin.zzes1314.cn](http://admin.zzes1314.cn)
-(**用户名**: `tour`,  **密码**: `tour520`)
-
 # 高层视察数据大屏
+> https://klren0312.github.io/ironInfoWeapp/
+
 ![](./bigScreen/1.gif)
 
 # 管理后台
+>[http://admin.zzes1314.cn](http://admin.zzes1314.cn)
+(**用户名**: `tour`,  **密码**: `tour520`)
+
+
 ![](./Weapp/img/backend1.png)
 ![](./Weapp/img/backend2.png)
 
