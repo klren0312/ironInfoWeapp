@@ -104,7 +104,12 @@
 				title: '加载中'
 			})
 			this.getCategory();
+			// #ifndef MP
+			this.height = uni.getSystemInfoSync().windowHeight
+			// #endif
+			// #ifdef MP
 			this.height = uni.getSystemInfoSync().windowHeight - this.CustomBar
+			// #endif
 		}
 	}
 </script>
