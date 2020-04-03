@@ -343,9 +343,9 @@
 	.flat-btn {
 		padding: 0 20upx;
 		position: fixed;
-		bottom: 20upx;
+		bottom: 15%;
 		right: 20upx;
-		width: 150upx;
+		/* width: 200upx; */
 		height: 150upx;
 		line-height: 150upx;
 		text-align: center;
