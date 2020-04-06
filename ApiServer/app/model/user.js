@@ -57,6 +57,11 @@ module.exports = app => {
 
   User.associate = function () {
     app.model.User.hasMany(app.model.Log)
+    app.model.User.hasMany(app.model.Order, {
+      foreignKey: 'user_id',
+      sourceKey: 'id',
+      as: 'user_order'
+    })
   }
 
   return User

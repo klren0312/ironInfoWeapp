@@ -34,14 +34,21 @@ class DataController extends Controller {
     const {ctx} = this
     const { data } = ctx.service
     let result = await data.getHomeSum()
-    // console.log(result)
+    let adList = await data.getAdList()
+    let totalPrice = await data.getAdDetails()
     if(JSON.stringify(result) !== '{}') {
-      ctx.helper.success({ctx, res: result})
+      ctx.helper.success({ctx, res: {
+        ...result,
+        ad_list: adList.data.ad_unit,
+        total_price: totalPrice.data.summary
+      }})
     } else {
       ctx.helper.fail({ctx, res: {
         article_num: 0,
         iron_sum: 0,
-        wuser_sum: 0
+        wuser_sum: 0,
+        ad_list: [],
+        total_price: 0
       }})
     }
   }

@@ -38,7 +38,11 @@ module.exports = app => {
     })
 
   Price.associate = function () {
-    app.model.Price.belongsTo(app.model.Iron, { foreignKey: 'iron_id', targetKey: 'id', as: 'the_iron' })
+    app.model.Price.belongsTo(app.model.Iron, {
+      foreignKey: 'iron_id',
+      targetKey: 'id',
+      as: 'the_iron'
+    })
   }
 
   return Price

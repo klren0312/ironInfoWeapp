@@ -40,7 +40,11 @@ module.exports = app => {
       underscored: false
     })
   Iron.associate = function () {
-    app.model.Iron.hasMany(app.model.Price, { foreignKey: 'iron_id', sourceKey: 'id', as: 'old_price' })
+    app.model.Iron.hasMany(app.model.Price, {
+      foreignKey: 'iron_id',
+      sourceKey: 'id',
+      as: 'old_price'
+    })
   }
   return Iron
 }

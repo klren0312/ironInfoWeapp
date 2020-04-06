@@ -17,6 +17,17 @@ module.exports = appInfo => {
     secret: ''
   }
 
+  // alipay callback
+  config.alipayCb = ''
+  // alipay config
+  config.alipayConfig = {
+    appId: '',
+    gateway: '',
+    signType: 'RSA',
+    privateKey: '',
+    alipayPublicKey: ''
+  }
+
   // mysql config
   config.dbConfig = {
     database: process.env.DB_DATABASE || 'tlgc',
