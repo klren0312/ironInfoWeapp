@@ -142,8 +142,9 @@ var sactterMapOpt = {
     show: true,
     color: ['#f44336', '#fc9700', '#ffde00', '#ffde00', '#00eaff'],
     textStyle: {
-        color: '#fff'
-    }
+      color: '#fff'
+    },
+    seriesIndex: 0
   },
   geo: {
     map: '安徽',
@@ -164,8 +165,11 @@ var sactterMapOpt = {
     itemStyle: {
       normal: {
         areaColor: '#11234d',
-        borderWidth: 0.5,
-        borderColor: '#2b719e'
+        borderWidth: 1,
+        borderColor: '#2b719e',
+        // shadowColor: '#ccc',
+        // shadowBlur: 15,
+        // opacity: 0.8
       },
       emphasis: {
         areaColor: '#069'
