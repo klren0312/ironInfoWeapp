@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		rootUrl: "https://tlgcapi.zzes1314.cn/api/v1",
-		// rootUrl: "http://localhost:7001/api/v1",
+		rootUrl2: "https://tlgcapi.zzes1314.cn/api/v2",
 		userinfo: false,
 		infos: {}
 	},

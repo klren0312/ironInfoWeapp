@@ -85,3 +85,11 @@ export function countUser (openId, history) {
 		}
 	})
 }
+
+// 敏感词查询
+export function checkText (text) {
+	return request ({
+		url: `${store.state.rootUrl2}/toutiao/text/${text}`,
+		method: 'GET'
+	})
+}

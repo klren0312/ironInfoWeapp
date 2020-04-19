@@ -32,7 +32,7 @@
 
 <script>
 import Search from '../../components/search.vue'
-import { searchFind } from '../../api/api.js'
+import { searchFind, checkText } from '../../api/api.js'
 export default {
 	name: 'searchContainer',
 	components:{
@@ -91,10 +91,25 @@ export default {
 			console.log('watch', this.manager)
 			this.manager.stop()
 		},
-		searchIron() {
-			this.goToDetails(this.ironName)
+		async searchIron() {
+			if (!this.ironName) {
+				uni.showToast({
+					icon: 'none',
+					title: '输入不能为空'
+				})
+				return
+			}
+			try {
+				const result = await checkText(this.ironName)
+				this.goToDetails(this.ironName)
+			} catch (e) {
+				uni.showToast({
+					icon: 'none',
+					title: e.message
+				})
+			}
 		},
-		getIronData() {
+		async getIronData() {
 			searchFind(this.ironName).then(res => {
 				this.listData = res.data
 			})
