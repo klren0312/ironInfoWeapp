@@ -48,7 +48,7 @@ export default {
       })
     },
     goback() {
-      this.$router.push({path: '/articleManage'})
+      this.$router.go(-1)
     }
   }
 }
