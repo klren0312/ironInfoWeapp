@@ -14,7 +14,8 @@ module.exports = async (ctx, next) => {
       admin: res.username,
       ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       time: moment().format('YYYY-MM-DD HH:mm:ss'),
-      comment: request.method + ' ' + request.path
+      comment: request.method + ' ' + request.path,
+      user_id: res.id
     })
   }
   return next()
