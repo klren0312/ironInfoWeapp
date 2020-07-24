@@ -35,6 +35,9 @@
 					</view>
 				</view>
 			</view>
+			<!--  #ifdef  MP-WEIXIN -->
+			<ad unit-id="adunit-e33e3aad6c575346" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="black"></ad>
+			<!-- #endif -->
 		</scroll-view>
 	</view>
 </template>

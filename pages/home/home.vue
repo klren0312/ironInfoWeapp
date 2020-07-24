@@ -32,11 +32,14 @@
 				</view>
 			</swiper-item>
 		</swiper>
+		<!-- #ifdef MP-WEIXIN -->
+		<ad unit-id="adunit-299bbc0df0e741aa" ad-intervals="40"></ad>
+		<!-- #endif -->
 		<!-- 公告栏 -->
 		<view class="article">
 			<block v-for="(v, i) in articlesList" :key="v.id">
 				<!-- #ifdef MP-WEIXIN -->
-				<ad v-if="i === 5" unit-id="adunit-299bbc0df0e741aa" ad-intervals="40"></ad>
+				<ad-custom v-if="i === 5" unit-id="adunit-0775fffd3cef8293"></ad-custom>
 				<!-- #endif -->
 				<view @click="seeArticle(v, v.id)" class="article-card">
 					<div class="text">
@@ -49,8 +52,8 @@
 					</div>
 				</view>
 			</block>
-			<!--  #ifdef  MP-WEIXIN -->
-			<ad unit-id="adunit-e33e3aad6c575346" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="black"></ad>
+			<!-- #ifdef MP-WEIXIN -->
+			<ad-custom unit-id="adunit-33a713107e885e44"></ad-custom>
 			<!-- #endif -->
 		</view>
 		<view class="flat-btn" @click="toCalc">
