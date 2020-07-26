@@ -19,16 +19,16 @@
 			</swiper-item>
 			<swiper-item>
 				<view class="one-line">
-					<view v-for="(v, i) in historyList" :key="i" @click="searchSome(v)" class="iron-item">
-						<template v-if="v !== 'search'">
-							<view class="iron-icon"></view>
-							<view class="iron-name">{{v}}</view>
-						</template>
-						<template v-else>
-							<icon type="search" size="30"/>
-							<view class="iron-name">搜索钢材</view>
-						</template>
+					<view @click="toSearch" class="iron-item">
+						<view class="tools-icon search-icon"></view>
+						<view class="iron-name">搜索钢材</view>
 					</view>
+					<!-- #ifdef MP-WEIXIN -->
+					<view @click="toQrcode" class="iron-item">
+						<view class="tools-icon qrcode-icon"></view>
+						<view class="iron-name">扫码登录</view>
+					</view>
+					<!-- #endif -->
 				</view>
 			</swiper-item>
 		</swiper>
@@ -83,7 +83,8 @@
 	import MyHeader from '../../components/my-header.vue'
 	import {
 		getHotIron,
-		getArticle
+		getArticle,
+		checkQrcode
 	} from '../../api/api.js'
 	import auth from '../mixin/auth.js'
 	export default {
@@ -168,23 +169,50 @@
 			/**
 			 * 搜索钢材
 			 */
-			searchSome(v) {
-				if (v === 'search') {
-					// #ifdef MP-WEIXIN
-					if (this.checkAuth()) {
-						uni.navigateTo({
-							url: '/pages/search/search'
-						})
-					}
-					// #endif
-					// #ifndef MP-WEIXIN
+			toSearch(v) {
+				// #ifdef MP-WEIXIN
+				if (this.checkAuth()) {
 					uni.navigateTo({
 						url: '/pages/search/search'
 					})
-					// #endif
-				} else {
-					this.seeDetails(v, true)
 				}
+				// #endif
+				// #ifndef MP-WEIXIN
+				uni.navigateTo({
+					url: '/pages/search/search'
+				})
+				// #endif
+			},
+			/**
+			 * 扫码登陆
+			 */
+			toQrcode() {
+				// #ifdef MP-WEIXIN
+				if (this.checkAuth()) {
+					uni.scanCode({
+					    success: (res) => {
+							if (res.result) {
+								try{
+									const obj = JSON.parse(res.result)
+									console.log(obj.guid)
+									if (obj && obj.hasOwnProperty('guid')) {
+										const openId = uni.getStorageSync('openId')
+										console.log(openId)
+										checkQrcode(obj.guid, openId)
+									} else {
+										uni.showToast({
+											icon: 'none',
+											title: '二维码无效'
+										})
+									}
+								}catch(e){
+									//TODO handle the exception
+								}
+							}
+					    }
+					});
+				}
+				// #endif
 			},
 			/**
 			 * 查看文章
@@ -368,5 +396,17 @@
 		to{
 			background: #FF0000;
 		}
+	}
+	.tools-icon {
+		display: block;
+		width: 60rpx;
+		height: 60rpx;
+		margin: 0 auto;
+	}
+	.search-icon {
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEj0lEQVRYR8WWXWxUVRDH/3N2tyrRBw1stUn9ira7SyXBxirV3ruNRhOMAVFpUBJJ271bkGhQUzE+WF8wlagYPvdsISgJokRSE31QSLp3t36lEqBJ996qD5KolMKDBuWh7T1j7tY1bdnu3W2TMq9nZv6/M+fMOUO4ykZXWR9lAYSN9C0MNogRBNESMJYQqeOk6PsJ5RsYPvDQpXI3VBJAOG6uBLAGjLZZBQgjYPpIED4cSmjZUkGKAtRu7K8VjtMJoBXAPwAdI+ZBRRj0q/EzjqgQIF4OxnIA9+YggXGAdltS21IKxKwAYSP9OMAHASxmYEBAvJyVTf1uUpaLa0C+eofVNT4ff0ZtF3OlD8fNFgJtY+Y7AZy2pO6CFbWCAKF4agUxfQngRgbetaX+qpvFkcHtAJ4BcFs+q3JUc2DjxdRUlXDM3AtCB4BfLanfUYzgCoDIhr6bUSH6GAix4mftnujHnAwuU8yfABQC8BcRpxmUcRSlK+LnfygkEIllWpnUfoBes6T2zmwQVwCEjVQnQN0A91gyGnOSQQOMRC4BoUsoJSl+8ZxXaXNHEkv3gTjKrJ6wk81fFIqZBlBv/Bi4jMunAF4UEP4HBvc9OOrIILuBglVVqcJ5oVDMbCTCNwAdtaS21hPAvURgHAGo05LadicRTIBguDv3xUbfKmXXM33CMbMXhFVM3Ggnot/NXJ9WgbBh7gLwglsyq6FlQDFGGMj4jVFtLuJuTCSedrvidQZts6X2hhfAGQDLAKoarH/6HkH4ygXyGaN75goQimfWEavD+TvlBTBGwPms1KudRLAThO5CbVYOTCiWqSFSwyD63Epoq70AfgNwzpL6fSoZ7GXGKuEXQWoduVCO6FTfyKa+63lCXALjuJXUH/UCOAWgrrJKXdd367oaZ9xZ6o9fODpX8Vwrxk0NDJOBw7bUn/MCOAKgRTA3DCWjA/MRzseGY+ZLIOwAaEeh/2F6F8RST4LoGAMdttQnH595Wtgw3f/keWLRlk02HShagdrW/huE3zkLwLak3jhPbUTa0g3s4xMAJiqrVDDV1TxRFCDXt4a5k4HNYOy3knr7fCDChumKPwxGt5XUt3q+hK5D3Saz2plwn09Uk2It2xPNzAUiEk93MPNegH9XamLlcM8jgyUBuE4hI72ZwDtzAYQaK6H/XA5EXfuJSkcERibDeW1WRmftpFkHkoiRepFBH0wK0xZLaju8IG7f0HftooDYzAR3bgADXbbUi/4hRUeySDy9npnfd6cigE4A3MtKDbEKnMwPoEvbvr2Jxdj9TKhjpvVEuaf8LMC5oYWJX7ET0fdmg/ccSmfMhVPz/ARmAaK7pienQySwC4waZj70XwVjltR6Sr4DhRxDHenHoJRGRE1gNE3zIWSYOQMh0vY+zf3AchaOpTaBaHfuEBkt2aT+qWcbep1zueshw9xKwNsA/mbgKVvqX0/N4XkE5QoWrJ5hvklAF0B/EGhNVjb9P0cuCMBka09CEGBXjKkVpw82/znZpgtoeQjhD9w9tKfxlwUHyFWiPVNv9zSdzO97QStQqNj/Al2F2TC/cCLyAAAAAElFTkSuQmCC) center / contain no-repeat;
+	}
+	.qrcode-icon {
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABhklEQVRYR+2XbUrDQBCG37Eg5BgKnsG/SesJBC9gBT2E0ag9RvUAgl5Aa+M1VOoxAqKM7JINkezHWBOCpYVC0x1mnpnZd7JL6PlDPcdHBTA84wNi3LqAmJE9TehCAjw85XMiZDZbBt4GhJOHS5qp9QpglDL7nLcFYGLMrkjHbgCoQC6Q31TA5oMIMaC/8AJIA0naUbcZpTxfA6xWBcbFQvUU19F2ItkP3j2gtGuc2DbhYfGu1zfw+TyNdnL1e1wslHRzA6BsCBwzKL+JthozwxZDPAnLbGPCVxIAyBiU2QCs0pSUrsxWS6g3AFsLzH8mW/OsgMUVSFLelVahCzvaS/mOgf0unId8EnBvADZDxl2sE/AhVkEXAD/ehq4AHvmpAaQTOCpeY8ZgXpdfOSMqG5f/YAVWCsA7CV2j2DOCveW1taC184DqueqpGcm2/tpeVK0BLKuINcD/qcCyx/K6kpY+lruCSy4m9RKHNmrjXtDG1UwI8EKM48cJ6WNdcBSHMvnreu8A393fc/5qRrtfAAAAAElFTkSuQmCC) center / contain no-repeat;
 	}
 </style>

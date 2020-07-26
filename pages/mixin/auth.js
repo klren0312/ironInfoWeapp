@@ -10,12 +10,11 @@ export default {
 						success: (res) => {
 							let status = res.authSetting['scope.userInfo']
 							this.$store.commit('SET_INFO', status)
-							// console.log(status)
 							if (!status) {
 								uni.redirectTo({
 									url: '/pages/auth/auth'
-                })
-                return false
+								})
+								return false
 							} else {
 								return true
 							}

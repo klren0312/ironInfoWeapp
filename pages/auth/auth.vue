@@ -7,7 +7,9 @@
 </template>
 
 <script>
-	import { login } from '../../api/api.js'
+	import {
+		login
+	} from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -16,16 +18,24 @@
 		},
 		methods: {
 			getInfo(info) {
-				const {encryptedData, iv, signature} = info.target
+				const {
+					encryptedData,
+					iv,
+					signature
+				} = info.target
 				uni.login({
-				  provider: 'weixin',
-				  success: (loginRes) => {
+					provider: 'weixin',
+					success: (loginRes) => {
 						// 获取用户信息
 						uni.getUserInfo({
 							provider: 'weixin',
 							lang: 'zh_CN',
 							success: (infoRes) => {
-								const {encryptedData, iv, signature} = infoRes
+								const {
+									encryptedData,
+									iv,
+									signature
+								} = infoRes
 								login(encryptedData, iv, signature, loginRes.code).then(res => {
 									uni.setStorageSync('token', res.token)
 									uni.setStorageSync('openId', res.openId)
@@ -47,24 +57,25 @@
 								})
 							}
 						})
-				  }
-				})				
+					}
+				})
 			}
 		}
 	}
 </script>
 
 <style>
-.login-banner {
-	height: 600upx;
-	background: url(https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/login-banner.png) center no-repeat;
-	background-size:100%;
-	background-position-y:0;
-}
-.login-btn {
-	width:60%;
-	margin-top:20%;
-	color: #2fc67b;
-	border:1px solid #2fc67b;
-}
+	.login-banner {
+		height: 600upx;
+		background: url(https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/login-banner.png) center no-repeat;
+		background-size: 100%;
+		background-position-y: 0;
+	}
+
+	.login-btn {
+		width: 60%;
+		margin-top: 20%;
+		color: #2fc67b;
+		border: 1px solid #2fc67b;
+	}
 </style>

@@ -60,7 +60,11 @@
 			"path": "pages/auth/auth",
 			"style": {}
 		}
-	],
+        ,{
+            "path" : "pages/login/login",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "铜陵钢材信息",
