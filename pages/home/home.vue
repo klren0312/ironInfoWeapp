@@ -198,7 +198,39 @@
 									if (obj && obj.hasOwnProperty('guid')) {
 										const openId = uni.getStorageSync('openId')
 										console.log(openId)
-										checkQrcode(obj.guid, openId)
+										checkQrcode(obj.guid, openId).then(res => {
+											console.log(res)
+											const status = res.data
+											switch(status) {
+												case '1111':
+													uni.showToast({
+														icon: 'none',
+														title: '无此用户'
+													})
+													break
+												case '2222':
+													uni.showToast({
+														icon: 'none',
+														title: '二维码失效'
+													})
+													break
+												case '3333':
+													uni.showToast({
+														icon: 'none',
+														title: '未绑定用户'
+													})
+													uni.navigateTo({
+														url: '/pages/login/login'
+													})
+													break
+												default:
+													uni.showToast({
+														icon: 'success',
+														title: '扫码登录成功!'
+													})
+													break
+											}
+										})
 									} else {
 										uni.showToast({
 											icon: 'none',
