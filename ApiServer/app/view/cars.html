@@ -1,0 +1,41 @@
+{% extends 'root.html' %}
+{% block body %}
+<link rel="stylesheet" href="/public/css/cars.css">
+<div class="table-block">
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>图片</th>
+          <th>名称</th>
+          <th>价格</th>
+          <th>排量</th>
+          <th>级别</th>
+          <th>类型</th>
+          <th>变速箱</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cars %}
+        <tr>
+          <td><img class="car-image" src="{{item.img}}" alt="{{item.name}}"></td>
+          <td>{{item.name}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.displacement}}</td>
+          <td>{{item.level}}</td>
+          <td>{{item.type}}</td>
+          <td>{{item.gearbox}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="table-pagination">
+      <div>
+        <span class="pagin-item">共{{total}}条数据</span>
+        <a class="page-item {% if prev === 0 %} disabled {% endif %}" href="/cars?pageIndex={{prev}}">前一页</a>
+        <a class="page-item {% if next > last %} disabled {% endif %}" href="/cars?pageIndex={{next}}">后一页</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

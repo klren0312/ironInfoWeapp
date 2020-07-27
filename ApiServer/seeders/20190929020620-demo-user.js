@@ -19,7 +19,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date(),
       status: 1,
-      role: 'superAdmin'
+      role: 'superAdmin',
     }], {});
   },
 
@@ -32,5 +32,5 @@ module.exports = {
       return queryInterface.bulkDelete('People', null, {});
     */
     return queryInterface.bulkDelete('user', null, {});
-  }
+  },
 };

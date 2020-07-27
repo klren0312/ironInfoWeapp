@@ -9,22 +9,22 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    const { STRING, DATE, TEXT, INTEGER } = Sequelize
+    const { STRING, DATE, TEXT, INTEGER } = Sequelize;
 
     return queryInterface.createTable('log', {
       id: {
         type: INTEGER(11),
         primaryKey: true,
         allowNull: false,
-        autoIncrement: true
+        autoIncrement: true,
       },
       admin: {
         type: STRING(11),
-        allowNull: false
+        allowNull: false,
       },
       ip: {
         type: STRING(30),
-        allowNull: true
+        allowNull: true,
       },
       comment: {
         type: STRING(30),
@@ -40,11 +40,11 @@ module.exports = {
       },
       ctrl: {
         type: TEXT,
-        allowNull: true
+        allowNull: true,
       },
       createdAt: DATE,
-      updatedAt: DATE
-    })
+      updatedAt: DATE,
+    });
   },
 
   down: (queryInterface, Sequelize) => {
@@ -55,6 +55,6 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-   return queryInterface.dropTable('log')
-  }
+    return queryInterface.dropTable('log');
+  },
 };

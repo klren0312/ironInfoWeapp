@@ -9,7 +9,7 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    const { STRING, BOOLEAN, INTEGER, DATE } = Sequelize
+    const { STRING, BOOLEAN, INTEGER, DATE } = Sequelize;
     return queryInterface.createTable('user', {
       id: {
         primaryKey: true,
@@ -23,7 +23,7 @@ module.exports = {
         validate: {
           is: /^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){1,50}$/i,
           isLowercase: true,
-        }
+        },
       },
       password: {
         type: STRING,
@@ -35,26 +35,26 @@ module.exports = {
         allowNull: false,
         validate: {
           isEmail: true,
-          isLowercase: true
-        }
+          isLowercase: true,
+        },
       },
       avatar: {
         type: STRING,
-        allowNull: true
+        allowNull: true,
       },
       status: {
         type: BOOLEAN,
         allowNull: false,
-        defaultValue: true
+        defaultValue: true,
       },
       role: {
         type: STRING,
         allowNull: false,
-        defaultValue: 'anonymous'
+        defaultValue: 'anonymous',
       },
       createdAt: DATE,
-      updatedAt: DATE
-    })
+      updatedAt: DATE,
+    });
   },
 
   down: (queryInterface, Sequelize) => {
@@ -65,6 +65,6 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-   return queryInterface.dropTable('user');
-  }
+    return queryInterface.dropTable('user');
+  },
 };

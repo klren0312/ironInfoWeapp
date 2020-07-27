@@ -1,13 +1,15 @@
-'use strict'
+'use strict';
 
 module.exports = {
   /**
    * 子路由
    */
   get apiV1Router() {
-    return this.router.namespace('/api/v1')
+    return this.router.namespace('/api/v1');
   },
-
+  get apiV2Router() {
+    return this.router.namespace('/api/v2');
+  },
   /**
    * 生成jwt
    * @param {Int} id 用户id
@@ -15,11 +17,11 @@ module.exports = {
    * @param {String} role 权限
    */
   generateJWT(id, username, role) {
-    const { config } = this
+    const { config } = this;
     const token = this.jwt.sign({ id, username, role }, config.jwt.secret, {
-      expiresIn: '2 days'
-    })
-    return token
+      expiresIn: '2 days',
+    });
+    return token;
   },
 
   /**
@@ -27,10 +29,10 @@ module.exports = {
    * @param {Object} ctx 传入的请求体
    */
   verifyToken(ctx) {
-    const { config } = this
-    const token = config.jwt.getToken(ctx)
-    if (!token) return null
-    return this.jwt.verify(token, config.jwt.secret)
+    const { config } = this;
+    const token = config.jwt.getToken(ctx);
+    if (!token) return null;
+    return this.jwt.verify(token, config.jwt.secret);
   },
 
   /**
@@ -41,28 +43,29 @@ module.exports = {
    * @return {Object} 用户登录/注册反馈
    */
   getUserJson(user, ctx, check) {
-    user = user.get()
-    const { config } = this
-    let token = config.jwt.getToken(ctx)
+    user = user.get();
+    const { config } = this;
+    let token = config.jwt.getToken(ctx);
     if (check === 1) {
       if (!token) {
-        token = 'Bearer ' + this.generateJWT(user.id, user.username, user.role)
+        token = 'Bearer ' + this.generateJWT(user.id, user.username, user.role);
       }
       return {
         token,
-        roles: user.userRoles
-      }
+        username: user.username,
+        roles: user.role,
+      };
     } else if (check === 0) {
       return {
         username: user.username,
-        email: user.email
-      }
-    } else {
-      return { error: '联系管理员吧' }
+        email: user.email,
+      };
     }
+    return { error: '联系管理员吧' };
+
   },
   // 保存全局的用户wechat数据
-  wechatQueue:{},
+  wechatQueue: {},
   // 用户批量添加好友的队列。
-  wechatAddContactQueue:[],
-}
+  wechatAddContactQueue: [],
+};

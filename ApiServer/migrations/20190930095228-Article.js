@@ -9,7 +9,7 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    const { STRING, TEXT, BOOLEAN, INTEGER, DATE } = Sequelize
+    const { STRING, TEXT, BOOLEAN, INTEGER, DATE } = Sequelize;
     return queryInterface.createTable('article', {
       id: {
         primaryKey: true,
@@ -18,24 +18,24 @@ module.exports = {
       },
       title: {
         type: STRING,
-        allowNull: false
+        allowNull: false,
       },
       content: {
         type: TEXT,
-        allowNull: true
+        allowNull: true,
       },
       content: {
         type: TEXT,
-        allowNull: true
+        allowNull: true,
       },
       status: {
         type: BOOLEAN,
         allowNull: false,
-        defaultValue: true
+        defaultValue: true,
       },
       createdAt: DATE,
-      updatedAt: DATE
-    })
+      updatedAt: DATE,
+    });
   },
 
   down: (queryInterface, Sequelize) => {
@@ -47,5 +47,5 @@ module.exports = {
       return queryInterface.dropTable('users');
     */
     return queryInterface.dropTable('article');
-  }
+  },
 };

@@ -1,0 +1,28 @@
+.dplayer-menu.dplayer-menu-show {
+  display: none;
+}
+.video-container {
+  padding-top: 60px;
+  height: calc(100vh - 60px);
+  background: #000;
+}
+.video-container .dplayer {
+  width: 80%;
+  height: calc(100vh - 60px);
+}
+.video-container .left-list {
+  width: 20%;
+}
+.video-container .left-list ul {
+  list-style: none;
+  font-size: 16px;
+  color: #fff;
+}
+.video-container .left-list ul li {
+  padding: 5px;
+  cursor: pointer;
+}
+.video-container .left-list ul li:hover,
+.video-container .left-list ul li.active {
+  color: #e65441;
+}

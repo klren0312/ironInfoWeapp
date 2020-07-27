@@ -1,7 +1,7 @@
-'use stricts'
+'use stricts';
 
-const bcrypt = require('bcryptjs')
-const crypto = require('crypto')
+const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 module.exports = {
   /**
@@ -9,7 +9,7 @@ module.exports = {
    * @param {String} str            需要加密的字符串
    */
   bhash: str => {
-    return bcrypt.hashSync(str, 10)
+    return bcrypt.hashSync(str, 10);
   },
 
   /**
@@ -18,7 +18,18 @@ module.exports = {
    * @param {String} hash           比对的hash值
    */
   bcompare: (str, hash) => {
-    return bcrypt.compareSync(str, hash)
+    return bcrypt.compareSync(str, hash);
+  },
+
+  /**
+   * 生成guid
+   */
+  genGuid: () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   },
 
   /**
@@ -31,12 +42,12 @@ module.exports = {
    * return {object}
    */
   pagination: page => {
-    const { pageField, pageSort, pageSize, pageIndex } = page
-    const order = [[pageField, pageSort]]
-    const offset = (pageIndex - 1) * pageSize
-    const limit = pageSize
+    const { pageField, pageSort, pageSize, pageIndex } = page;
+    const order = [[ pageField, pageSort ]];
+    const offset = (pageIndex - 1) * pageSize;
+    const limit = pageSize;
 
-    return { order, offset, limit }
+    return { order, offset, limit };
   },
 
   /**
@@ -66,46 +77,47 @@ module.exports = {
    * 处理成功请求后的响应
    */
   success: ({ ctx, code = 200, res = {}, msg }) => {
-    if (!res) code = 404
-    ctx.status = 200
+    if (!res) code = 404;
+    ctx.status = 200;
     ctx.body = {
-      code: code,
+      code,
       message: msg || ctx.helper.errorCode[code],
-      data: res
-    }
+      data: res,
+    };
   },
 
   /**
    * 处理失败请求后的响应
    */
   fail: ({ ctx, code = 500, res = {}, msg }) => {
-    ctx.status = 200
+    ctx.status = 200;
     ctx.body = {
-      code: code,
+      code,
       message: msg || ctx.helper.errorCode[code],
-      data: res
-    }
+      data: res,
+    };
   },
 
   /**
    * http请求封装
    */
-  request: async ({ctx, method = 'GET', url='', data = {}}) => {
+  request: async ({ ctx, method = 'GET', url = '', data = {}, headers = {} }) => {
     const result = await ctx.curl(url, {
-      method: method,
+      method,
       contentType: 'json',
       dataType: 'json',
-      data: data
-    })
-    return result
+      data,
+      headers,
+    });
+    return result;
   },
 
   /**
    * 加密
    * @param {object} data 需要加密的数据
    */
-  encryptSha1: (data) => {
-    return crypto.createHash('sha1').update(data,'utf8').digest('hex');
+  encryptSha1: data => {
+    return crypto.createHash('sha1').update(data, 'utf8').digest('hex');
   },
 
   /**
@@ -115,19 +127,19 @@ module.exports = {
    * @param {string} crypted 需要加密的数据
    */
   decodeUserInfo: (key, iv, crypted) => {
-    crypted = new Buffer(crypted, 'base64')
-    key = new Buffer(key, 'base64')
-    iv = new Buffer(iv, 'base64')
+    crypted = new Buffer(crypted, 'base64');
+    key = new Buffer(key, 'base64');
+    iv = new Buffer(iv, 'base64');
     try {
-      const decipher = crypto.createDecipheriv('aes-128-cbc', key, iv)
-      decipher.setAutoPadding(true)
-      var decoded = decipher.update(crypted, 'base64', 'utf8')
-      decoded += decipher.final('utf8')
-      decoded = JSON.parse(decoded)
+      const decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
+      decipher.setAutoPadding(true);
+      var decoded = decipher.update(crypted, 'base64', 'utf8');
+      decoded += decipher.final('utf8');
+      decoded = JSON.parse(decoded);
     } catch (err) {
-      throw new Error('Illegal Buffer')
+      throw new Error('Illegal Buffer');
     }
-    
-    return decoded
-  }
-}
+
+    return decoded;
+  },
+};

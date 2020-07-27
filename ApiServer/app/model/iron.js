@@ -9,42 +9,42 @@
   new_price:  钢材最新价格
 */
 module.exports = app => {
-  const { STRING, TEXT, FLOAT, INTEGER } = app.Sequelize
+  const { STRING, TEXT, FLOAT, INTEGER } = app.Sequelize;
   const Iron = app.model.define('iron', {
     id: {
       type: INTEGER(11),
       primaryKey: true,
       allowNull: false,
-      autoIncrement: true
+      autoIncrement: true,
     },
     name: {
       type: STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
     },
     intro: {
       type: TEXT,
-      allowNull: true
+      allowNull: true,
     },
     photo: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
     },
     new_price: {
       type: FLOAT,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   }, {
-      timestamps: true,
-      tableName: 'iron',
-      underscored: false
-    })
-  Iron.associate = function () {
+    timestamps: true,
+    tableName: 'iron',
+    underscored: false,
+  });
+  Iron.associate = function() {
     app.model.Iron.hasMany(app.model.Price, {
       foreignKey: 'iron_id',
       sourceKey: 'id',
-      as: 'old_price'
-    })
-  }
-  return Iron
-}
+      as: 'old_price',
+    });
+  };
+  return Iron;
+};

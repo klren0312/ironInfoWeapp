@@ -1,0 +1,149 @@
+# 使用的是 REST Client 插件
+
+### login
+POST http://localhost:7001/api/v1/user/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "tlgc",
+    "password": "qwer1234"
+}
+
+### login
+POST http://localhost:7001/api/v1/user/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "tour",
+    "password": "tour520"
+}
+
+### get weixin user
+GET http://localhost:7001/api/v1/wuser?pageSize=10&pageField=id HTTP/1.1
+User-Agent: rest-client
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0bGdjIiwicm9sZSI6InN1cGVyQWRtaW4iLCJpYXQiOjE1NjQyMTU0OTUsImV4cCI6MTU2NDM4ODI5NX0.amsnvOa-aAxCc0IkD_5VCpyM3g2f_9JhPrAUlqWxTwo
+content-type: application/json
+
+### get weixin user
+GET http://localhost:7001/api/v1/wuser?pageSize=10&pageField=count HTTP/1.1
+User-Agent: rest-client
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0bGdjIiwicm9sZSI6InN1cGVyQWRtaW4iLCJpYXQiOjE1NjQyMTU0OTUsImV4cCI6MTU2NDM4ODI5NX0.amsnvOa-aAxCc0IkD_5VCpyM3g2f_9JhPrAUlqWxTwo
+content-type: application/json
+
+### get system log
+GET http://localhost:7001/api/v1/log HTTP/1.1
+User-Agent: rest-client
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0bGdjIiwicm9sZSI6InN1cGVyQWRtaW4iLCJpYXQiOjE1NjQyMTU0OTUsImV4cCI6MTU2NDM4ODI5NX0.amsnvOa-aAxCc0IkD_5VCpyM3g2f_9JhPrAUlqWxTwo
+content-type: application/json
+
+
+
+
+######################################################
+######################################################
+### get system log
+GET http://localhost:7001/api/v1/log HTTP/1.1
+User-Agent: rest-client
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0bGdjIiwicm9sZSI6InN1cGVyQWRtaW4iLCJpYXQiOjE1NjM0MzIwODAsImV4cCI6MTU2MzYwNDg4MH0.F00GVxtJXLVE2VOCjp2SG3blB9BFNQjh8o2XIJTDkYM
+content-type: application/json
+
+###
+POST http://localhost:7001/api/v1/user/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "tlgc",
+    "password": "qwer1234"
+}
+
+###
+POST http://localhost:7001/api/v1/user/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "tour",
+    "password": "tour520"
+}
+
+###
+GET http://localhost:7001/api/v1/article HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0bGdjIiwicm9sZSI6InN1cGVyQWRtaW4iLCJpYXQiOjE1ODQ2MjkxMTMsImV4cCI6MTU4NDgwMTkxM30.uRrAdmi0Kpn0DhMbJoIBLFrGbqhNoabm7eKm1ElsQYU
+
+###
+GET http://localhost:7001/api/v1/wechat/logout HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0bGdjIiwicm9sZSI6InN1cGVyQWRtaW4iLCJpYXQiOjE1NjQyMjAxNDQsImV4cCI6MTU2NDM5Mjk0NH0.HXHFIx_tRTOOZOC9e5DWjb6zyC-NDEYxCqWd93LRl0M
+
+###
+GET http://localhost:7001 HTTP/1.1
+content-type: application/json
+
+###
+GET http://localhost:7001/api/v1/test HTTP/1.1
+content-type: application/json
+
+###
+GET http://localhost:7001/api/v1/captcha HTTP/1.1
+content-type: application/json
+
+###
+GET http://ip.taobao.com/service/getIpInfo.php?ip=116.231.196.113
+
+###
+GET http://localhost:7001/api/v1/cars/all HTTP/1.1
+Content-Type: application/json
+
+###
+POST http://192.168.99.186:7001/api/v1/location HTTP/1.1
+Content-Type: application/json
+
+{
+    "latitude": 1,
+    "longitude": 1
+}
+
+###
+GET http://192.168.99.186:7001/api/v1/location/current HTTP/1.1
+Content-Type: application/json
+
+###
+POST http://localhost/hdfq/uvCount HTTP/1.1
+Content-Type: application/json
+
+###
+POST http://localhost:7001/api/v1/pay HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0bGdjIiwicm9sZSI6InN1cGVyQWRtaW4iLCJpYXQiOjE1ODUxMjg3MzQsImV4cCI6MTU4NTMwMTUzNH0.qTYj2_NxOJsiiqORYVSg7XDwRCFmMZ3B-aesOy0ME-c
+
+{
+    "outTradeNo": "1231424142313",
+    "totalAmount": 0.01,
+    "subject": "ceui",
+    "body": "ceui",
+    "address": "长江",
+    "mobile":  15755555555,
+    "number": 1
+}
+
+
+###
+GET http://localhost:7001/api/v1/pay/order/fewfewafewwefaaaaaaaaaaaaaa HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0bGdjIiwicm9sZSI6InN1cGVyQWRtaW4iLCJpYXQiOjE1ODUxMjg3MzQsImV4cCI6MTU4NTMwMTUzNH0.qTYj2_NxOJsiiqORYVSg7XDwRCFmMZ3B-aesOy0ME-c
+
+#Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0bGdjIiwicm9sZSI6InN1cGVyQWRtaW4iLCJpYXQiOjE1ODUxMjg3MzQsImV4cCI6MTU4NTMwMTUzNH0.qTYj2_NxOJsiiqORYVSg7XDwRCFmMZ3B-aesOy0ME-c
+###
+GET http://localhost:7001/api/v1/pay/order HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0bGdjIiwicm9sZSI6InN1cGVyQWRtaW4iLCJpYXQiOjE1ODUxMjg3MzQsImV4cCI6MTU4NTMwMTUzNH0.qTYj2_NxOJsiiqORYVSg7XDwRCFmMZ3B-aesOy0ME-c
+
+
+###
+GET http://localhost:7001/api/v1/pay/status/22222222222222 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0bGdjIiwicm9sZSI6InN1cGVyQWRtaW4iLCJpYXQiOjE1ODUxMjg3MzQsImV4cCI6MTU4NTMwMTUzNH0.qTYj2_NxOJsiiqORYVSg7XDwRCFmMZ3B-aesOy0ME-c
+
+###
+GET http://localhost:7001/api/v2/toutiao/text/蛤蟆 HTTP/1.1
+Content-Type: application/json

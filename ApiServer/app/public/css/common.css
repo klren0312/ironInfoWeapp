@@ -1,0 +1,126 @@
+body {
+  padding: 0;
+  margin: 0;
+  color: #333;
+}
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.wrapper {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 576px) {
+  .wrapper {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .wrapper {
+    max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .wrapper {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .wrapper {
+    max-width: 1180px;
+  }
+}
+nav {
+  height: 60px;
+  width: 100%;
+  padding: 7px 0 12px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 3;
+  background: transparent;
+  box-sizing: border-box;
+}
+nav .logo {
+  width: 100px;
+}
+nav .left-nav {
+  list-style: none;
+}
+nav .left-nav .nav-item {
+  padding: 0 20px;
+}
+nav .left-nav .nav-item .nav-link {
+  text-decoration: none;
+  font-weight: bolder;
+  color: #fff;
+}
+nav .left-nav .nav-item .nav-link:hover,
+nav .left-nav .nav-item .nav-link.active {
+  color: #e65441;
+}
+.table-block {
+  padding-top: 60px;
+  height: calc(100vh - 60px);
+}
+.table-block table {
+  position: relative;
+  width: 100%;
+  padding-top: 60px;
+}
+.table-block table thead {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  box-shadow: 0px 2px 16px 0px rgba(38, 38, 38, 0.15);
+  background: #dfdfdf;
+}
+.table-block table tr {
+  transition: all 0.3s, height 0s;
+}
+.table-block table th {
+  font-weight: bold;
+}
+.table-block table th,
+.table-block table td {
+  width: 200px;
+  padding: 20px 10px;
+  text-align: center;
+}
+.table-block .table-pagination {
+  padding: 10px 0;
+  text-align: center;
+}
+.table-block .table-pagination .page-item {
+  margin-left: 20px;
+  padding: 5px 20px;
+  line-height: 1.5;
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  background: #4d3fca;
+}
+.table-block .table-pagination .page-item.disabled {
+  background: #eeeeee;
+  pointer-events: none;
+  cursor: no-drop;
+}
+footer {
+  padding: 5px;
+  text-align: center;
+  color: #848484;
+  font-size: 12px;
+  background: #000;
+}

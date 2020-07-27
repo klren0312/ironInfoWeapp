@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*
   用户日志表
@@ -11,22 +11,22 @@
 */
 
 module.exports = app => {
-  const { INTEGER, STRING, DATE, TEXT } = app.Sequelize
+  const { INTEGER, STRING, DATE, TEXT } = app.Sequelize;
 
   const Log = app.model.define('log', {
     id: {
       type: INTEGER(11),
       primaryKey: true,
       allowNull: false,
-      autoIncrement: true
+      autoIncrement: true,
     },
     admin: {
       type: STRING(11),
-      allowNull: false
+      allowNull: false,
     },
     ip: {
       type: STRING(30),
-      allowNull: true
+      allowNull: true,
     },
     comment: {
       type: STRING(30),
@@ -42,19 +42,19 @@ module.exports = app => {
     },
     ctrl: {
       type: TEXT,
-      allowNull: true
-    }
+      allowNull: true,
+    },
   }, {
-      timestamps: false,
-      freezeTableName: true,
-      tableName: 'log'
-    })
+    timestamps: false,
+    freezeTableName: true,
+    tableName: 'log',
+  });
 
 
-  Log.associate = function () {
+  Log.associate = function() {
     app.model.Log.belongsTo(app.model.User, { foreignKey: 'user_id', targetKey: 'id' });
-  }
+  };
 
 
-  return Log
-}
+  return Log;
+};

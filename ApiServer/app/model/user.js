@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*
   用户表
@@ -10,7 +10,7 @@
   role:        角色
 */
 module.exports = app => {
-  const { STRING, BOOLEAN } = app.Sequelize
+  const { STRING, BOOLEAN } = app.Sequelize;
 
   const User = app.model.define('user', {
     username: {
@@ -20,7 +20,7 @@ module.exports = app => {
       validate: {
         is: /^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){1,50}$/i,
         isLowercase: true,
-      }
+      },
     },
     password: {
       type: STRING,
@@ -32,37 +32,37 @@ module.exports = app => {
       allowNull: false,
       validate: {
         isEmail: true,
-        isLowercase: true
-      }
+        isLowercase: true,
+      },
     },
     avatar: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
     },
     status: {
       type: BOOLEAN,
       allowNull: false,
-      defaultValue: true
+      defaultValue: true,
     },
     role: {
       type: STRING,
       allowNull: false,
-      defaultValue: 'anonymous'
-    }
+      defaultValue: 'anonymous',
+    },
   }, {
-      timestamps: true,
-      tableName: 'user',
-      underscored: false
-    })
+    timestamps: true,
+    tableName: 'user',
+    underscored: false,
+  });
 
-  User.associate = function () {
-    app.model.User.hasMany(app.model.Log)
+  User.associate = function() {
+    app.model.User.hasMany(app.model.Log);
     app.model.User.hasMany(app.model.Order, {
       foreignKey: 'user_id',
       sourceKey: 'id',
-      as: 'user_order'
-    })
-  }
+      as: 'user_order',
+    });
+  };
 
-  return User
-}
+  return User;
+};

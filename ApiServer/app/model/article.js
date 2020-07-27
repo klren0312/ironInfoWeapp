@@ -8,29 +8,29 @@
 */
 
 module.exports = app => {
-  const { STRING, TEXT, BOOLEAN } = app.Sequelize
+  const { STRING, TEXT, BOOLEAN } = app.Sequelize;
 
   const Article = app.model.define('article', {
     title: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
     },
     content: {
       type: TEXT,
-      allowNull: true
+      allowNull: true,
     },
     content: {
       type: TEXT,
-      allowNull: true
+      allowNull: true,
     },
     status: {
       type: BOOLEAN,
       allowNull: false,
-      defaultValue: true
-    }
+      defaultValue: true,
+    },
   }, {
-      timestamps: true,
-      tableName: 'article'
-    })
-  return Article
-}
+    timestamps: true,
+    tableName: 'article',
+  });
+  return Article;
+};

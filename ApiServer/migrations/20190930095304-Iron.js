@@ -9,35 +9,35 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    const { STRING, TEXT, FLOAT, INTEGER, DATE } = Sequelize
+    const { STRING, TEXT, FLOAT, INTEGER, DATE } = Sequelize;
 
     return queryInterface.createTable('iron', {
       id: {
         type: INTEGER(11),
         primaryKey: true,
         allowNull: false,
-        autoIncrement: true
+        autoIncrement: true,
       },
       name: {
         type: STRING,
         unique: true,
-        allowNull: false
+        allowNull: false,
       },
       intro: {
         type: TEXT,
-        allowNull: true
+        allowNull: true,
       },
       photo: {
         type: STRING,
-        allowNull: true
+        allowNull: true,
       },
       new_price: {
         type: FLOAT,
-        allowNull: false
+        allowNull: false,
       },
       createdAt: DATE,
-      updatedAt: DATE
-    })
+      updatedAt: DATE,
+    });
   },
 
   down: (queryInterface, Sequelize) => {
@@ -49,5 +49,5 @@ module.exports = {
       return queryInterface.dropTable('users');
     */
     return queryInterface.dropTable('iron');
-  }
+  },
 };

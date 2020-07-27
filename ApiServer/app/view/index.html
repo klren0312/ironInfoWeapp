@@ -1,99 +1,73 @@
 {% extends 'root.html' %}
 {% block body %}
+<link rel="stylesheet" href="/public/css/style.css">
 <header>
-  <nav class="navbar navbar-light container">
-    <span class="navbar-brand logo-block" href="#">
-      <img class="logo-img" src="/public/imgs/zzes.svg" alt="" srcset="">
-      <span class="logo-text">治电科技</span>
-    </span>
-  </nav>
-</header>
-<main>
-  <section class="banner">
-    <div class="container">
-      <div class="banner-text">
-        <h1 class="title">治电十年, 百废待兴</h1>
-        <h3 class="info">
-          求真, 务实, 诚信, 合作, 为目标而奋斗!
-        </h3>
-      </div>
-      <div class="action-wrap">
-        <a href="mailto:zvd@zzes1314.cn" class="btn btn-info">联系我们</a>
-      </div>
-      <section class="card-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3 col-xs-12">
-              <div class="card">
-                <div class="logo">
-                  <div class="img-wrap">
-                    <div class="img img1"></div>
-                  </div>
-                </div>
-                <div class="card-content">
-                  <h4>治中电科</h4>
-                  <p>总组织, 总方向, 对分组织进行拆分管理, 达到共同进步</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-12">
-              <div class="card">
-                <div class="logo">
-                  <div class="img-wrap">
-                    <div class="img img2"></div>
-                  </div>
-                </div>
-                <div class="card-content">
-                  <h4>治电科技</h4>
-                  <p>治中电科转型升级产物, 为目标而奋斗</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-12">
-              <div class="card">
-                <div class="logo">
-                  <div class="img-wrap">
-                    <div class="img img3"></div>
-                  </div>
-                </div>
-                <div class="card-content">
-                  <h4>治电普钢</h4>
-                  <p>治中电科涉足铜陵钢材产物, 稳中求生</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-12">
-              <div class="card">
-                <div class="logo">
-                  <div class="img-wrap">
-                    <div class="img img4"></div>
-                  </div>
-                </div>
-                <div class="card-content">
-                  <h4>BoogoHi</h4>
-                  <p>治电科技技术分支, 创新型团队</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  <div class="intro">
+    <div class="title">
+      <div class="title-first">治电十一年</div>
+      <h2 class="title-second">空想促实干, 实干赢未来</h2>
     </div>
-  </section>
-</main>
-<footer class="bottom-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <div class="legal-warp">
-          <p>© 2019 ZZES Inc. All rights reserved</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <a class="github-button" href="https://github.com/klren0312/ironInfoWeapp" data-icon="octicon-star" data-show-count="true" aria-label="Star klren0312/ironInfoWeapp on GitHub">钢材信息</a>
-        <a class="github-button" href="https://github.com/klren0312/stm32_wifi" data-icon="octicon-star" data-show-count="true" aria-label="Star klren0312/stm32_wifi on GitHub">物联网</a>
-      </div>
+    <div class="scrollDownBtn" onclick="toShow()">
+      <i></i>
     </div>
   </div>
-</footer>
+</header>
+<main>
+  <section class="feature-section">
+    <div class="container">
+      <div class="header">
+        <div class="title">团队特点</div>
+      </div>
+      <div class="feature-card clearfix">
+        <div class="feature-card-item fl">
+          <div class="card-inner">
+            <div class="text">团队精良</div>
+            <div class="info">聘用多行业人员作为顾问, 有完善的团队培训体系</div>
+          </div>
+        </div>
+        <div class="feature-card-item fl">
+          <div class="card-inner">
+            <div class="text">技术先进</div>
+            <div class="info">定期更新技术栈, 敢于将最新技术运用于生产项目</div>
+          </div>
+        </div>
+        <div class="feature-card-item fl">
+          <div class="card-inner">
+            <div class="text">拥抱开源</div>
+            <div class="info">支持开源, 定期将相关技术积累开源到社区</div>
+          </div>
+        </div>
+        <div class="feature-card-item fl">
+          <div class="card-inner">
+            <div class="text">充满活力</div>
+            <div class="info">热爱生活, 拒绝无用加班</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="product-section">
+    <div class="container">
+      <div class="header">
+        <div class="title">项目简介</div>
+      </div>
+      <div class="content clearfix">
+        <img class="qrcode" src="/public/imgs/qrcode.png" alt="钢材信息小程序码">
+        <div class="text">
+          <p>铜陵钢材信息小程序</p>
+          <p>实现小程序钢材的价格查看与搜索;管理后台的钢材与价格录入, 以及钢材文章录入等功能</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div>
+      <a class="github-button" href="https://github.com/klren0312/ironInfoWeapp" data-icon="octicon-star" data-show-count="true" aria-label="Star klren0312/ironInfoWeapp on GitHub">钢材信息</a>
+      <a class="github-button" href="https://github.com/klren0312/stm32_wifi" data-icon="octicon-star" data-show-count="true" aria-label="Star klren0312/stm32_wifi on GitHub">物联网</a>
+    </div>
+    CopyRight 治电科技团队 版权所有©2009-2020 All Rights Reserved <a href="/map">location</a>
+  </footer>
+</main>
+<script src="/public/js/index.js"></script>
 {% endblock %}

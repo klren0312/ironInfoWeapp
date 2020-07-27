@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*
   用户表
@@ -11,59 +11,64 @@
   language:    语言
   name:        昵称
   count:       访问小程序次数
+  userId:      绑定的用户id
 */
 module.exports = app => {
-  const { STRING, INTEGER } = app.Sequelize
+  const { STRING, INTEGER } = app.Sequelize;
 
   const Wuser = app.model.define('wuser', {
     id: {
       type: INTEGER,
       primaryKey: true,
       allowNull: false,
-      autoIncrement: true
+      autoIncrement: true,
     },
     openId: {
       type: STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
     },
     avatarUrl: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
     },
     nickName: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
     },
     gender: {
       type: INTEGER,
-      allowNull: true
+      allowNull: true,
     },
     language: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
     },
     city: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
     },
     province: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
     },
     country: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
     },
     count: {
       type: INTEGER,
-      allowNull: true
-    }
+      allowNull: true,
+    },
+    userId: {
+      type: INTEGER,
+      allowNull: true,
+    },
   }, {
-      timestamps: true,
-      tableName: 'wuser',
-      underscored: false
-    })
+    timestamps: true,
+    tableName: 'wuser',
+    underscored: false,
+  });
 
-  return Wuser
-}
+  return Wuser;
+};

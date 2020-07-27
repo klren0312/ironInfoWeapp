@@ -11,8 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" href="/public/imgs/zzes.png">
   <!-- Place favicon.ico in the root directory -->
-  <link rel="stylesheet" href="/public/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/public/css/style.css">
+  <link rel="stylesheet" href="/public/css/common.css">
 
   <!-- GrowingIO Analytics code version 2.1 -->
   <!-- Copyright 2015-2018 GrowingIO, Inc. More info available at http://www.growingio.com -->
@@ -41,10 +40,26 @@
   <!--[if lte IE 9]>
     <p class="browserupgrade">您正在使用 <strong>过时的</strong> 浏览器. 请<a href="https://browsehappy.com/">升级您的浏览器</a>来提升您的体验和安全.</p>
   <![endif]-->
+  <nav>
+    <div class="wrapper clearfix">
+      <img class="logo" src="/public/imgs/logo.png" alt="logo">
+      <ul class="left-nav fr">
+        <li class="nav-item fl">
+          <a class="nav-link {% if current === 'index' %} active {% endif %}" href="/">首页</a>
+        </li>
+        <li class="nav-item fl">
+          <a class="nav-link {% if current === 'irons' %} active {% endif %}" href="/irons">钢材</a>
+        </li>
+        <li class="nav-item fl">
+          <a class="nav-link {% if current === 'cars' %} active {% endif %}" href="/cars">汽车</a>
+        </li>
+        <!-- <li class="nav-item fl">
+          <a class="nav-link {% if current === 'm3u8' %} active {% endif %}" href="/m3u8">m3u8</a></li> -->
+      </ul>
+    </div>
+  </nav>
   {% block body %}
   {% endblock %}
-  <script src="/public/js/jquery.min.js"></script>
-  <script src="/public/js/bootstrap.min.js"></script>
   <script src="https://buttons.github.io/buttons.js"></script>
   <script>
     console.log(

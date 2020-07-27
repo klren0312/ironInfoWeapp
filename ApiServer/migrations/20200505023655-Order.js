@@ -9,64 +9,64 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    const { FLOAT, INTEGER, STRING } = Sequelize
+    const { FLOAT, INTEGER, STRING } = Sequelize;
     return queryInterface.createTable('order', {
       id: {
         type: INTEGER(11),
         primaryKey: true,
         allowNull: false,
-        autoIncrement: true
+        autoIncrement: true,
       },
       user_id: {
         type: INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       order_id: {
         type: STRING,
         unique: true,
-        allowNull: false
+        allowNull: false,
       },
       alipay_id: {
         type: STRING,
-        allowNull: true
+        allowNull: true,
       },
       product: {
         type: STRING,
-        allowNull: false
+        allowNull: false,
       },
       info: {
         type: STRING,
-        allowNull: true
+        allowNull: true,
       },
       number: {
         type: INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       total_price: {
         type: FLOAT,
-        allowNull: false
+        allowNull: false,
       },
       address: {
         type: STRING,
-        allowNull: false
+        allowNull: false,
       },
       mobile: {
         type: INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       status: {
         type: STRING,
-        allowNull: false
+        allowNull: false,
       },
       buyer_id: {
         type: STRING,
-        allowNull: true
+        allowNull: true,
       },
       seller_id: {
         type: STRING,
-        allowNull: true
-      }
-    })
+        allowNull: true,
+      },
+    });
   },
 
   down: (queryInterface, Sequelize) => {
@@ -77,6 +77,6 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-    return queryInterface.dropTable('order')
-  }
+    return queryInterface.dropTable('order');
+  },
 };

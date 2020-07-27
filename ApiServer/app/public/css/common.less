@@ -1,0 +1,136 @@
+body {
+  padding: 0;
+  margin: 0;
+  color: #333;
+}
+
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.wrapper {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .wrapper {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .wrapper {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .wrapper {
+    max-width: 1180px;
+  }
+}
+nav {
+  height: 60px;
+  width: 100%;
+  padding: 7px 0 12px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 3;
+  background: transparent;
+  box-sizing: border-box;
+  .logo {
+    width: 100px;
+  }
+  .left-nav {
+    list-style: none;
+    .nav-item {
+      padding: 0 20px;
+      .nav-link {
+        text-decoration: none;
+        font-weight: bolder;
+        color: #fff;
+        &:hover,
+        &.active {
+          color: #e65441;
+        }
+      }
+    }
+  }
+}
+
+.table-block {
+  padding-top: 60px;
+  height: calc(100vh - 60px);
+  table {
+    position: relative;
+    width: 100%;
+    padding-top: 60px;
+    thead {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      box-shadow: 0px 2px 16px 0px rgba(38,38,38,0.15);
+      background: #dfdfdf;
+    }
+    tr {
+      transition: all .3s,height 0s;
+    }
+    th {
+      font-weight: bold;
+    }
+    th,
+    td {
+      width: 200px;
+      padding: 20px 10px;
+      text-align: center;
+    }
+  }
+  .table-pagination {
+    padding: 10px 0;
+    text-align: center;
+    .page-item {
+      margin-left: 20px;
+      padding: 5px 20px;
+      line-height: 1.5;
+      display: inline-block;
+      text-decoration: none;
+      color: #fff;
+      background: #4d3fca;
+      &.disabled {
+        background: #eeeeee;
+        pointer-events: none;
+        cursor: no-drop;
+      }
+    }
+  }
+}
+
+footer {
+  padding: 5px;
+  text-align: center;
+  color: #848484;
+  font-size: 12px;
+  background: #000;
+}

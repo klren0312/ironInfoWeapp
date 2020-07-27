@@ -1,0 +1,52 @@
+{% extends 'root.html' %}
+{% block body %}
+<link rel="stylesheet" href="/public/css/dplayer.min.css">
+<link rel="stylesheet" href="/public/css/m3u8.css">
+<div class="video-container clearfix">
+  <div class="dplayer fl" id="dplayer"></div>
+  <div class="left-list fl">
+    <ul id="js-list">
+      <li class="active" data-type="anhui">安徽卫视</li>
+      <li data-type="hunan">湖南卫视</li>
+      <li data-type="cctv5">CCTV5</li>
+    </ul>
+  </div>  
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/cdnbye@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/dplayer@latest"></script>
+<script>
+  const vobj = {
+    anhui: 'http://121.31.30.90:8085/ysten-business/live/anhuistv/1.m3u8',
+    hunan: 'http://121.31.30.90:8085/ysten-business/live/hunanstv/1.m3u8',
+    cctv5: 'http://223.110.242.130:6610/gitv/live1/G_CCTV-5-HQ/index.m3u8'
+  }
+  const dp = new DPlayer({
+    container: document.getElementById('dplayer'),
+    video: {
+      url: 'http://121.31.30.90:8085/ysten-business/live/anhuistv/1.m3u8',
+      type: 'hls',
+    },
+    pluginOptions: {
+      hls: {
+      },
+    },
+  })
+  document.getElementById('js-list').onclick = function (e) {
+    clearLiActive()
+    if (!e.target.classList.contains('active')) {
+      e.target.classList.add('active')
+    }
+    dp.switchVideo({
+      url: vobj[e.target.dataset.type]
+    })
+  }
+  function clearLiActive () {
+    document.querySelectorAll('#js-list li').forEach(function (v) {
+      if (v.classList.contains('active')) {
+        v.classList.remove('active')
+      }
+    })
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'root.html' %}
+{% block body %}
+<link rel="stylesheet" href="/public/css/map.css">
+<!-- <div id="allmap"></div> -->
+<div class="map" id="gaodeMap"></div>
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=0d3f2bb50a6ee986961d555b2469db15&plugin=AMap.ToolBar"></script>
+<script type="text/javascript">
+    var map = new AMap.Map('gaodeMap', {
+			center:[{{ location.longitude }}, {{ location.latitude }}],
+			zoom:11
+		})
+		map.setMapStyle('amap://styles/darkblue')
+		var toolbar = new AMap.ToolBar()
+    AMap.plugin([
+			'AMap.ToolBar'
+		], function(){
+				// 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+				map.addControl(new AMap.ToolBar())
+		})
+		map.clearMap()
+		var marker = new AMap.Marker({
+			icon: '/public/imgs/dwp.png',
+			position: [{{ location.longitude }}, {{ location.latitude }}]
+		})
+		map.add(marker)		
+
+</script>
+<!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=dfXzQnlq8IH6Uq0GLqFbKzllfc3lfarM"></script>
+<script>
+// 百度地图API功能
+var map = new BMap.Map('allmap')
+map.centerAndZoom(new BMap.Point({{ location.longitude }}, {{ location.latitude }}),11)
+map.enableScrollWheelZoom(true)
+map.setMapStyleV2({     
+  styleId: 'e01349e57d7d5f239a19f7f22b9512cd'
+})
+attack({{ location.longitude }}, {{ location.latitude }})
+function attack(j, w){
+	map.clearOverlays()    //清除地图上所有覆盖物
+	var myIcon = new BMap.Icon('/public/imgs/dwp.png', new BMap.Size(50,50))
+  var vectorFOArrow = new BMap.Marker(new BMap.Point(j, w), {
+	  icon:myIcon
+	})
+  vectorFOArrow.addEventListener("click", attribute)
+	map.addOverlay(vectorFOArrow)
+	map.setViewport({center:new BMap.Point(j, w),zoom:11})
+	 var opts={  
+	   width:200,//信息窗口宽度height:100,//信息窗口高度  
+	   title:"任治中先生"//信息窗口标题  
+	}
+	function attribute(){
+	  var sContent ="<h4 style='color:#B52026'><span style=\"margin-top:-10px\">任治中先生</span></h4>"
+	  var point1 = new BMap.Point(j, w)
+    var infoWindow=new BMap.InfoWindow(sContent)//创建信息窗口对象   
+    map.openInfoWindow(infoWindow,point1 )//打开信息窗口    
+  }
+}
+
+</script> -->
+{% endblock %}

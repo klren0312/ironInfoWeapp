@@ -9,54 +9,54 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    const { STRING, INTEGER, DATE } = Sequelize
+    const { STRING, INTEGER, DATE } = Sequelize;
     return queryInterface.createTable('wuser', {
       id: {
         type: INTEGER,
         primaryKey: true,
         allowNull: false,
-        autoIncrement: true
+        autoIncrement: true,
       },
       openId: {
         type: STRING,
         unique: true,
-        allowNull: false
+        allowNull: false,
       },
       avatarUrl: {
         type: STRING,
-        allowNull: true
+        allowNull: true,
       },
       nickName: {
         type: STRING,
-        allowNull: true
+        allowNull: true,
       },
       gender: {
         type: INTEGER,
-        allowNull: true
+        allowNull: true,
       },
       language: {
         type: STRING,
-        allowNull: true
+        allowNull: true,
       },
       city: {
         type: STRING,
-        allowNull: true
+        allowNull: true,
       },
       province: {
         type: STRING,
-        allowNull: true
+        allowNull: true,
       },
       country: {
         type: STRING,
-        allowNull: true
+        allowNull: true,
       },
       count: {
         type: INTEGER,
-        allowNull: true
+        allowNull: true,
       },
       createdAt: DATE,
-      updatedAt: DATE
-    })
+      updatedAt: DATE,
+    });
   },
 
   down: (queryInterface, Sequelize) => {
@@ -67,6 +67,6 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-    return queryInterface.dropTable('wuser')
-  }
+    return queryInterface.dropTable('wuser');
+  },
 };

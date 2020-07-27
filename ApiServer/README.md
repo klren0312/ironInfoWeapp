@@ -4,7 +4,7 @@
 
  - NodeJS
  - MySQL
- - Redis
+ - Redis (12 - 订单, 4 - wechat, 5 - toutiao, 6 - qrcode login)
 
 ### 1.NodeJS
 JS服务端运行环境
@@ -222,7 +222,7 @@ async findPage({
 async getUserLog() {
   const { ctx, app } = this
   let { page } = ctx
-  const { common } = ctx.service
+  const { common } = ctx.service.v1
   console.log(page)
   page = {
     ...page,
@@ -287,7 +287,7 @@ https://www.jianshu.com/p/8df2213f6f9d
 ```javascript
 async getWechatToken() {
   const {ctx, app} = this
-  let result = await ctx.helper.request({ctx, url: `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${app.config.weapp.appId}&secret=${app.config.weapp.secret}`})
+  let result = await ctx.helper.request({ctx, url: `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${app.config.wechat.tlgc.appId}&secret=${app.config.wechat.tlgc.secret}`})
   app.redis.set('weToken', result.data.access_token, 'EX', result.data.expires_in)
   return result.data.access_token
 }
@@ -312,7 +312,7 @@ async getWechatUser() {
     })
     return result
   } else {
-    token = await ctx.service.data.getWechatToken()
+    token = await ctx.service.v1.data.getWechatToken()
     const result = await ctx.helper.request({
       ctx, 
       url: `https://api.weixin.qq.com/datacube/getweanalysisappiduserportrait?access_token=${token}`,

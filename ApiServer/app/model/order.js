@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*
   用户订单列表
@@ -17,77 +17,77 @@
   seller_id:   卖家id
 */
 module.exports = app => {
-  const { FLOAT, INTEGER, STRING } = app.Sequelize
+  const { FLOAT, INTEGER, STRING } = app.Sequelize;
 
   const Order = app.model.define('order', {
     id: {
       type: INTEGER(11),
       primaryKey: true,
       allowNull: false,
-      autoIncrement: true
+      autoIncrement: true,
     },
     user_id: {
       type: INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     order_id: {
       type: STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
     },
     alipay_id: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
     },
     product: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
     },
     info: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
     },
     number: {
       type: INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     total_price: {
       type: FLOAT,
-      allowNull: false
+      allowNull: false,
     },
     address: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
     },
     mobile: {
       type: INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     status: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
     },
     buyer_id: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
     },
     seller_id: {
       type: STRING,
-      allowNull: true
-    }
+      allowNull: true,
+    },
   }, {
-      timestamps: true,
-      tableName: 'order',
-      underscored: false
-    })
+    timestamps: true,
+    tableName: 'order',
+    underscored: false,
+  });
 
-  Order.associate = function () {
+  Order.associate = function() {
     app.model.Order.belongsTo(app.model.User, {
       foreignKey: 'user_id',
       targetKey: 'id',
-      as: 'the_order'
-    })
-  }
+      as: 'the_order',
+    });
+  };
 
-  return Order
-}
+  return Order;
+};

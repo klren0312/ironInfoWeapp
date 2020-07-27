@@ -19,13 +19,11 @@ module.exports = app => {
       sub.subscribe(expired_subKey, function () {
         sub.on('message', async (info, msg) => {
           const ctx = app.createAnonymousContext()
-          const order = await ctx.service.alipay.query(msg)
+          const order = await ctx.service.v1.alipay.query(msg)
           if (order.subCode === 'ACQ.TRADE_NOT_EXIST') { // 用户没有登录订单, 订单为没创建
-            console.log(msg)
             app.redis.set(msg, 'order', 'EX', 60 * 60)
           } else if (order.trade_status !== 'TRADE_SUCCESS') { // 订单创建, 没支付, 就关闭订单
-            console.log('close')
-            ctx.service.alipay.close(msg)
+            ctx.service.v1.alipay.close(msg)
           }
         })
       })

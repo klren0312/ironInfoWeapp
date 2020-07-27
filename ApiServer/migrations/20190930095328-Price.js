@@ -9,30 +9,30 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    const { FLOAT, INTEGER, DATE, BOOLEAN } = Sequelize
+    const { FLOAT, INTEGER, DATE, BOOLEAN } = Sequelize;
     return queryInterface.createTable('price', {
       id: {
         type: INTEGER(11),
         primaryKey: true,
         allowNull: false,
-        autoIncrement: true
+        autoIncrement: true,
       },
       iron_id: {
         type: INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       price: {
         type: FLOAT,
-        allowNull: false
+        allowNull: false,
       },
       status: {
         type: BOOLEAN,
         allowNull: false,
-        defaultValue: true
+        defaultValue: true,
       },
       createdAt: DATE,
-      updatedAt: DATE
-    })
+      updatedAt: DATE,
+    });
   },
 
   down: (queryInterface, Sequelize) => {
@@ -44,5 +44,5 @@ module.exports = {
       return queryInterface.dropTable('users');
     */
     return queryInterface.dropTable('price');
-  }
+  },
 };
