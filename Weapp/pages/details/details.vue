@@ -26,6 +26,9 @@
 				</view>
 			</view>
 		</view>
+		<!--  #ifdef  MP-WEIXIN -->
+		<ad-custom unit-id="adunit-776df3313d212806"></ad-custom>
+		<!-- #endif -->
 	</view>
 </template>
 

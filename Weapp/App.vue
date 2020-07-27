@@ -1,6 +1,6 @@
 <script>
 	import Vue from 'vue'
-	import { countUser, getHotIron } from 'api/api.js'
+	import { countUser, getHotIron, login } from 'api/api.js'
 	export default {
 		onLaunch: function () {
 			console.log('App Launch')
@@ -21,10 +21,11 @@
 					success: (res) => {
 						let status = res.authSetting['scope.userInfo']
 						this.$store.commit('SET_INFO', status)
-						// console.log(status)
+						console.log(status)
 						if (status) {
 							uni.getUserInfo({
 								success: (res) => {
+									this.getOpenId(res)
 									// 更新访问记录
 									let openId = uni.getStorageSync('openId')
 									let history = uni.getStorageSync('hot') ? uni.getStorageSync('hot') : '{}'
@@ -62,6 +63,42 @@
 						Vue.prototype.StatusBar = e.statusBarHeight;
 						Vue.prototype.CustomBar = e.statusBarHeight + e.titleBarHeight;
 						// #endif
+					}
+				})
+			},
+			getOpenId(info) {
+				console.log(info)
+				const {
+					encryptedData,
+					iv,
+					signature
+				} = info
+				uni.login({
+					provider: 'weixin',
+					success: (loginRes) => {
+						// 获取用户信息
+						uni.getUserInfo({
+							provider: 'weixin',
+							lang: 'zh_CN',
+							success: (infoRes) => {
+								const {
+									encryptedData,
+									iv,
+									signature
+								} = infoRes
+								login(encryptedData, iv, signature, loginRes.code).then(res => {
+									uni.setStorageSync('token', res.token)
+									uni.setStorageSync('openId', res.openId)
+									this.$store.commit('SET_INFO', true)
+								}).catch(e => {
+									if (e.hasOwnProperty('token')) {
+										uni.setStorageSync('token', e.token)
+										uni.setStorageSync('openId', e.openId)
+										this.$store.commit('SET_INFO', true)
+									}
+								})
+							}
+						})
 					}
 				})
 			}
