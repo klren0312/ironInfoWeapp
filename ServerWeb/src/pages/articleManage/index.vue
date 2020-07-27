@@ -69,7 +69,7 @@
   </div>
 </template>
 <script>
-import { debounce } from '../../utils'
+import { debounce } from '@/utils'
 import {getArticle, deleteArticle, updateArticleStatus} from '@/api/article.api'
 export default {
   name: 'articleManage',
@@ -135,10 +135,10 @@ export default {
       });
     },
     toCreate() {
-      this.$router.push({ path: '/createArticle'})
+      this.$router.push({ path: '/tlgc/createArticle'})
     },
     editArticle(row) {
-      this.$router.push({ path: '/editArticle', query: {
+      this.$router.push({ path: '/tlgc/editArticle', query: {
         id: row.id
       }})
     },

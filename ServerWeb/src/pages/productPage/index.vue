@@ -1,5 +1,13 @@
 <template>
   <div class="product-container">
+    <my-title title="钢材列表"></my-title>
+    <div class="header-filters">
+      <el-form :inline="true">
+        <el-form-item>
+          <el-button type="primary" @click="openOrder">订单列表</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
     <div class="product-list">
       <el-row :gutter="20">
         <el-col :span="6" v-for="v in irons" :key="v.id">
@@ -16,6 +24,33 @@
         </el-col>
       </el-row>
     </div>
+    <!-- 订单列表弹窗 -->
+    <el-dialog
+      class="order-dialog"
+      title="订单列表"
+      :visible.sync="orderDialog"
+      width="80%">
+      <el-table :data="orderData" v-loading="orderLoading">
+        <el-table-column property="order_id" label="订单号" width="100"></el-table-column>
+        <el-table-column property="product" label="商品名称"></el-table-column>
+        <el-table-column property="number" label="商品数量"></el-table-column>
+        <el-table-column property="total_price" label="商品总价"></el-table-column>
+        <el-table-column property="mobile" label="联系方式"></el-table-column>
+        <el-table-column property="status" label="订单状态"></el-table-column>
+        <el-table-column property="info" label="备注"></el-table-column>
+      </el-table>
+      <el-pagination
+        v-if='orderTotal > 0'
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="orderQuery.pageIndex"
+        :page-sizes="[10, 20, 30]"
+        :page-size="orderQuery.pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="orderTotal">
+      </el-pagination>
+    </el-dialog>
+    <!-- 购买弹窗 -->
     <el-dialog
       title="购买"
       :visible.sync="buyDialog"
@@ -98,15 +133,24 @@
 </template>
 
 <script>
+import { debounce } from '@/utils'
 import { getAllIron } from '@/api/iron.api.js'
-import { pay, getPayStatus } from '@/api/buy.api.js'
+import { pay, getPayStatus, getOrderList } from '@/api/buy.api.js'
 export default {
   name: 'ProductPage',
   data () {
     return {
       irons: [],
       currentPrice: 0,
+      orderDialog: false,
       buyDialog: false,
+      orderLoading: false,
+      orderData: [],
+      orderTotal: 0,
+      orderQuery: {
+        pageIndex: 1,
+        pageSize: 10
+      },
       buyData: {
         outTradeNo: '',
         totalAmount: 0,
@@ -116,7 +160,6 @@ export default {
         mobile:  '',
         number: 1
       },
-      buyDetails: false,
       rules: {
         address: [
           { required: true, message: '请输入收货地址', trigger: 'blur' }
@@ -130,10 +173,53 @@ export default {
       checkInterval: null
     }
   },
+  computed: {
+    queryString: function () {
+      return Object.keys(this.orderQuery)
+      .filter(key => this.orderQuery[key] !== '')
+        .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(this.orderQuery[key]))
+        .join('&')
+    }
+  },
   mounted () {
     this.getIrons()
   },
   methods: {
+    /**
+     * 打开订单列表
+     */
+    openOrder () {
+      this.getOrders()
+      this.orderDialog = true
+    },
+    getOrders () {
+      this.orderLoading = true
+      getOrderList(this.queryString).then(res => {
+        if(res !== false) {
+          this.orderData = res.items
+          this.orderTotal = res.total
+          this.orderQuery.pageIndex = res.pageIndex
+          this.orderQuery.pageSize = res.pageSize
+        }
+        this.orderLoading = false
+      })
+    },
+    refreshData: debounce(function () {
+      this.getOrders()
+    }, 800),
+    handleSizeChange(val) {
+      if (this.orderLoading) {
+        return false
+      }
+      this.orderQuery.pageIndex = 1
+      this.orderQuery.pageSize = val
+    },
+    handleCurrentChange(val) {
+      if (this.orderLoading) {
+        return false
+      }
+      this.orderQuery.pageIndex = val
+    },
     getIrons () {
       getAllIron().then(res => {
         if (res) {
@@ -146,6 +232,7 @@ export default {
       this.buyData.totalAmount = iron.new_price
       this.buyData.subject = iron.name
       this.buyData.number = 1
+      this.buyStep = 1
       this.buyDialog = true
     },
     handleChange (v) {
@@ -181,6 +268,14 @@ export default {
         }
       }, 1000)
     }
+  },
+  watch: {
+    orderQuery: {
+      handler: function () {
+        this.refreshData()
+      },
+      deep: true
+    }
   }
 }
 </script>
@@ -189,6 +284,7 @@ export default {
     .product-list {
       .product-item {
         margin-bottom: 20px;
+        border: 0;
       }
       .bottom {
         margin-top: 13px;
@@ -231,6 +327,37 @@ export default {
       margin-top: 20px;
       line-height: 2;
       text-align: right;
+    }
+  }
+  .order-dialog {
+    ::v-deep {
+      .el-pagination .btn-next, .el-pagination .btn-prev {
+        background: transparent;
+        background-size: 16px;
+        cursor: pointer;
+        margin: 0;
+        color: #333;
+      }
+
+      .el-pager li,
+      .el-pager li.btn-quicknext, .el-pager li.btn-quickprev {
+        background: transparent;
+        color: #333;
+      }
+
+      .el-pagination button:disabled {
+        background: transparent;
+      }
+
+      .el-input__inner {
+        background: #fff;
+        color: #333;
+      }
+
+      .el-pager li.active {
+        color: #409EFF;
+        cursor: default;
+      }
     }
   }
   .loading-text {

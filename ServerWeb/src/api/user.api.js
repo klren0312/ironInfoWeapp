@@ -34,3 +34,20 @@ export function login (user) {
     data: user
   })
 }
+
+/**
+ * 获取二维码guid
+ */
+export function getQrcodeGuid () {
+  return request({
+    url: `/qrcode`,
+    method: 'get'
+  })
+}
+
+export function getQrcodeStatus (guid) {
+  return request({
+    url: '/qrcode/status?guid=' + guid,
+    method: 'get'
+  })
+}

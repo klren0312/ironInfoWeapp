@@ -55,6 +55,7 @@
 .semipolar-spinner {
   height: 65px;
   width: 65px;
+  margin: auto;
   position: relative;
 }
 

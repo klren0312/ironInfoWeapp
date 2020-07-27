@@ -17,20 +17,38 @@
               v-if="isCollapse"
               effect="dark"
               placement="right"
-              content="钢材网管理中心"
+              :content="centerTitle"
               :hide-after='800'>
-              <img class="logo-img" src="../../assets/logo.png" alt="logo">
+              <img class="logo-img" src="../../assets/zlogo.png" alt="logo">
             </el-tooltip>
-            <img v-else class="logo-img" src="../../assets/logo.png" alt="logo">
+            <img v-else class="logo-img" src="../../assets/zlogo.png" alt="logo">
           </div>
           <h3 class="title" v-if="!isCollapse">
-            钢材网管理中心
+            {{centerTitle}}
           </h3>
         </div>
-        <el-menu-item v-for="(v,item) in navList" :index="v.index" :key="item">
-          <i :class="v.icon"></i>
-          <span slot="title">{{v.name}}</span>
-        </el-menu-item>
+        <template  v-for="v in navList">
+          <template v-if="!v.hasChildren">
+            <el-menu-item :key="v.index" :index="v.index">
+              <div>
+                <i :class="v.icon"></i>
+                <span slot="title">{{v.name}}</span>
+              </div>
+            </el-menu-item>
+          </template>
+          <template v-else>
+            <el-submenu :key="v.index" :index="v.index">
+              <template slot="title">
+                <i :class="v.icon"></i>
+                <span slot="title">{{v.name}}</span>
+              </template>
+              <el-menu-item v-for="child in v.children" :key="child.index" :index="child.index">
+                <i :class="child.icon"></i>
+                <span slot="title">{{child.name}}</span>
+              </el-menu-item>
+            </el-submenu>
+          </template>
+        </template>
       </el-menu>
     </el-col>
   </el-row>
@@ -38,6 +56,7 @@
 
 <script>
 import menu from '../../utils/menu.js'
+import { mapState } from 'vuex'
 export default {
   name: 'Nav',
   props: {
@@ -53,8 +72,11 @@ export default {
   },
   computed: {
     onRoutes(){
-      return this.$route.path.replace('/', '');
-    }
+      return this.$route.path
+    },
+    ...mapState({
+      centerTitle: state => state.centerTitle
+    })
   }
 }
 </script>

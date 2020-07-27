@@ -13,7 +13,22 @@
   background: transparent !important;
 }
 .el-menu-item {
-  border-left: 4px solid transparent;
+  /* border-left: 4px solid transparent; */
+  background: transparent !important;
+}
+.el-menu--vertical .el-menu-item {
+  background: rgb(0, 21, 41) !important;
+}
+
+.el-submenu .el-submenu__title {
+  background: transparent !important;
+}
+.el-submenu.is-active.is-opened .el-submenu__title {
+  background: rgba(0, 0, 0, 0.17) !important;
+}
+
+.el-submenu.is-active.is-opened .el-menu-item.is-active {
+  color: #409EFF !important;
   background: transparent !important;
 }
 

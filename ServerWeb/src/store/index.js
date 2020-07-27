@@ -8,7 +8,8 @@ const state = {
   user: null,
   baseUrl: apiServer,
   token: '',
-  themeValue: 'black'
+  themeValue: 'black',
+  centerTitle: '治电一期综合管理后台'
 }
 
 const mutations = {

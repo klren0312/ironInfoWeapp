@@ -4,15 +4,22 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:serve": "vue-cli-service electron:serve",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps"
   },
+  "main": "background.js",
   "dependencies": {
     "axios": "^0.18.0",
     "echarts": "^4.1.0",
-    "element-ui": "^2.5.4",
+    "element-ui": "^2.13.2",
     "lz-string": "^1.4.4",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
+    "qrcode.vue": "^1.7.0",
+    "sass": "^1.23.0",
     "sortablejs": "^1.8.3",
     "v-charts": "^1.19.0",
     "vm-markdown": "^0.2.8",
@@ -24,8 +31,10 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.5",
     "@vue/cli-service": "^3.0.5",
-    "node-sass": "^4.9.0",
+    "electron": "6.0.0",
+    "electron-packager": "^14.0.6",
     "sass-loader": "^7.1.0",
+    "vue-cli-plugin-electron-builder": "^1.4.0",
     "vue-template-compiler": "^2.5.21"
   },
   "postcss": {
