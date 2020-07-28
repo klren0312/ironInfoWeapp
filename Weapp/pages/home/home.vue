@@ -8,7 +8,7 @@
 			</swiper-item>
 		</swiper>
 		<!-- 热门钢材 -->
-		<swiper class="swiper hot-iron" indicator-dots>
+		<swiper class="swiper hot-iron" indicator-dots :current="currentSwiper">
 			<swiper-item>
 				<view class="one-line">
 					<view v-for="(v, i) in listData" :key="i" @click="seeDetails(v)" class="iron-item">
@@ -29,12 +29,13 @@
 						<view class="iron-name">扫码登录</view>
 					</view>
 					<!-- #endif -->
+					<view @click="toCalc" class="iron-item">
+						<view class="tools-icon weight-icon"></view>
+						<view class="iron-name">重量计算</view>
+					</view>
 				</view>
 			</swiper-item>
 		</swiper>
-		<!-- #ifdef MP-WEIXIN -->
-		<ad unit-id="adunit-299bbc0df0e741aa" ad-intervals="40"></ad>
-		<!-- #endif -->
 		<!-- 公告栏 -->
 		<view class="article">
 			<block v-for="(v, i) in articlesList" :key="v.id">
@@ -52,14 +53,6 @@
 					</div>
 				</view>
 			</block>
-			<!-- #ifdef MP-WEIXIN -->
-			<ad-custom unit-id="adunit-33a713107e885e44"></ad-custom>
-			<!-- #endif -->
-		</view>
-		<view class="flat-btn" @click="toCalc">
-			<view class="calc-icon">
-				重量计算
-			</view>
 		</view>
 		<!-- #ifndef MP -->
 		<!-- 广告 -->
@@ -103,10 +96,11 @@
 				indicatorDots: false,
 				autoplay: false,
 				interval: 5000,
-				duration: 1000,
+				duration: 5000,
 				listData: [],
 				articlesList: [],
-				historyList: []
+				historyList: [],
+				currentSwiper: 0
 			};
 		},
 		onShareAppMessage() {
@@ -126,6 +120,10 @@
 			uni.showLoading({
 				title: '加载中'
 			})
+			this.currentSwiper = 1
+			setTimeout(() => {
+				this.currentSwiper = 0
+			}, 3000)
 		},
 		onPullDownRefresh() {
 			this.getArticle()
@@ -440,5 +438,8 @@
 	}
 	.qrcode-icon {
 		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABhklEQVRYR+2XbUrDQBCG37Eg5BgKnsG/SesJBC9gBT2E0ag9RvUAgl5Aa+M1VOoxAqKM7JINkezHWBOCpYVC0x1mnpnZd7JL6PlDPcdHBTA84wNi3LqAmJE9TehCAjw85XMiZDZbBt4GhJOHS5qp9QpglDL7nLcFYGLMrkjHbgCoQC6Q31TA5oMIMaC/8AJIA0naUbcZpTxfA6xWBcbFQvUU19F2ItkP3j2gtGuc2DbhYfGu1zfw+TyNdnL1e1wslHRzA6BsCBwzKL+JthozwxZDPAnLbGPCVxIAyBiU2QCs0pSUrsxWS6g3AFsLzH8mW/OsgMUVSFLelVahCzvaS/mOgf0unId8EnBvADZDxl2sE/AhVkEXAD/ehq4AHvmpAaQTOCpeY8ZgXpdfOSMqG5f/YAVWCsA7CV2j2DOCveW1taC184DqueqpGcm2/tpeVK0BLKuINcD/qcCyx/K6kpY+lruCSy4m9RKHNmrjXtDG1UwI8EKM48cJ6WNdcBSHMvnreu8A393fc/5qRrtfAAAAAElFTkSuQmCC) center / contain no-repeat;
+	}
+	.weight-icon {
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEd0lEQVRYR7VXz28bVRD+ZjfZBGiaDaAIBJSUcigSUVxAwAEprtQLEoIECYQXRFzgFGWD8xfUvSM1yVocoIAryBoBUhqBOCHFuXKgicShB0Rd8UOoAuWFFNqE2IPm7Y/uWqWyHbOX5O3zm/nezDffzBKaHtt1zgMYAzDSvLfPdQ3AhvL8iaQdSi5s1+FwrQBe36fDpuOUAWDLS+X5sd/4n6FZ5zNmvATiN9Ri5aPuOg+s2bO5k2D6kAifby76L8u7GIDtOr8RMLjp+bf9H84jm0Ouc42BLeX59zQDYICryqsc12hdJw+gG5GooY5J9a6vU2q7uVWAslEakhFoBiB82AKwXy6Mg/mcKlXkQm0DWFOenz30w1ePG0zPdZIatbhUNOyB2sHXny+bZC79sXDu/XYisGZP54owabUT5yHj0XPfMA68eEKbUN5StT0As6+ugrnYLQBbZ79Y52u7mVY4IMLxYKeOk+f6nxpF/5Oj+lXrAAqvjKBh5HsfPjRu3jmY7RQIWb2wHjkC6uttD0DI2ELPvcNT1qNHMtbRh1IY9n6+gt2LP8IYuAN9maOxA/kR7/yDnfWLaGz/BTnXc/9wfLb1CMw682C8HZ1MhlGcX13+JjZq3j2Egdyz8Xq78jXqv6t4fWDyhAbBgLflLY22QULeUF4lY7tODYxNVfKPBZLqFME4hTqOoQd5DZSN46r0SdWedjIwcQGEBRhWEfXdzU51QEjIYJRBKISdTHPBdnMFgM4AKAM8IjcSMKJ2tnCnblwSVQ1EjAognFaLvq6k1pVwJjcBojKAQa2IdWRjOS3kbdR3pJ6lbUtHiR2kIqQ3eQNmX1bNl3VOWgagfyyO9vYyEtqbVYEOt9VQav5TiVbq0ZHYNewIdLTZMgDtvL4rzUj6eBWmNRfdInHLKTAUYMwlQQY84DMAjUgKVck/3T4A15FbjwNY039TDSXulJfDIYNhWodvhNkJS4BrYZpOKs+XdLaegnA60s3IdnO6I0pFpHJsNg6LWOmKiKpg5rUsqLEa8ULb6bAbSgTGgtGMhP0r0TwXzwqMdZAes4ZgNjLChTB1UQXVQJJCnlNeZb69CAT1LIckDSswrXwTB0SopMcrMBdUqSLDrH5sXUEoag4QymrRlzIO9lodSOID006mmcnxnjAd/SoJ7MZe3gau280V0jIAO8jlckiy9FgV6MBymBrxGZMsuGVynOMqzL7JtnVAy6+M0QQJ9ak0B2IlXAmVcAxm43CCA5tagIiqQT/phAOavVgX/Q+qgGzl+fpjJe4Ft66CffaCmVwZRFOxvBEWIjKF6UmOaZdhWpmEDqSHGebJiKStcyDIcx6gCYDPR2WUZjrlQajBaMwnyaZluGEUwBgBczlVIbeogl8Avkt5lf6b6X633tlu7jpA3yvPf0JsJr8LpI5fYMZbWyX/g245TNoZnHHeJMJZMIpRf/ivj9M/Af6uuyDoMQAHAVy4fWf7mV/f+/LvVAQiZ/ojtYGnQXigqwAYP8HAt3uWOX31nY+vRLb/BZawF06dyfvAAAAAAElFTkSuQmCC) center / contain no-repeat;
 	}
 </style>
