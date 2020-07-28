@@ -23,6 +23,19 @@ class IronService extends Service {
   }
 
   /**
+   * 根据钢材Id查询钢材价格
+   * @param {Int} id 钢材ID
+   */
+  async getPriceById(id) {
+    const { ctx } = this;
+    const { Price } = ctx.model;
+    const price = await Price.findAll({
+      where: { iron_id: id },
+    })
+    return price;
+  }
+
+  /**
    * 模糊查询, 获取钢材选择列表
    * 只有id和名称
    * @param {Object} search 搜索的钢材名称

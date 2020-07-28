@@ -129,7 +129,7 @@
 <script>
 import createForm from './createForm'
 import { debounce } from '../../utils'
-import {getIron, deleteIron, addNewPrice, updateIron} from '@/api/iron.api'
+import {getIron, getPriceById, deleteIron, addNewPrice, updateIron} from '@/api/iron.api'
 export default {
   name: 'ironScript',
   components: {
@@ -311,15 +311,19 @@ export default {
         });
     },
     watchPrice(row) {
-      let arr = row.old_price.map(v => {
-        return {
-          price: v.price,
-          date: new Date(v.createdAt).toLocaleString()
+      getPriceById(row.id).then(res => {
+        if (res) {
+          let arr = res.map(v => {
+            return {
+              price: v.price,
+              date: new Date(v.createdAt).toLocaleDateString()
+            }
+          })
+          // console.log(arr)
+          this.chartData.rows = arr
+          this.priceDialog = true
         }
       })
-      // console.log(arr)
-      this.chartData.rows = arr
-      this.priceDialog = true
     },
     /**
      * 删除钢材

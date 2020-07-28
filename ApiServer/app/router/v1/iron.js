@@ -24,4 +24,7 @@ module.exports = app => {
 
   // upload file
   apiV1Router.post('/iron/excel', middleware.log, app.jwt, controller.api.v1.iron.upParseExcel);
+
+  // 根据id查询历史价格
+  apiV1Router.get('/iron/price/:id', middleware.log, app.jwt, controller.api.v1.iron.getPriceById);
 };

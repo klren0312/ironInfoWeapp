@@ -37,6 +37,25 @@ class IronController extends Controller {
   }
 
   /**
+   * 根据钢材id获取历史价格
+   */
+  async getPriceById() {
+    const { ctx } = this;
+    const { iron: ironService } = ctx.service.v1;
+    console.log(ctx.params)
+    const { id } = ctx.params;
+    ctx.validate({
+      id: { type: 'string', required: true },
+    }, ctx.params);
+    const result = await ironService.getPriceById(id);
+    if (result) {
+      ctx.helper.success({ ctx, res: result, msg: '查询成功' });
+    } else {
+      ctx.helper.fail({ctx, res: [], msg: '查询失败'})
+    }
+  }
+
+  /**
    * 删除钢材
    */
   async deleteIron() {
@@ -91,19 +110,19 @@ class IronController extends Controller {
       pageField: 'id',
       pageSort: 'DESC'
     }
-    const include = [
-      {
-        model: ctx.model['Price'],
-        as: 'old_price',
-        attributes: ['price', 'createdAt']
-      }
-    ]
+    // const include = [
+    //   {
+    //     model: ctx.model['Price'],
+    //     as: 'old_price',
+    //     attributes: ['price', 'createdAt']
+    //   }
+    // ]
     const [total, items] = await Promise.all([
       common.findCount({ modelName: 'Iron' }),
       common.findPage({
         modelName: 'Iron',
         page,
-        include,
+        // include,
         where
       })
     ])

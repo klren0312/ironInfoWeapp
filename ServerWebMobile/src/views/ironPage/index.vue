@@ -81,7 +81,7 @@
 import { Button, Dialog, Codebox, Toast, ScrollView, ScrollViewMore, Popup, Chart } from 'mand-mobile'
 import ZHeader from '@/components/ZHeader.vue'
 import ZCard from '@/components/ZCard.vue'
-import { getIron, addNewPrice, deleteIron } from '@/apis/iron.api'
+import { getIron, getPriceById, addNewPrice, deleteIron } from '@/apis/iron.api'
 import dayjs from 'dayjs'
 import { queryFormat } from 'zmethods'
 export default {
@@ -162,14 +162,16 @@ export default {
     seeHistoryPrice (v) {
       let timeArr = []
       let dataArr = []
-      v.old_price.forEach(u => {
-        timeArr.push(dayjs(u.createdAt).format('MM-DD'))
-        dataArr.push(u.price)
-      })
-      this.chartTime = timeArr
-      this.chartData = dataArr
-      this.$nextTick(_ => {
-        this.pricePopup = true
+      getPriceById(v.id).then(res => {
+        res.forEach(u => {
+          timeArr.push(dayjs(u.createdAt).format('MM-DD'))
+          dataArr.push(u.price)
+        })
+        this.chartTime = timeArr
+        this.chartData = dataArr
+        this.$nextTick(_ => {
+          this.pricePopup = true
+        })
       })
       // console.log(dataArr, timeArr)
     },

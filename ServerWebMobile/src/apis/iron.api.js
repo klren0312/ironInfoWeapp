@@ -7,6 +7,13 @@ export function getIron (queryString) {
   })
 }
 
+export function getPriceById (id) {
+  return request({
+    url: `/iron/price/${id}`,
+    method: 'GET'
+  })
+}
+
 export function getAllIron () {
   return request.get('/iron/all')
 }
