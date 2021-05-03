@@ -27,8 +27,8 @@
 					provider: 'weixin',
 					success: (loginRes) => {
 						// 获取用户信息
-						uni.getUserInfo({
-							provider: 'weixin',
+						uni.getUserProfile({
+							desc: '获取头像信息',
 							lang: 'zh_CN',
 							success: (infoRes) => {
 								const {
