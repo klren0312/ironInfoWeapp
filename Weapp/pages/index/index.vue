@@ -9,19 +9,7 @@
 			</view>
 		</view>
 		<scroll-view scroll-y style="height: 450px;">
-			<view class="chart">
-				<!--#ifdef MP-ALIPAY -->
-				<canvas canvas-id="chart" id="chart" class="the-chart" disable-scroll=true @touchstart="touchLine" @touchmove="moveLine" @touchend="touchEndLine" :style="{'width':cWidth*pixelRatio+'px','height':cHeight*pixelRatio+'px', 'transform': 'scale('+(1/pixelRatio)+')','margin-left':-cWidth*(pixelRatio-1)/2 +'px','margin-top':-cHeight*(pixelRatio-1)/2+'px'}"></canvas>
-				<!--#endif-->
-				<!-- #ifndef MP-ALIPAY -->
-				<canvas canvas-id="chart" id="chart" class="the-chart" disable-scroll=true @touchstart="touchLine" @touchmove="moveLine" @touchend="touchEndLine"></canvas>
-				<!-- #endif -->
-			</view>
-			<view>
-				<slider :value="zoomCount" min="5" :max="zoomMax" block-color="#f8f8f8" block-size="18" @changing="sliderMove" @change="sliderMove"/>
-			</view>
-			<view class="details-card" v-for="(ironObj, i) in infoArr" :key="i">
-				<image class="card-header" :src="ironObj.photo !== ''&&ironObj.photo !== null ? ironObj.photo : 'https://zzes-1251916954.cos.ap-shanghai.myqcloud.com/Ocean.jpg'"></image>
+			<view class="details-card" v-for="(ironObj, i) in infoArr" :key="i" @click="seeDetails(ironObj)">
 				<view class="card-body">
 					<view class="card-name">
 						<view>{{ironObj.name}}</view>
@@ -44,17 +32,16 @@
 
 <script> 
 	import MyHeader from '../../components/my-header.vue'
-	import { searchIron } from '../../api/api.js'
+	import { searchIron, getAllIron } from '../../api/api.js'
 	import auth from '../mixin/auth'
-	import chart from '../mixin/chart'
 	
 	export default {
 		name: 'SearchIndex',
-		mixins: [auth, chart],
+		mixins: [auth],
 		data() {
 			return {
 				btnDisable: false,
-				ironName: '螺纹(22mm)',
+				ironName: '',
 				current: 0,
 				options: null,
 				ironObj: {},
@@ -100,7 +87,21 @@
 					phoneNumber: num
 				});
 			},
+			/**
+			 * 获取所有
+			 */
+			getCategory() {
+				getAllIron().then(res => {
+					this.total = res.data.length
+					this.infoArr = res.data.reverse()
+					uni.hideLoading()
+				})
+			},
 			getIronData(iron) {
+				if(!iron) {
+					this.getCategory()
+					return
+				}
 				searchIron(iron).then(res => {
 					uni.hideLoading()
 					if(res.data.code === 500) {
@@ -118,37 +119,20 @@
 								data: []
 							}
 							obj.name = v.name
-							v.old_price.map(d => {
-								obj.data.push(d.price)
-							})
 							dataArr.push(obj)
 							return v
 						})
-						let x = result[0].old_price.map(v => {
-							let date = new Date(v.createdAt)
-							let myDate = (date.getMonth() + 1) + '-' + date.getDate() 
-							return myDate
-						})
-						this.chartName = result[0].name
-						this.xaxis = x
-						this.theSeries = dataArr.map(v => {
-							return {
-								name: `${v.name}价格`,
-								data: v.data,
-								type: 'line',
-								legendShape: 'rect',
-								pointShape: 'rect',
-								color: '#2fc25b'
-							}
-						})
-						this.initCharts('chart')
 					}
 				})
 				.catch(e => {
 					uni.hideLoading()
 				})
 			},
-			
+			seeDetails(v, isHistory = false) {
+				uni.navigateTo({
+					url: `/pages/details/details?ironName=${!isHistory ? v.name : v}`
+				});
+			},
 			searchIron(search) {
 				this.ironName = search.name
 				this.getIronData()
@@ -185,12 +169,6 @@
 	}
 	.header {
 		background: transparent;
-	}
-	.the-chart {
-		width: 100%;
-		height: 500upx;
-		display: flex;
-		flex: 1;
 	}
 	.wave-gif {
 		position: absolute;

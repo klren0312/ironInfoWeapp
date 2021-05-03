@@ -22,16 +22,16 @@
 				// #endif
 			}
 		},
-		{
-			"path": "pages/iron/iron",
-			"style": {
-				"navigationBarTitleText": "钢材信息-总览"
-				// #ifdef  MP-WEIXIN
-				,
-				"navigationStyle": "custom"
-				// #endif
-			}
-		},
+		// {
+		// 	"path": "pages/iron/iron",
+		// 	"style": {
+		// 		"navigationBarTitleText": "钢材信息-总览"
+		// 		// #ifdef  MP-WEIXIN
+		// 		,
+		// 		"navigationStyle": "custom"
+		// 		// #endif
+		// 	}
+		// },
 		{
 			"path": "pages/search/search",
 			"style": {
@@ -82,12 +82,12 @@
 				"selectedIconPath": "static/home-active.png",
 				"text": "首页"
 			},
-			{
-				"pagePath": "pages/iron/iron",
-				"iconPath": "static/iron.png",
-				"selectedIconPath": "static/iron-active.png",
-				"text": "钢材"
-			},
+			// {
+			// 	"pagePath": "pages/iron/iron",
+			// 	"iconPath": "static/iron.png",
+			// 	"selectedIconPath": "static/iron-active.png",
+			// 	"text": "钢材"
+			// },
 			{
 				"pagePath": "pages/index/index",
 				"iconPath": "static/search.png",
