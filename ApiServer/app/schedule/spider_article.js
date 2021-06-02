@@ -37,11 +37,11 @@ class SpiderArticle extends Subscription {
       });
       const time = await page.$eval('.lm_list > ul:nth-child(2) > li:nth-child(1) > span', a => a.innerHTML);
       if (time === getToday()) {
-        const url = await page.$eval('.fl.lm_left >.lm_list > ul:nth-child(2) > li:nth-child(1) > a', a => a.href);
+        const url = await page.$eval('.fr.lm_left >.lm_list > ul:nth-child(2) > li:nth-child(1) > a', a => a.href);
         await page.goto(url, {
           waitUntil: 'networkidle0',
         });
-        const dateString = await page.$eval('body > div.wrap > div.cslm_tit > div.hq_con > div.fl.lm_left > div > div.lm_m > div.lm_mt > div.time', a => {
+        const dateString = await page.$eval('body > div.wrap > div.cslm_tit > div.hq_con > div.fr.lm_left > div > div.lm_m > div.lm_mt > div.time', a => {
           return a.innerHTML;
         });
         const table = await page.$('.neirong > table');
@@ -50,7 +50,7 @@ class SpiderArticle extends Subscription {
           path: path.resolve(`${date}.png`),
         });
         save(path.resolve(`${date}.png`), `${date}`);
-        const articleTitle = await page.$eval('body > div.wrap > div.cslm_tit > div.hq_con > div.fl.lm_left > div > div.lm_m > div.lm_mt > h3', a => {
+        const articleTitle = await page.$eval('body > div.wrap > div.cslm_tit > div.hq_con > div.fr.lm_left > div > div.lm_m > div.lm_mt > h3', a => {
           return a.innerHTML;
         });
         const result = await article.create({
