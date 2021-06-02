@@ -42,7 +42,7 @@ export default {
       publishArticle(this.title, this.$refs.markdown.markdString).then(res => {
         if(res !== false) {
           this.$message.success('发布成功')
-          this.$router.push({ path: '/articleManage'})
+          this.$router.push({ path: '/tlgc/articleManage'})
           this.reload()
         }
       })

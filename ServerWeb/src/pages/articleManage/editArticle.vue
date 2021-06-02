@@ -48,7 +48,7 @@ export default {
       updateArticle(this.$route.query.id, this.title, this.$refs.markdown.markdString).then(res => {
         if(res !== false) {
           this.$message.success('更新成功')
-          this.$router.push({ path: '/articleManage'})
+          this.$router.push({ path: '/tlgc/articleManage'})
           this.reload()
         }
       })
