@@ -109,8 +109,8 @@ function sleep(time) {
  */
 function save(path, name) {
   const qiniu = require('qiniu');
-  const accessKey = 'wisuIrzD_dQi2DlKXQukwYZn7PRxXLMWaT_CA8YS';
-  const secretKey = '-q9oNpJn_urnxTfVVSiwCAk-1oPArbTZ1ISlkYxH';
+  const accessKey = '';
+  const secretKey = '';
   const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
   const options = {
     scope: 'zzestlgc',
