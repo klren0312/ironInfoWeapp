@@ -6,7 +6,7 @@ WORKDIR /home/tlgc
 
 COPY package.json /home/tlgc
 
-RUN npm install --production --registry=https://registry.npm.taobao.org
+RUN npm install --production --registry=https://registry.npmmirror.com
 
 COPY . /home/tlgc
 
